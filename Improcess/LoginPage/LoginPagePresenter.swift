@@ -14,18 +14,18 @@ import UIKit
 
 protocol LoginPagePresentationLogic
 {
-  func presentAuthStatus(response: LoginPage.Auth.Response)
+    func presentAuthStatus(response: LoginPage.Auth.Response)
 }
 
 class LoginPagePresenter: LoginPagePresentationLogic
 {
-  weak var viewController: LoginPageDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentAuthStatus(response: LoginPage.Auth.Response)
-  {
-    let viewModel = LoginPage.Auth.ViewModel(isError: response.isError, errorMessage: response.errorMessage)
-    viewController?.displayAuth(viewModel: viewModel)
-  }
+    weak var viewController: LoginPageDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentAuthStatus(response: LoginPage.Auth.Response)
+    {
+        let viewModel = LoginPage.Auth.ViewModel(isError: response.isError, errorMessage: response.errorMessage)
+        viewController?.displayAuth(viewModel: viewModel)
+    }
 }

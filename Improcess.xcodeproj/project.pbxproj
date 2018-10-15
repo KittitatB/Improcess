@@ -19,6 +19,12 @@
 		4E537F4E216DC255001F97F1 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F48216DC255001F97F1 /* LoginPageViewController.swift */; };
 		4E537F4F216DC255001F97F1 /* LoginPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F49216DC255001F97F1 /* LoginPageInteractor.swift */; };
 		4E537F52217057B6001F97F1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F51217057B6001F97F1 /* Helper.swift */; };
+		4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F61217486EC001F97F1 /* SignupPagePresenter.swift */; };
+		4E537F68217486EC001F97F1 /* SignupPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F62217486EC001F97F1 /* SignupPageWorker.swift */; };
+		4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F63217486EC001F97F1 /* SignupPageRouter.swift */; };
+		4E537F6A217486EC001F97F1 /* SignupPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F64217486EC001F97F1 /* SignupPageModels.swift */; };
+		4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F65217486EC001F97F1 /* SignupPageViewController.swift */; };
+		4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F66217486EC001F97F1 /* SignupPageInteractor.swift */; };
 		E6BDBCB2891A8731CA563E8A /* Pods_Improcess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +44,12 @@
 		4E537F48216DC255001F97F1 /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		4E537F49216DC255001F97F1 /* LoginPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageInteractor.swift; sourceTree = "<group>"; };
 		4E537F51217057B6001F97F1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		4E537F61217486EC001F97F1 /* SignupPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPagePresenter.swift; sourceTree = "<group>"; };
+		4E537F62217486EC001F97F1 /* SignupPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPageWorker.swift; sourceTree = "<group>"; };
+		4E537F63217486EC001F97F1 /* SignupPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPageRouter.swift; sourceTree = "<group>"; };
+		4E537F64217486EC001F97F1 /* SignupPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPageModels.swift; sourceTree = "<group>"; };
+		4E537F65217486EC001F97F1 /* SignupPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPageViewController.swift; sourceTree = "<group>"; };
+		4E537F66217486EC001F97F1 /* SignupPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPageInteractor.swift; sourceTree = "<group>"; };
 		789D09C625CC037AC096BACF /* Pods-Improcess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.release.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.release.xcconfig"; sourceTree = "<group>"; };
 		84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Improcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,6 +96,8 @@
 		4E452D7B216C8C0F00BBCC34 /* Improcess */ = {
 			isa = PBXGroup;
 			children = (
+				4E537F50216DC26A001F97F1 /* LoginPage */,
+				4E537F60217486A7001F97F1 /* SignupPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -91,7 +105,6 @@
 				4E452D87216C8C1200BBCC34 /* LaunchScreen.storyboard */,
 				4E452D8A216C8C1300BBCC34 /* Info.plist */,
 				4E452D90216C8CEB00BBCC34 /* GoogleService-Info.plist */,
-				4E537F50216DC26A001F97F1 /* LoginPage */,
 			);
 			path = Improcess;
 			sourceTree = "<group>";
@@ -107,6 +120,19 @@
 				4E537F49216DC255001F97F1 /* LoginPageInteractor.swift */,
 			);
 			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		4E537F60217486A7001F97F1 /* SignupPage */ = {
+			isa = PBXGroup;
+			children = (
+				4E537F61217486EC001F97F1 /* SignupPagePresenter.swift */,
+				4E537F62217486EC001F97F1 /* SignupPageWorker.swift */,
+				4E537F63217486EC001F97F1 /* SignupPageRouter.swift */,
+				4E537F64217486EC001F97F1 /* SignupPageModels.swift */,
+				4E537F65217486EC001F97F1 /* SignupPageViewController.swift */,
+				4E537F66217486EC001F97F1 /* SignupPageInteractor.swift */,
+			);
+			path = SignupPage;
 			sourceTree = "<group>";
 		};
 		7D86F2E7F9830EFEABD05162 /* Frameworks */ = {
@@ -235,14 +261,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E537F68217486EC001F97F1 /* SignupPageWorker.swift in Sources */,
 				4E537F4B216DC255001F97F1 /* LoginPageWorker.swift in Sources */,
+				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
 				4E537F4C216DC255001F97F1 /* LoginPageRouter.swift in Sources */,
 				4E537F4D216DC255001F97F1 /* LoginPageModels.swift in Sources */,
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
+				4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */,
 				4E537F4F216DC255001F97F1 /* LoginPageInteractor.swift in Sources */,
+				4E537F6A217486EC001F97F1 /* SignupPageModels.swift in Sources */,
 				4E537F4E216DC255001F97F1 /* LoginPageViewController.swift in Sources */,
 				4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */,
+				4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */,
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,
+				4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +422,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -406,7 +441,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

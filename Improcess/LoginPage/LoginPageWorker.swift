@@ -16,14 +16,14 @@ import FirebaseAuth
 class LoginPageWorker
 {
     func authentication(username: String!, password: String!, completionHandler: @escaping (Bool, String?) -> Void){
-    Auth.auth().signIn(withEmail: username!, password: password!) { (user, error) in
-        if error != nil {
-            completionHandler(true, "Wrong username or password!")
-        }else{
-            completionHandler(false, nil)
+        Auth.auth().signIn(withEmail: username!, password: password!) { (user, error) in
+            if error != nil {
+                completionHandler(true, "Wrong username or password!")
+            }else{
+                completionHandler(false, nil)
+            }
         }
-    }
         
-  }
+    }
     
 }

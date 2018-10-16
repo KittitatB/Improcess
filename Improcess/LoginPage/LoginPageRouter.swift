@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol LoginPageRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToLandingPage(segue: UIStoryboardSegue?)
 }
 
 protocol LoginPageDataPassing
@@ -29,20 +29,17 @@ class LoginPageRouter: NSObject, LoginPageRoutingLogic, LoginPageDataPassing
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToLandingPage(segue: UIStoryboardSegue?)
+    {
+      if let segue = segue {
+        let destinationVC = segue.destination as! LandingPageViewController
+        _ = destinationVC.router!.dataStore!
+      } else {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "LandingPageViewController") as! LandingPageViewController
+        _ = destinationVC.router!.dataStore!
+      }
+    }
     
     // MARK: Navigation
     

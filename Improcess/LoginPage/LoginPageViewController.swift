@@ -97,7 +97,7 @@ class LoginPageViewController: UIViewController, LoginPageDisplayLogic, UITextFi
     func displayAuth(viewModel: LoginPage.Auth.ViewModel)
     {
         if viewModel.isError != true {
-            print("Login Success!")
+            performSegue(withIdentifier: "Login", sender: nil)
         }
         else {
             displayErrorMessage(message: viewModel.errorMessage ?? "Somethings went wrong!")

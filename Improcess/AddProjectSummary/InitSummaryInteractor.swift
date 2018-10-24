@@ -39,7 +39,7 @@ class InitSummaryInteractor: InitSummaryBusinessLogic, InitSummaryDataStore
   {
     worker = InitSummaryWorker()
     worker?.doSomeWork()
-    print(proJectName!)
+  
     
     let response = InitSummary.Something.Response()
     presenter?.presentSomething(response: response)

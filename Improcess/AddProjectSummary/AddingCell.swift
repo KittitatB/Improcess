@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol CellLogic: class {
+    func addStep(name: String)
+}
+
 class AddingCell: UITableViewCell {
 
-    
     @IBOutlet weak var addStepTextField: UITextField!
+    weak var cellInteractor: CellLogic?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,7 +28,20 @@ class AddingCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func handlePlus(_ sender: Any) {
+    
+    @IBAction func handleEditing(_ sender: Any) {
+        addStepTextField.text = ""
     }
     
+    
+    @IBAction func handlePlus(_ sender: Any) {
+        addStepTextField.becomeFirstResponder()
+    }
+    
+    @IBAction func handleEndEditing(_ sender: Any) {
+        if addStepTextField.text != "" {
+            cellInteractor?.addStep(name: addStepTextField.text!)
+        }
+        addStepTextField.text = "Add Step"
+    }
 }

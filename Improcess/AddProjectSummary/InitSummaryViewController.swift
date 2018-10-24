@@ -17,7 +17,7 @@ protocol InitSummaryDisplayLogic: class
     func displaySomething(viewModel: InitSummary.Something.ViewModel)
 }
 
-class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource
+class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
 {
     
     var interactor: InitSummaryBusinessLogic?
@@ -26,6 +26,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     // MARK: Object lifecycle
     
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -76,6 +77,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
         da.name = "555"
         data.append(da)
         tableviewHeight.constant = CGFloat(data.count * 45)
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: Do something
@@ -100,6 +102,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        if indexPath.row == 0 {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell", for: indexPath) as! AddingCell
+        cell.cellInteractor = self
 //        }
         return cell
     }
@@ -107,4 +110,15 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func addStep(name: String) {
+        print(name)
+    }
+    
+    
 }

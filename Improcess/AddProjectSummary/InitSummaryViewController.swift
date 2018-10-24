@@ -14,78 +14,97 @@ import UIKit
 
 protocol InitSummaryDisplayLogic: class
 {
-  func displaySomething(viewModel: InitSummary.Something.ViewModel)
+    func displaySomething(viewModel: InitSummary.Something.ViewModel)
 }
 
-class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic
+class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource
 {
-  var interactor: InitSummaryBusinessLogic?
-  var router: (NSObjectProtocol & InitSummaryRoutingLogic & InitSummaryDataPassing)?
-
-    @IBOutlet weak var labelss: UILabel!
     
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = InitSummaryInteractor()
-    let presenter = InitSummaryPresenter()
-    let router = InitSummaryRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: InitSummaryBusinessLogic?
+    var router: (NSObjectProtocol & InitSummaryRoutingLogic & InitSummaryDataPassing)?
+    var data = [Data]()
+    // MARK: Object lifecycle
+    
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = InitSummary.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: InitSummary.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = InitSummaryInteractor()
+        let presenter = InitSummaryPresenter()
+        let router = InitSummaryRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        doSomething()
+        var da = Data()
+        da.name = "555"
+        data.append(da)
+        tableviewHeight.constant = CGFloat(data.count * 45)
+    }
+    
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
+    
+    func doSomething()
+    {
+        let request = InitSummary.Something.Request()
+        interactor?.doSomething(request: request)
+    }
+    
+    func displaySomething(viewModel: InitSummary.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if indexPath.row == 0 {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell", for: indexPath) as! AddingCell
+//        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
 }

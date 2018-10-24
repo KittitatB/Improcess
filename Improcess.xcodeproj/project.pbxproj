@@ -43,6 +43,8 @@
 		4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A31217C77D300471D20 /* InitSummaryModels.swift */; };
 		4ED34A38217C77D300471D20 /* InitSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A32217C77D300471D20 /* InitSummaryViewController.swift */; };
 		4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A33217C77D300471D20 /* InitSummaryInteractor.swift */; };
+		4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6021804B9D00471D20 /* AddingCell.swift */; };
+		4ED34A6321804BB200471D20 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6221804BB200471D20 /* StepCell.swift */; };
 		E6BDBCB2891A8731CA563E8A /* Pods_Improcess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +88,8 @@
 		4ED34A31217C77D300471D20 /* InitSummaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSummaryModels.swift; sourceTree = "<group>"; };
 		4ED34A32217C77D300471D20 /* InitSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSummaryViewController.swift; sourceTree = "<group>"; };
 		4ED34A33217C77D300471D20 /* InitSummaryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSummaryInteractor.swift; sourceTree = "<group>"; };
+		4ED34A6021804B9D00471D20 /* AddingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCell.swift; sourceTree = "<group>"; };
+		4ED34A6221804BB200471D20 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
 		789D09C625CC037AC096BACF /* Pods-Improcess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.release.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.release.xcconfig"; sourceTree = "<group>"; };
 		84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Improcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -209,6 +213,8 @@
 				4ED34A31217C77D300471D20 /* InitSummaryModels.swift */,
 				4ED34A32217C77D300471D20 /* InitSummaryViewController.swift */,
 				4ED34A33217C77D300471D20 /* InitSummaryInteractor.swift */,
+				4ED34A6021804B9D00471D20 /* AddingCell.swift */,
+				4ED34A6221804BB200471D20 /* StepCell.swift */,
 			);
 			path = AddProjectSummary;
 			sourceTree = "<group>";
@@ -362,9 +368,11 @@
 				4E537F792175B43C001F97F1 /* LandingPageRouter.swift in Sources */,
 				4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */,
 				4E537F772175B43C001F97F1 /* LandingPagePresenter.swift in Sources */,
+				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,
 				4ED34A29217C744300471D20 /* InitProjectViewController.swift in Sources */,
 				4ED34A2A217C744300471D20 /* InitProjectInteractor.swift in Sources */,
+				4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */,
 				4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */,
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,
 				4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */,

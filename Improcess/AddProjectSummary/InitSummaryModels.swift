@@ -29,3 +29,7 @@ enum InitSummary
     }
   }
 }
+
+struct Data {
+    var name: String!
+}

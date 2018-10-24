@@ -14,7 +14,7 @@ import UIKit
 
 protocol InitSummaryBusinessLogic
 {
-  func doSomething(request: InitSummary.Something.Request)
+ 
 }
 
 protocol InitSummaryDataStore
@@ -34,14 +34,4 @@ class InitSummaryInteractor: InitSummaryBusinessLogic, InitSummaryDataStore
   //var name: String = ""
   
   // MARK: Do something
-  
-  func doSomething(request: InitSummary.Something.Request)
-  {
-    worker = InitSummaryWorker()
-    worker?.doSomeWork()
-  
-    
-    let response = InitSummary.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
 }

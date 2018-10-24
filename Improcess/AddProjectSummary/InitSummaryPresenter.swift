@@ -14,18 +14,11 @@ import UIKit
 
 protocol InitSummaryPresentationLogic
 {
-  func presentSomething(response: InitSummary.Something.Response)
+  
 }
 
 class InitSummaryPresenter: InitSummaryPresentationLogic
 {
   weak var viewController: InitSummaryDisplayLogic?
   
-  // MARK: Do something
-  
-  func presentSomething(response: InitSummary.Something.Response)
-  {
-    let viewModel = InitSummary.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
 }

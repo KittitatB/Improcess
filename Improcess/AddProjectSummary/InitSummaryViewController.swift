@@ -14,7 +14,7 @@ import UIKit
 
 protocol InitSummaryDisplayLogic: class
 {
-    func displaySomething(viewModel: InitSummary.Something.ViewModel)
+    func displayNewStep()
 }
 
 class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
@@ -22,10 +22,11 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     
     var interactor: InitSummaryBusinessLogic?
     var router: (NSObjectProtocol & InitSummaryRoutingLogic & InitSummaryDataPassing)?
-    var data = [Data]()
+    var data = [InitSummary.Step.ViewModel]()
     // MARK: Object lifecycle
     
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableview: UITableView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -72,11 +73,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
-        var da = Data()
-        da.name = "555"
-        data.append(da)
-        tableviewHeight.constant = CGFloat(data.count * 45)
+        tableviewHeight.constant = CGFloat((data.count + 1) * 45)
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -84,27 +81,28 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func doSomething()
-    {
-        let request = InitSummary.Something.Request()
-        interactor?.doSomething(request: request)
-    }
     
-    func displaySomething(viewModel: InitSummary.Something.ViewModel)
+    func displayNewStep()
     {
-        //nameTextField.text = viewModel.name
+        tableviewHeight.constant = CGFloat((data.count + 1) * 45)
+        tableview.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return data.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.row == 0 {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell", for: indexPath) as! AddingCell
-        cell.cellInteractor = self
-//        }
-        return cell
+        if indexPath.row == data.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell", for: indexPath) as! AddingCell
+            cell.cellInteractor = self
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "stepcell", for: indexPath) as! StepCell
+            cell.stepName.text = data[indexPath.row].name
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -117,8 +115,9 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     }
     
     func addStep(name: String) {
-        print(name)
+        let newStep = InitSummary.Step.ViewModel(myName: name, myIndex: data.count)
+        data.append(newStep)
+        displayNewStep()
     }
-    
     
 }

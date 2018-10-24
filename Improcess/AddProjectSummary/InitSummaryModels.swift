@@ -14,9 +14,7 @@ import UIKit
 
 enum InitSummary
 {
-  // MARK: Use cases
-  
-  enum Something
+  enum Step
   {
     struct Request
     {
@@ -26,10 +24,16 @@ enum InitSummary
     }
     struct ViewModel
     {
+        var name: String!
+        var description: String!
+        var index: Int!
+        
+        init(myName: String?, myIndex: Int?) {
+            name = myName
+            index = myIndex
+            description = ""
+        }
     }
   }
-}
-
-struct Data {
-    var name: String!
+    
 }

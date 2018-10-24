@@ -680,6 +680,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="tableview" destination="nYN-sp-zpF" id="6b2-Fp-7FG"/>
                         <outlet property="tableviewHeight" destination="Roe-7w-Xrb" id="i1j-rY-d9c"/>
                     </connections>
                 </viewController>

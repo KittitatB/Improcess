@@ -35,5 +35,11 @@ enum InitSummary
         }
     }
   }
-    
+}
+
+struct AddSteps
+{
+    var name: String!
+    var description: String!
+    var index: Int!
 }

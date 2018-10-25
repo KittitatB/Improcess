@@ -14,13 +14,14 @@ import UIKit
 
 protocol InitSummaryBusinessLogic
 {
- 
+    var steps: [AddSteps] {get set}
 }
 
 protocol InitSummaryDataStore
 {
     var proJectName: String? { get set }
     var proJectDetails: String { get set }
+    var steps: [AddSteps] {get set}
 }
 
 class InitSummaryInteractor: InitSummaryBusinessLogic, InitSummaryDataStore
@@ -29,9 +30,10 @@ class InitSummaryInteractor: InitSummaryBusinessLogic, InitSummaryDataStore
     
     var proJectDetails: String = ""
     
-  var presenter: InitSummaryPresentationLogic?
-  var worker: InitSummaryWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
+    var steps = [AddSteps]()
+    var presenter: InitSummaryPresentationLogic?
+    var worker: InitSummaryWorker?
+    //var name: String = ""
+    
+    // MARK: Do something
 }

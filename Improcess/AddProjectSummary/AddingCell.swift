@@ -10,6 +10,10 @@ import UIKit
 
 protocol CellLogic: class {
     func addStep(name: String)
+    func showDoneButton()
+    func hideDoneButton()
+    func deleteStep(index: Int)
+    func updateStepDetail(index: Int, newDescription: String)
 }
 
 class AddingCell: UITableViewCell {
@@ -31,6 +35,7 @@ class AddingCell: UITableViewCell {
     
     @IBAction func handleEditing(_ sender: Any) {
         addStepTextField.text = ""
+        cellInteractor?.showDoneButton()
     }
     
     
@@ -43,5 +48,6 @@ class AddingCell: UITableViewCell {
             cellInteractor?.addStep(name: addStepTextField.text!)
         }
         addStepTextField.text = "Add Step"
+        cellInteractor?.hideDoneButton()
     }
 }

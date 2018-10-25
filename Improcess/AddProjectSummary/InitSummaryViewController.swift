@@ -27,6 +27,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableview: UITableView!
+    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -101,6 +102,8 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "stepcell", for: indexPath) as! StepCell
             cell.stepName.text = data[indexPath.row].name
+            cell.stepDescription.text = data[indexPath.row].description
+            cell.cellInteractor = self
             return cell
         }
     }
@@ -120,4 +123,32 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
         displayNewStep()
     }
     
+    func showDoneButton() {
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc func buttonTapped(){
+       view.endEditing(true)
+    }
+    
+    func hideDoneButton(){
+        self.navigationItem.rightBarButtonItem = nil
+    }
+    
+    func deleteStep(index: Int){
+        data.remove(at: index)
+        displayNewStep()
+    }
+    
+    func updateStepDetail(index: Int, newDescription: String){
+        data[index].description = newDescription
+    }
+    
+    @IBAction func handleNext(_ sender: Any) {
+        for i in 0..<data.count{
+            let add = AddSteps(name: data[i].name, description: data[i].description, index: i)
+            interactor?.steps.append(add)
+        }
+        router?.routeToAddProjectDefects(segue: nil)
+    }
 }

@@ -45,6 +45,12 @@
 		4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A33217C77D300471D20 /* InitSummaryInteractor.swift */; };
 		4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6021804B9D00471D20 /* AddingCell.swift */; };
 		4ED34A6321804BB200471D20 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6221804BB200471D20 /* StepCell.swift */; };
+		4ED34A6B2181C0B500471D20 /* AddProjectDefectsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A652181C0B500471D20 /* AddProjectDefectsPresenter.swift */; };
+		4ED34A6C2181C0B500471D20 /* AddProjectDefectsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A662181C0B500471D20 /* AddProjectDefectsWorker.swift */; };
+		4ED34A6D2181C0B500471D20 /* AddProjectDefectsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A672181C0B500471D20 /* AddProjectDefectsRouter.swift */; };
+		4ED34A6E2181C0B500471D20 /* AddProjectDefectsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A682181C0B500471D20 /* AddProjectDefectsModels.swift */; };
+		4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */; };
+		4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */; };
 		E6BDBCB2891A8731CA563E8A /* Pods_Improcess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +96,12 @@
 		4ED34A33217C77D300471D20 /* InitSummaryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitSummaryInteractor.swift; sourceTree = "<group>"; };
 		4ED34A6021804B9D00471D20 /* AddingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCell.swift; sourceTree = "<group>"; };
 		4ED34A6221804BB200471D20 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
+		4ED34A652181C0B500471D20 /* AddProjectDefectsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsPresenter.swift; sourceTree = "<group>"; };
+		4ED34A662181C0B500471D20 /* AddProjectDefectsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsWorker.swift; sourceTree = "<group>"; };
+		4ED34A672181C0B500471D20 /* AddProjectDefectsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsRouter.swift; sourceTree = "<group>"; };
+		4ED34A682181C0B500471D20 /* AddProjectDefectsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsModels.swift; sourceTree = "<group>"; };
+		4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsViewController.swift; sourceTree = "<group>"; };
+		4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsInteractor.swift; sourceTree = "<group>"; };
 		789D09C625CC037AC096BACF /* Pods-Improcess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.release.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.release.xcconfig"; sourceTree = "<group>"; };
 		84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Improcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,6 +153,7 @@
 				4E537F702175B408001F97F1 /* LandingPage */,
 				4ED34A1E217C740600471D20 /* AddProjectName */,
 				4ED34A2B217C776A00471D20 /* AddProjectSummary */,
+				4ED34A642181C06A00471D20 /* AddProjectDefectsPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -217,6 +230,19 @@
 				4ED34A6221804BB200471D20 /* StepCell.swift */,
 			);
 			path = AddProjectSummary;
+			sourceTree = "<group>";
+		};
+		4ED34A642181C06A00471D20 /* AddProjectDefectsPage */ = {
+			isa = PBXGroup;
+			children = (
+				4ED34A652181C0B500471D20 /* AddProjectDefectsPresenter.swift */,
+				4ED34A662181C0B500471D20 /* AddProjectDefectsWorker.swift */,
+				4ED34A672181C0B500471D20 /* AddProjectDefectsRouter.swift */,
+				4ED34A682181C0B500471D20 /* AddProjectDefectsModels.swift */,
+				4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */,
+				4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */,
+			);
+			path = AddProjectDefectsPage;
 			sourceTree = "<group>";
 		};
 		7D86F2E7F9830EFEABD05162 /* Frameworks */ = {
@@ -352,6 +378,7 @@
 				4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */,
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
+				4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */,
 				4ED34A35217C77D300471D20 /* InitSummaryWorker.swift in Sources */,
 				4ED34A36217C77D300471D20 /* InitSummaryRouter.swift in Sources */,
 				4E537F4C216DC255001F97F1 /* LoginPageRouter.swift in Sources */,
@@ -360,6 +387,9 @@
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
 				4E537F782175B43C001F97F1 /* LandingPageWorker.swift in Sources */,
 				4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */,
+				4ED34A6B2181C0B500471D20 /* AddProjectDefectsPresenter.swift in Sources */,
+				4ED34A6E2181C0B500471D20 /* AddProjectDefectsModels.swift in Sources */,
+				4ED34A6C2181C0B500471D20 /* AddProjectDefectsWorker.swift in Sources */,
 				4E537F7B2175B43C001F97F1 /* LandingPageViewController.swift in Sources */,
 				4E537F4F216DC255001F97F1 /* LoginPageInteractor.swift in Sources */,
 				4E537F6A217486EC001F97F1 /* SignupPageModels.swift in Sources */,
@@ -368,6 +398,7 @@
 				4E537F792175B43C001F97F1 /* LandingPageRouter.swift in Sources */,
 				4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */,
 				4E537F772175B43C001F97F1 /* LandingPagePresenter.swift in Sources */,
+				4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,
 				4ED34A29217C744300471D20 /* InitProjectViewController.swift in Sources */,
@@ -377,6 +408,7 @@
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,
 				4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */,
 				4ED34A38217C77D300471D20 /* InitSummaryViewController.swift in Sources */,
+				4ED34A6D2181C0B500471D20 /* AddProjectDefectsRouter.swift in Sources */,
 				4E537F7C2175B43C001F97F1 /* LandingPageInteractor.swift in Sources */,
 				4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */,
 			);

@@ -14,47 +14,49 @@ import UIKit
 
 @objc protocol InitSummaryRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToAddProjectDefects(segue: UIStoryboardSegue?)
 }
 
 protocol InitSummaryDataPassing
 {
-  var dataStore: InitSummaryDataStore? { get }
+    var dataStore: InitSummaryDataStore? { get }
 }
 
 class InitSummaryRouter: NSObject, InitSummaryRoutingLogic, InitSummaryDataPassing
 {
-  weak var viewController: InitSummaryViewController?
-  var dataStore: InitSummaryDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: InitSummaryViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: InitSummaryDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: InitSummaryViewController?
+    var dataStore: InitSummaryDataStore?
+    
+    // MARK: Routing
+    
+    func routeToAddProjectDefects(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! AddProjectDefectsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAddProjectDefects(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddProjectDefects") as! AddProjectDefectsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToAddProjectDefects(source: dataStore!, destination: &destinationDS)
+            navigateToAddProjectDefects(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    //   MARK: Navigation
+    
+    func navigateToAddProjectDefects(source: InitSummaryViewController, destination: AddProjectDefectsViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    //   MARK: Passing data
+    
+    func passDataToAddProjectDefects(source: InitSummaryDataStore, destination: inout AddProjectDefectsDataStore)
+    {
+        destination.steps = source.steps
+        destination.proJectName = source.proJectName
+        destination.proJectDetails = source.proJectDetails
+    }
 }

@@ -870,6 +870,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FEh-zv-hym"/>
                     </view>
+                    <connections>
+                        <outlet property="tableview" destination="1Sy-BM-UnS" id="79g-IG-ng7"/>
+                        <outlet property="tableviewHeight" destination="184-aG-cnb" id="Zzl-wV-NRF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxO-c0-rry" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

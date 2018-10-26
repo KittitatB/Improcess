@@ -19,25 +19,6 @@ protocol AddProjectDefectsDisplayLogic: class
 
 class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
 {
-    func addStep(name: String) {
-        <#code#>
-    }
-    
-    func showDoneButton() {
-        <#code#>
-    }
-    
-    func hideDoneButton() {
-        <#code#>
-    }
-    
-    func deleteStep(index: Int) {
-        <#code#>
-    }
-    
-    func updateStepDetail(index: Int, newDescription: String) {
-        <#code#>
-    }
     
     var interactor: AddProjectDefectsBusinessLogic?
     var router: (NSObjectProtocol & AddProjectDefectsRoutingLogic & AddProjectDefectsDataPassing)?
@@ -45,6 +26,9 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     // MARK: Object lifecycle
     
     var data = [AddProjectDefects.Defects.ViewModel]()
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableview: UITableView!
+    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -92,6 +76,8 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     {
         super.viewDidLoad()
         doSomething()
+        tableviewHeight.constant = CGFloat((data.count + 1) * 45)
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: Do something
@@ -110,7 +96,7 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return data.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,6 +116,44 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
+    }
+    
+    func addStep(name: String) {
+        let newDefect = AddProjectDefects.Defects.ViewModel(myName: name, myIndex: data.count)
+        data.append(newDefect)
+        displayNewDefectsList()
+    }
+    
+    func showDoneButton() {
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc func buttonTapped(){
+        view.endEditing(true)
+    }
+    
+    func hideDoneButton(){
+        self.navigationItem.rightBarButtonItem = nil
+    }
+    
+    func deleteStep(index: Int){
+        data.remove(at: index)
+        displayNewDefectsList()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func displayNewDefectsList()
+    {
+        tableviewHeight.constant = CGFloat((data.count + 1) * 45)
+        tableview.reloadData()
+    }
+    
+    func updateStepDetail(index: Int, newDescription: String){
+        data[index].description = newDescription
     }
     
 }

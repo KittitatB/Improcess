@@ -14,18 +14,18 @@ import UIKit
 
 protocol AddProjectDefectsPresentationLogic
 {
-  func presentSomething(response: AddProjectDefects.Something.Response)
+    func presentSomething(response: AddProjectDefects.Defects.Response)
 }
 
 class AddProjectDefectsPresenter: AddProjectDefectsPresentationLogic
 {
-  weak var viewController: AddProjectDefectsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: AddProjectDefects.Something.Response)
-  {
-    let viewModel = AddProjectDefects.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: AddProjectDefectsDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentSomething(response: AddProjectDefects.Defects.Response)
+    {
+        let viewModel = AddProjectDefects.Defects.ViewModel(myName:"aa", myIndex: 0)
+        viewController?.displaySomething(viewModel: viewModel)
+    }
 }

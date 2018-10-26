@@ -1,5 +1,5 @@
 //
-//  AddProjectDefectsModels.swift
+//  AddProjectDefectsWorker.swift
 //  Improcess
 //
 //  Created by MuMhu on 25/10/2561 BE.
@@ -12,20 +12,9 @@
 
 import UIKit
 
-enum AddProjectDefects
+class AddProjectDefectsWorker
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    func doSomeWork()
     {
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

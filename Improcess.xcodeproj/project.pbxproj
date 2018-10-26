@@ -153,7 +153,7 @@
 				4E537F702175B408001F97F1 /* LandingPage */,
 				4ED34A1E217C740600471D20 /* AddProjectName */,
 				4ED34A2B217C776A00471D20 /* AddProjectSummary */,
-				4ED34A642181C06A00471D20 /* AddProjectDefectsPage */,
+				4ED34A642181C06A00471D20 /* AddProjectDefects */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -232,7 +232,7 @@
 			path = AddProjectSummary;
 			sourceTree = "<group>";
 		};
-		4ED34A642181C06A00471D20 /* AddProjectDefectsPage */ = {
+		4ED34A642181C06A00471D20 /* AddProjectDefects */ = {
 			isa = PBXGroup;
 			children = (
 				4ED34A652181C0B500471D20 /* AddProjectDefectsPresenter.swift */,
@@ -242,7 +242,7 @@
 				4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */,
 				4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */,
 			);
-			path = AddProjectDefectsPage;
+			path = AddProjectDefects;
 			sourceTree = "<group>";
 		};
 		7D86F2E7F9830EFEABD05162 /* Frameworks */ = {

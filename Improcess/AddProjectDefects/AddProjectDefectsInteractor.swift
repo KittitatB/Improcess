@@ -14,7 +14,7 @@ import UIKit
 
 protocol AddProjectDefectsBusinessLogic
 {
-    func doSomething(request: AddProjectDefects.Something.Request)
+    func doSomething(request: AddProjectDefects.Defects.Request)
 }
 
 protocol AddProjectDefectsDataStore
@@ -38,14 +38,14 @@ class AddProjectDefectsInteractor: AddProjectDefectsBusinessLogic, AddProjectDef
     
     // MARK: Do something
     
-    func doSomething(request: AddProjectDefects.Something.Request)
+    func doSomething(request: AddProjectDefects.Defects.Request)
     {
         
         worker = AddProjectDefectsWorker()
         worker?.doSomeWork()
         
         print(steps)
-        let response = AddProjectDefects.Something.Response()
+        let response = AddProjectDefects.Defects.Response()
         presenter?.presentSomething(response: response)
     }
 }

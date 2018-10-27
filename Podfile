@@ -8,6 +8,6 @@ target 'Improcess' do
   # Pods for Improcess
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-
+  pod 'Firebase/Database'
   
 end

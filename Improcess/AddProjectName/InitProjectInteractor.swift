@@ -31,7 +31,5 @@ class InitProjectInteractor: InitProjectBusinessLogic, InitProjectDataStore
     var presenter: InitProjectPresentationLogic?
     var worker: InitProjectWorker?
     //var name: String = ""
-    
-    // MARK: Do something
-    
+
 }

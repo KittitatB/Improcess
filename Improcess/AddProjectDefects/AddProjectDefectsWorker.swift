@@ -11,10 +11,35 @@
 //
 
 import UIKit
+import Firebase
 
 class AddProjectDefectsWorker
 {
-    func doSomeWork()
+    func postToFirebase(projectName: String!, projectDescription: String!, steps: [AddSteps]!, defects: [Defect]!)
     {
+        let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+        let uid = Auth.auth().currentUser?.uid
+        let firebasePath = Database.database().reference().child(uid!).child("project").child(projectName)
+        let projectDetail = [
+            "description" : projectDescription ?? "",
+            "timestamp" : timestamp
+        ] as [String : Any]
+        firebasePath.setValue(projectDetail)
+        
+        for step in steps{
+            let stepDetail = [
+                "stepName" : step.name,
+                "stepDesccription" : step.description
+                ] as [String : Any]
+            firebasePath.child("step").child(String(step.index)).setValue(stepDetail)
+        }
+        
+        for defect in defects{
+            let defectDetail = [
+                "defectName" : defect.name,
+                "defectDesccription" : defect.description
+                ] as [String : Any]
+            firebasePath.child("defect").child(String(defect.index)).setValue(defectDetail)
+        }
     }
 }

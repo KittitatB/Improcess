@@ -14,7 +14,7 @@ import UIKit
 
 protocol AddProjectDefectsPresentationLogic
 {
-    func presentSomething(response: AddProjectDefects.Defects.Response)
+    func presentAlert()
 }
 
 class AddProjectDefectsPresenter: AddProjectDefectsPresentationLogic
@@ -23,9 +23,8 @@ class AddProjectDefectsPresenter: AddProjectDefectsPresentationLogic
     
     // MARK: Do something
     
-    func presentSomething(response: AddProjectDefects.Defects.Response)
+    func presentAlert()
     {
-        let viewModel = AddProjectDefects.Defects.ViewModel(myName:"aa", myIndex: 0)
-        viewController?.displaySomething(viewModel: viewModel)
+        viewController?.displayAlert()
     }
 }

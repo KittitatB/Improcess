@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol InitProjectDisplayLogic: class
 {
@@ -20,7 +21,7 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
 {
     var interactor: InitProjectBusinessLogic?
     var router: (NSObjectProtocol & InitProjectRoutingLogic & InitProjectDataPassing)?
-    
+    var names = [String]()
     @IBOutlet weak var projectNameTextField: UITextField!
     @IBOutlet weak var projectDetailsTextField: UITextField!
     // MARK: Object lifecycle
@@ -70,6 +71,7 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        loadOldProjectName()
     }
     
     // MARK: Do something
@@ -83,13 +85,34 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
             self.present(alert, animated: true, completion: nil)
         }
         else{
-            interactor?.proJectName = projectNameTextField.text ?? ""
-            interactor?.proJectDetails = projectDetailsTextField.text ?? ""
-            print("-------------")
-            print(router?.dataStore?.proJectName)
-            router?.routeToNextPage(segue: nil)
+            let uid = Auth.auth().currentUser?.uid
+            let usersDB = Database.database().reference().child(uid!).child("project")
+            var taken = false
+            
+            usersDB.observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.hasChild(self.projectNameTextField.text ?? "") {
+                    taken = true
+                }
+                if !taken {
+                    self.interactor?.proJectName = self.projectNameTextField.text ?? ""
+                    self.interactor?.proJectDetails = self.projectDetailsTextField.text ?? ""
+                    self.router?.routeToNextPage(segue: nil)
+                }
+                else{
+                    let alert = UIAlertController(title: "Error", message: "Project name already taken!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
         }
     }
     
-    
+    func loadOldProjectName(){
+        DispatchQueue.global().async {
+            let uid = Auth.auth().currentUser?.uid
+            Database.database().reference().child(uid!).child("project").observe(.childAdded, with: { (snapshot) in
+                self.names.append(snapshot.key)
+            })
+        }
+    }
 }

@@ -14,7 +14,11 @@ import UIKit
 
 protocol AddProjectDefectsBusinessLogic
 {
-    func doSomething(request: AddProjectDefects.Defects.Request)
+    var proJectName: String? { get set }
+    var proJectDetails: String { get set }
+    var steps: [AddSteps] {get set}
+    var defects: [Defect] {get set}
+    func uploadDataToFirebase()
 }
 
 protocol AddProjectDefectsDataStore
@@ -27,25 +31,21 @@ protocol AddProjectDefectsDataStore
 class AddProjectDefectsInteractor: AddProjectDefectsBusinessLogic, AddProjectDefectsDataStore
 {
     var proJectName: String?
-    
     var proJectDetails: String = ""
-    
     var steps: [AddSteps] = []
-    
+    var defects: [Defect] = []
     var presenter: AddProjectDefectsPresentationLogic?
     var worker: AddProjectDefectsWorker?
     //var name: String = ""
     
     // MARK: Do something
     
-    func doSomething(request: AddProjectDefects.Defects.Request)
+    func uploadDataToFirebase()
     {
         
         worker = AddProjectDefectsWorker()
-        worker?.doSomeWork()
-        
-        print(steps)
-        let response = AddProjectDefects.Defects.Response()
-        presenter?.presentSomething(response: response)
+        worker?.postToFirebase(projectName: proJectName!, projectDescription: proJectDetails, steps: steps, defects: defects)
+
+        presenter?.presentAlert()
     }
 }

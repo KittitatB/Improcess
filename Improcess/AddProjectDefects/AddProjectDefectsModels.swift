@@ -20,6 +20,10 @@ enum AddProjectDefects
     {
         struct Request
         {
+            var proJectName: String!
+            var proJectDetails: String!
+            var steps: [AddSteps]
+            var defects: [Defect]
         }
         struct Response
         {

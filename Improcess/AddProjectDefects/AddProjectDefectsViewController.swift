@@ -14,7 +14,7 @@ import UIKit
 
 protocol AddProjectDefectsDisplayLogic: class
 {
-    func displaySomething(viewModel: AddProjectDefects.Defects.ViewModel)
+    func displayAlert()
 }
 
 class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
@@ -75,7 +75,6 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         tableviewHeight.constant = CGFloat((data.count + 1) * 45)
         self.hideKeyboardWhenTappedAround()
     }
@@ -83,12 +82,6 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = AddProjectDefects.Defects.Request()
-        interactor?.doSomething(request: request)
-    }
     
     func displaySomething(viewModel: AddProjectDefects.Defects.ViewModel)
     {
@@ -156,4 +149,28 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
         data[index].description = newDescription
     }
     
+    @IBAction func createProject(_ sender: Any) {
+        if data.count == 0{
+            let alert = UIAlertController(title: "Error", message: "Project must have at least one defect type!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        for i in 0..<data.count{
+            let add = Defect(name: data[i].name, description: data[i].description, index: i)
+            interactor?.defects.append(add)
+        }
+        interactor?.uploadDataToFirebase()
+    }
+    
+    func displayAlert() {
+        let alert = UIAlertController(title: "Success", message: "Project have been created!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+            var viewControllers = self.navigationController?.viewControllers
+            viewControllers?.removeLast(3) // views to pop
+            self.navigationController?.setViewControllers(viewControllers!, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

@@ -145,6 +145,13 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     }
     
     @IBAction func handleNext(_ sender: Any) {
+        if data.count == 0{
+            let alert = UIAlertController(title: "Error", message: "Project must have at least one step!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         for i in 0..<data.count{
             let add = AddSteps(name: data[i].name, description: data[i].description, index: i)
             interactor?.steps.append(add)

@@ -20,9 +20,11 @@ enum InitProject
   {
     struct Request
     {
+        var projectName: String
     }
     struct Response
     {
+        var isValid: Bool
     }
     struct ViewModel
     {

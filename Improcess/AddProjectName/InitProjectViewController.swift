@@ -71,7 +71,6 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        loadOldProjectName()
     }
     
     // MARK: Do something
@@ -107,12 +106,4 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
         }
     }
     
-    func loadOldProjectName(){
-        DispatchQueue.global().async {
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child(uid!).child("project").observe(.childAdded, with: { (snapshot) in
-                self.names.append(snapshot.key)
-            })
-        }
-    }
 }

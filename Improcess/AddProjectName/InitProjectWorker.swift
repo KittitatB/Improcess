@@ -15,13 +15,5 @@ import Firebase
 
 class InitProjectWorker
 {
-    func checkForEveryProjectName(name: String) -> Bool
-    {
-//        let uid = Auth.auth().currentUser?.uid
-//        Database.database().reference().child(uid!).child("project").observe(.value) { (DataSnapshot) in
-//            print(DataSnapshot.key ?? "KUY")
-//        }
-        return true
-    }
 }
 

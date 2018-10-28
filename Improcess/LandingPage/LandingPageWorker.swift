@@ -11,10 +11,26 @@
 //
 
 import UIKit
+import Firebase
 
 class LandingPageWorker
 {
-    func doSomeWork()
+    func requestProjectFormFirebase(uid: String!, completionHandler: @escaping([ProjectDetail]) -> Void)
     {
+        var projects = [ProjectDetail]()
+        Database.database().reference().child(uid!).child("project").observeSingleEvent(of: .value) { (snapshot) in
+            if let projectsDic = snapshot.value as? [String : AnyObject]{
+                for project in projectsDic{
+                    let dict = project.value as! [String: AnyObject]
+                    let projectName = project.key
+                    let projectTimestamp = dict["timestamp"] as! Int
+                    let projectDetail = dict["description"] as! String
+                    let newProject = ProjectDetail(thisName: projectName, thisTimestamp: projectTimestamp, thisDetail: projectDetail)
+                    projects.append(newProject)
+                }
+                completionHandler(projects)
+            }
+        }
+
     }
 }

@@ -51,6 +51,7 @@
 		4ED34A6E2181C0B500471D20 /* AddProjectDefectsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A682181C0B500471D20 /* AddProjectDefectsModels.swift */; };
 		4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */; };
 		4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */; };
+		4ED34A722185B82300471D20 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A712185B82300471D20 /* ProjectCell.swift */; };
 		E6BDBCB2891A8731CA563E8A /* Pods_Improcess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,7 @@
 		4ED34A682181C0B500471D20 /* AddProjectDefectsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsModels.swift; sourceTree = "<group>"; };
 		4ED34A692181C0B500471D20 /* AddProjectDefectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsViewController.swift; sourceTree = "<group>"; };
 		4ED34A6A2181C0B500471D20 /* AddProjectDefectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDefectsInteractor.swift; sourceTree = "<group>"; };
+		4ED34A712185B82300471D20 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		789D09C625CC037AC096BACF /* Pods-Improcess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.release.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.release.xcconfig"; sourceTree = "<group>"; };
 		84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Improcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -200,6 +202,7 @@
 				4E537F742175B43B001F97F1 /* LandingPageModels.swift */,
 				4E537F752175B43B001F97F1 /* LandingPageViewController.swift */,
 				4E537F762175B43B001F97F1 /* LandingPageInteractor.swift */,
+				4ED34A712185B82300471D20 /* ProjectCell.swift */,
 			);
 			path = LandingPage;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				4E537F4C216DC255001F97F1 /* LoginPageRouter.swift in Sources */,
 				4E537F4D216DC255001F97F1 /* LoginPageModels.swift in Sources */,
 				4ED34A34217C77D300471D20 /* InitSummaryPresenter.swift in Sources */,
+				4ED34A722185B82300471D20 /* ProjectCell.swift in Sources */,
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
 				4E537F782175B43C001F97F1 /* LandingPageWorker.swift in Sources */,
 				4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */,
@@ -560,7 +564,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -576,7 +583,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

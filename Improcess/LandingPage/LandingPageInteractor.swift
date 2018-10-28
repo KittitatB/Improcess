@@ -15,6 +15,7 @@ import UIKit
 protocol LandingPageBusinessLogic
 {
     func getDate()
+    func loadProject(request: LandingPage.Project.Request)
 }
 
 protocol LandingPageDataStore
@@ -38,5 +39,13 @@ class LandingPageInteractor: LandingPageBusinessLogic, LandingPageDataStore
         
         let response = LandingPage.Date.Response(date: formatter.string(from: date))
         presenter?.presentDate(response: response)
+    }
+    
+    func loadProject(request: LandingPage.Project.Request) {
+        worker = LandingPageWorker()
+        worker?.requestProjectFormFirebase(uid: request.uid, completionHandler: { (projects) in
+            let response = LandingPage.Project.Response(projectsName: projects)
+            self.presenter?.presentProjects(response: response)
+        })
     }
 }

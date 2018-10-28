@@ -11,10 +11,12 @@
 //
 
 import UIKit
+import Firebase
 
 protocol LandingPageDisplayLogic: class
 {
     func displayDate(viewModel: LandingPage.Date.ViewModel)
+    func displayProjects(viewModel: LandingPage.Project.ViewModel)
 }
 
 class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
@@ -23,6 +25,9 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     var router: (NSObjectProtocol & LandingPageRoutingLogic & LandingPageDataPassing)?
     
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var tableview: UITableView!
+    var projects = [ProjectDetail]()
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -70,6 +75,7 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        loadProjects()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,11 +95,29 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return projects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectCell
+        cell.projectNameLabel.text = projects[indexPath.row].name
+        return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func loadProjects(){
+        let uid = Auth.auth().currentUser?.uid
+        let request = LandingPage.Project.Request(uid: uid)
+        interactor?.loadProject(request: request)
+    }
+    
+    func displayProjects(viewModel: LandingPage.Project.ViewModel) {
+        projects = viewModel.projectsName!
+        tableview.reloadData()
+    }
+    
+
 }

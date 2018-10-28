@@ -69,7 +69,7 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qu6-iB-Tsr" customClass="RoundedButton" customModule="Improcess" customModuleProvider="target">
                                 <rect key="frame" x="25" y="597" width="325" height="40"/>
@@ -339,13 +339,28 @@
                                 <rect key="frame" x="0.0" y="177" width="375" height="449"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="DlV-uC-d2L">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="60" id="DlV-uC-d2L" customClass="ProjectCell" customModule="Improcess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DlV-uC-d2L" id="oIp-tM-8yh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHZ-Bl-Kzm">
+                                                    <rect key="frame" x="22.5" y="17" width="54" height="26"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="22"/>
+                                                    <color key="textColor" red="0.2483671308" green="0.55145847800000003" blue="0.94584923980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="centerY" secondItem="oIp-tM-8yh" secondAttribute="centerY" id="pXj-Yk-WXL"/>
+                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="leading" secondItem="oIp-tM-8yh" secondAttribute="leadingMargin" constant="7.5" id="rjN-Y7-WCs"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="projectNameLabel" destination="qHZ-Bl-Kzm" id="u0s-hS-a5e"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -376,6 +391,7 @@
                     <navigationItem key="navigationItem" id="eeE-ol-GMs"/>
                     <connections>
                         <outlet property="dateLabel" destination="bOr-Iz-Tbs" id="NbZ-OH-7VT"/>
+                        <outlet property="tableview" destination="Aag-qV-a8r" id="gHS-Qb-XLL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lfp-CF-Y9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -888,7 +904,4 @@
         <image name="close" width="102.40000152587891" height="102.40000152587891"/>
         <image name="plus (2)" width="51.200000762939453" height="51.200000762939453"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="6k4-E2-QKl"/>
-    </inferredMetricsTieBreakers>
 </document>

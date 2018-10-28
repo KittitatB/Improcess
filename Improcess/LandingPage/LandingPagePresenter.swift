@@ -15,6 +15,7 @@ import UIKit
 protocol LandingPagePresentationLogic
 {
     func presentDate(response: LandingPage.Date.Response)
+    func presentProjects(response: LandingPage.Project.Response)
 }
 
 class LandingPagePresenter: LandingPagePresentationLogic
@@ -27,5 +28,14 @@ class LandingPagePresenter: LandingPagePresentationLogic
     {
         let viewModel = LandingPage.Date.ViewModel(date: response.date)
         viewController?.displayDate(viewModel: viewModel)
+    }
+    
+    func presentProjects(response: LandingPage.Project.Response) {
+        var projects = response.projectsName
+        projects?.sort(by: { (firstPro, secPro) -> Bool in
+            return firstPro.timestamp! > secPro.timestamp!
+        })
+        let viewModel = LandingPage.Project.ViewModel(projectsName: projects)
+        viewController?.displayProjects(viewModel: viewModel)
     }
 }

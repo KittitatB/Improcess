@@ -19,17 +19,17 @@ enum LandingPage
     {
         struct Request
         {
-            var projectName: String?
+            var uid: String?
         }
         struct Response
         {
-            var projectName: String?
-            var tasks: Int?
+            var projectsName: [ProjectDetail]?
+//            var tasks: Int?
         }
         struct ViewModel
         {
-            var projectName: String?
-            var tasks: Int?
+            var projectsName: [ProjectDetail]?
+//            var tasks: Int?
         }
     }
     
@@ -46,5 +46,17 @@ enum LandingPage
         {
             var date: String?
         }
+    }
+}
+
+struct ProjectDetail {
+    var name: String?
+    var timestamp: Int?
+    var detail: String?
+    
+    init(thisName: String, thisTimestamp: Int, thisDetail: String) {
+        name = thisName
+        timestamp = thisTimestamp
+        detail = thisDetail
     }
 }

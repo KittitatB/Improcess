@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol LandingPageRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToProjectPage(segue: UIStoryboardSegue?)
 }
 
 protocol LandingPageDataPassing
@@ -29,32 +29,32 @@ class LandingPageRouter: NSObject, LandingPageRoutingLogic, LandingPageDataPassi
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToProjectPage(segue: UIStoryboardSegue?)
+    {
+      if let segue = segue {
+        let destinationVC = segue.destination as! ProjectPageViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToProjectPage(source: dataStore!, destination: &destinationDS)
+      } else {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProjectPage") as! ProjectPageViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToProjectPage(source: dataStore!, destination: &destinationDS)
+        navigateToProjectPage(source: viewController!, destination: destinationVC)
+      }
+    }
     
-    // MARK: Navigation
+//     MARK: Navigation
     
-    //func navigateToSomewhere(source: LandingPageViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
+    func navigateToProjectPage(source: LandingPageViewController, destination: ProjectPageViewController)
+    {
+      source.show(destination, sender: nil)
+    }
     
-    // MARK: Passing data
+//     MARK: Passing data
     
-    //func passDataToSomewhere(source: LandingPageDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToProjectPage(source: LandingPageDataStore, destination: inout ProjectPageDataStore)
+    {
+      destination.project = source.project
+    }
 }

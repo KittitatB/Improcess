@@ -119,5 +119,8 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
         tableview.reloadData()
     }
     
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        interactor?.project = projects[indexPath.row]
+        router?.routeToProjectPage(segue: nil)
+    }
 }

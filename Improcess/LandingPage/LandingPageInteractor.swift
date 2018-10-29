@@ -14,17 +14,20 @@ import UIKit
 
 protocol LandingPageBusinessLogic
 {
+    var project: ProjectDetail? {get set}
     func getDate()
     func loadProject(request: LandingPage.Project.Request)
 }
 
 protocol LandingPageDataStore
 {
-    //var name: String { get set }
+    var project: ProjectDetail? {get set}
 }
 
 class LandingPageInteractor: LandingPageBusinessLogic, LandingPageDataStore
 {
+    var project: ProjectDetail?
+  
     var presenter: LandingPagePresentationLogic?
     var worker: LandingPageWorker?
     //var name: String = ""

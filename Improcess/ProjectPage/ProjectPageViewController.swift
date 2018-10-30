@@ -28,6 +28,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     @IBOutlet weak var projectDescription: UITextView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -74,6 +76,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     {
         super.viewDidLoad()
         loadData()
+        adjustHeight()
     }
     
     // MARK: Do something
@@ -101,6 +104,10 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func loadData(){
         tableviewHeight.constant = 2*45
-        interactor?.receiveProject()
+//        interactor?.receiveProject()
+    }
+    
+    func adjustHeight(){
+        scrollHeight.constant = 1000
     }
 }

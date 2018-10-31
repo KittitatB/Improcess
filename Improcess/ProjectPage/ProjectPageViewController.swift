@@ -21,7 +21,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
 {
     var interactor: ProjectPageBusinessLogic?
     var router: (NSObjectProtocol & ProjectPageRoutingLogic & ProjectPageDataPassing)?
-    
+    var projectTask = [ProjectTask]()
     // MARK: Object lifecycle
     
     @IBOutlet weak var projectName: UILabel!
@@ -75,8 +75,12 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        let a = ProjectTask(name: "aa")
+        let b = ProjectTask(name: "bb")
+        projectTask.append(a)
+        projectTask.append(b)
         loadData()
-        adjustHeight()
+        print(projectTask)
     }
     
     // MARK: Do something
@@ -94,20 +98,40 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return projectTask.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskCell
-        return cell
+        if indexPath.row == projectTask.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskCell
+            cell.taskNameLabel.text = projectTask[indexPath.row].name
+            return cell
+        }
     }
     
     func loadData(){
-        tableviewHeight.constant = 2*45
-//        interactor?.receiveProject()
+        interactor?.receiveProject()
+        updateTableview()
     }
     
     func adjustHeight(){
-        scrollHeight.constant = 1000
+        var viewHeight = 667
+        if projectTask.count > 1{
+            viewHeight += (projectTask.count - 1)
+        }
+        scrollHeight.constant = CGFloat(viewHeight)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        adjustHeight()
+    }
+    
+    func updateTableview(){
+        tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
+        tableview.reloadData()
     }
 }

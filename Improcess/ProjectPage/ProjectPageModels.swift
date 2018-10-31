@@ -32,3 +32,7 @@ enum ProjectPage
         }
     }
 }
+
+struct ProjectTask {
+    var name: String
+}

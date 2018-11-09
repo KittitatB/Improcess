@@ -105,7 +105,7 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 45
     }
     
     func loadProjects(){

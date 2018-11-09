@@ -31,6 +31,13 @@
 		4E537F7A2175B43C001F97F1 /* LandingPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F742175B43B001F97F1 /* LandingPageModels.swift */; };
 		4E537F7B2175B43C001F97F1 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F752175B43B001F97F1 /* LandingPageViewController.swift */; };
 		4E537F7C2175B43C001F97F1 /* LandingPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E537F762175B43B001F97F1 /* LandingPageInteractor.swift */; };
+		4E711F762192BE3200DD8743 /* TemplatesPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F702192BE3200DD8743 /* TemplatesPagePresenter.swift */; };
+		4E711F772192BE3200DD8743 /* TemplatesPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F712192BE3200DD8743 /* TemplatesPageWorker.swift */; };
+		4E711F782192BE3200DD8743 /* TemplatesPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F722192BE3200DD8743 /* TemplatesPageRouter.swift */; };
+		4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F732192BE3200DD8743 /* TemplatesPageModels.swift */; };
+		4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */; };
+		4E711F7B2192BE3200DD8743 /* TemplatesPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */; };
+		4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F7C2192BE7700DD8743 /* TemplateCell.swift */; };
 		4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */; };
 		4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A20217C744300471D20 /* InitProjectWorker.swift */; };
 		4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A21217C744300471D20 /* InitProjectRouter.swift */; };
@@ -90,6 +97,13 @@
 		4E537F742175B43B001F97F1 /* LandingPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageModels.swift; sourceTree = "<group>"; };
 		4E537F752175B43B001F97F1 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		4E537F762175B43B001F97F1 /* LandingPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageInteractor.swift; sourceTree = "<group>"; };
+		4E711F702192BE3200DD8743 /* TemplatesPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPagePresenter.swift; sourceTree = "<group>"; };
+		4E711F712192BE3200DD8743 /* TemplatesPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageWorker.swift; sourceTree = "<group>"; };
+		4E711F722192BE3200DD8743 /* TemplatesPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageRouter.swift; sourceTree = "<group>"; };
+		4E711F732192BE3200DD8743 /* TemplatesPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageModels.swift; sourceTree = "<group>"; };
+		4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageViewController.swift; sourceTree = "<group>"; };
+		4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageInteractor.swift; sourceTree = "<group>"; };
+		4E711F7C2192BE7700DD8743 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
 		4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectPresenter.swift; sourceTree = "<group>"; };
 		4ED34A20217C744300471D20 /* InitProjectWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectWorker.swift; sourceTree = "<group>"; };
 		4ED34A21217C744300471D20 /* InitProjectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectRouter.swift; sourceTree = "<group>"; };
@@ -171,6 +185,7 @@
 				4ED34A2B217C776A00471D20 /* AddProjectSummary */,
 				4ED34A642181C06A00471D20 /* AddProjectDefects */,
 				4EDC04CE21878EF50019DC07 /* ProjectPage */,
+				4E711F6F2192BE0400DD8743 /* TemplatesPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -220,6 +235,20 @@
 				4ED34A712185B82300471D20 /* ProjectCell.swift */,
 			);
 			path = LandingPage;
+			sourceTree = "<group>";
+		};
+		4E711F6F2192BE0400DD8743 /* TemplatesPage */ = {
+			isa = PBXGroup;
+			children = (
+				4E711F702192BE3200DD8743 /* TemplatesPagePresenter.swift */,
+				4E711F712192BE3200DD8743 /* TemplatesPageWorker.swift */,
+				4E711F722192BE3200DD8743 /* TemplatesPageRouter.swift */,
+				4E711F732192BE3200DD8743 /* TemplatesPageModels.swift */,
+				4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */,
+				4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */,
+				4E711F7C2192BE7700DD8743 /* TemplateCell.swift */,
+			);
+			path = TemplatesPage;
 			sourceTree = "<group>";
 		};
 		4ED34A1E217C740600471D20 /* AddProjectName */ = {
@@ -413,6 +442,7 @@
 				4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */,
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
+				4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */,
 				4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */,
 				4ED34A35217C77D300471D20 /* InitSummaryWorker.swift in Sources */,
 				4ED34A36217C77D300471D20 /* InitSummaryRouter.swift in Sources */,
@@ -421,15 +451,20 @@
 				4ED34A34217C77D300471D20 /* InitSummaryPresenter.swift in Sources */,
 				4ED34A722185B82300471D20 /* ProjectCell.swift in Sources */,
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
+				4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */,
 				4E537F782175B43C001F97F1 /* LandingPageWorker.swift in Sources */,
 				4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */,
 				4ED34A6B2181C0B500471D20 /* AddProjectDefectsPresenter.swift in Sources */,
+				4E711F782192BE3200DD8743 /* TemplatesPageRouter.swift in Sources */,
 				4EDC04DA21878F2A0019DC07 /* ProjectPageInteractor.swift in Sources */,
+				4E711F762192BE3200DD8743 /* TemplatesPagePresenter.swift in Sources */,
 				4ED34A6E2181C0B500471D20 /* AddProjectDefectsModels.swift in Sources */,
 				4ED34A6C2181C0B500471D20 /* AddProjectDefectsWorker.swift in Sources */,
 				4E537F7B2175B43C001F97F1 /* LandingPageViewController.swift in Sources */,
+				4E711F7B2192BE3200DD8743 /* TemplatesPageInteractor.swift in Sources */,
 				4E537F4F216DC255001F97F1 /* LoginPageInteractor.swift in Sources */,
 				4E537F6A217486EC001F97F1 /* SignupPageModels.swift in Sources */,
+				4E711F772192BE3200DD8743 /* TemplatesPageWorker.swift in Sources */,
 				4E537F4E216DC255001F97F1 /* LoginPageViewController.swift in Sources */,
 				4EDC04D921878F2A0019DC07 /* ProjectPageViewController.swift in Sources */,
 				4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */,
@@ -441,6 +476,7 @@
 				4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */,
 				4EDC04D521878F2A0019DC07 /* ProjectPagePresenter.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
+				4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,
 				4ED34A29217C744300471D20 /* InitProjectViewController.swift in Sources */,
 				4ED34A2A217C744300471D20 /* InitProjectInteractor.swift in Sources */,

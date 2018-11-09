@@ -21,7 +21,6 @@ protocol LandingPagePresentationLogic
 class LandingPagePresenter: LandingPagePresentationLogic
 {
     weak var viewController: LandingPageDisplayLogic?
-    
     // MARK: Do something
     
     func presentDate(response: LandingPage.Date.Response)

@@ -91,6 +91,7 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
             usersDB.observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.hasChild(self.projectNameTextField.text ?? "") {
                     taken = true
+                    return
                 }
                 if !taken {
                     self.interactor?.proJectName = self.projectNameTextField.text ?? ""
@@ -105,5 +106,37 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
             })
         }
     }
+    
+    @IBAction func handleChooseTemplate(_ sender: Any) {
+        if projectNameTextField.text == ""{
+            let alert = UIAlertController(title: "Error", message: "Project name can't be empty!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            let uid = Auth.auth().currentUser?.uid
+            let usersDB = Database.database().reference().child(uid!).child("project")
+            var taken = false
+            
+            usersDB.observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.hasChild(self.projectNameTextField.text ?? "") {
+                    taken = true
+                    return
+                }
+                if !taken {
+                    self.interactor?.proJectName = self.projectNameTextField.text ?? ""
+                    self.interactor?.proJectDetails = self.projectDetailsTextField.text ?? ""
+                    self.router?.routeToTemplates(segue: nil)
+                }
+                else{
+                    let alert = UIAlertController(title: "Error", message: "Project name already taken!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
+        }
+    }
+    
+    
     
 }

@@ -505,9 +505,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="trianglify" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-a5-eEL">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trianglify" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-a5-eEL">
+                                <rect key="frame" x="0.0" y="64" width="375" height="563"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vJv-2n-DSy">
                                 <rect key="frame" x="0.0" y="64" width="375" height="175"/>
@@ -516,7 +515,7 @@
                                     <constraint firstAttribute="height" constant="175" id="9ZS-CB-lEF"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="templatesCell" rowHeight="145" id="Xn6-vT-yhy" customClass="TemplateCell" customModule="Improcess" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="templatesCell" rowHeight="145" id="Xn6-vT-yhy" customClass="TemplateCell" customModule="Improcess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xn6-vT-yhy" id="jFf-Bb-u1J">
@@ -567,12 +566,30 @@
                                     <outlet property="delegate" destination="O8n-Bl-Kcs" id="Elb-xq-mQo"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJJ-DY-64c">
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="d6h-gu-xOG"/>
+                                </constraints>
+                                <state key="normal" title="Choose Template"/>
+                                <connections>
+                                    <action selector="handleNext:" destination="vFD-lo-4rZ" eventType="touchUpInside" id="4Ow-Og-FwK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vJv-2n-DSy" firstAttribute="trailing" secondItem="gVf-K2-Vqy" secondAttribute="trailing" id="1Bc-bY-JfK"/>
+                            <constraint firstItem="oTo-a5-eEL" firstAttribute="trailing" secondItem="gVf-K2-Vqy" secondAttribute="trailing" id="Fdb-WP-X8N"/>
                             <constraint firstItem="vJv-2n-DSy" firstAttribute="leading" secondItem="gVf-K2-Vqy" secondAttribute="leading" id="N64-zU-uuw"/>
+                            <constraint firstItem="oTo-a5-eEL" firstAttribute="top" secondItem="gVf-K2-Vqy" secondAttribute="top" id="Upx-pp-aqU"/>
+                            <constraint firstItem="oTo-a5-eEL" firstAttribute="leading" secondItem="gVf-K2-Vqy" secondAttribute="leading" id="ozC-Bt-zC4"/>
                             <constraint firstItem="vJv-2n-DSy" firstAttribute="top" secondItem="gVf-K2-Vqy" secondAttribute="top" id="p3b-P4-IVn"/>
+                            <constraint firstItem="CJJ-DY-64c" firstAttribute="trailing" secondItem="gVf-K2-Vqy" secondAttribute="trailing" id="sDG-fJ-drW"/>
+                            <constraint firstItem="CJJ-DY-64c" firstAttribute="leading" secondItem="gVf-K2-Vqy" secondAttribute="leading" id="vdf-rN-02k"/>
+                            <constraint firstItem="gVf-K2-Vqy" firstAttribute="bottom" secondItem="CJJ-DY-64c" secondAttribute="bottom" id="vzr-2Z-XdU"/>
+                            <constraint firstItem="CJJ-DY-64c" firstAttribute="top" secondItem="oTo-a5-eEL" secondAttribute="bottom" id="y6k-lP-oiK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gVf-K2-Vqy"/>
                     </view>
@@ -972,7 +989,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="LXb-vW-MwN"/>
                                 </constraints>
-                                <mutableString key="text">เพิ่มข้อผิดพลาด(Defect)ต่างๆที่อาจะเกิดขึ้นได้ในการทำงานแต่ล้ะครั้ง เช่น การทอดไข่ มีข้อผิดพลาดต่างๆคือ 1.ข้อผิดพลาดจากการปรุง 2.ข้อผิดพลาดในการเลือกไข่ 3.ขั้นผิดพลาดในการเลือกไข่ เป็นต้น                                                                             </mutableString>
+                                <string key="text">เพิ่มข้อผิดพลาด(Defect)ต่างๆที่อาจะเกิดขึ้นได้ในการทำงานแต่ล้ะครั้ง เช่น การทอดไข่ มีข้อผิดพลาดต่างๆคือ 1.ข้อผิดพลาดจากการปรุง 2.ข้อผิดพลาดในการเลือกไข่ 3.ขั้นผิดพลาดในการเลือกไข่ เป็นต้น                                                                             </string>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

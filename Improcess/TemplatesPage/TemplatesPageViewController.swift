@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol TemplatesPageDisplayLogic: class
 {
@@ -22,6 +23,7 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
     var interactor: TemplatesPageBusinessLogic?
     var router: (NSObjectProtocol & TemplatesPageRoutingLogic & TemplatesPageDataPassing)?
     var templates = [TemplateForm]()
+    var selectedTemplate: Int? = nil
     
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
@@ -100,10 +102,45 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "templatesCell", for: indexPath) as! TemplateCell
         cell.templateName.text = templates[indexPath.row].templateName
         cell.templateDetail.text = templates[indexPath.row].templateDetail
+        let imageURL = URL(string: templates[indexPath.row].templateImagePath!)
+        //        print(templates[indexPath.row].templateImagePath)
+        cell.templateImage.kf.setImage(with: imageURL)
+        //        print("downloaded?")
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        if selectedTemplate != indexPath.row{
+            selectedTemplate = indexPath.row
+            cell?.layer.borderWidth = 2.0
+            cell?.layer.borderColor = UIColor.init(red: 53/256, green: 146/256, blue: 245/256, alpha: 1).cgColor
+            print("select")
+        }
+        else{
+            selectedTemplate = nil
+            cell?.layer.borderWidth = 0.0
+            print("deselect")
+        }
+    }
+    
+    private func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.layer.borderWidth = 0.0
+        cell?.layer.borderColor = UIColor.black.cgColor
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
+            indexPathForSelectedRow == indexPath {
+            tableView.deselectRow(at: indexPath, animated: false)
+            return nil
+        }
+        return indexPath
     }
 }

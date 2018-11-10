@@ -24,7 +24,8 @@ class TemplatesPageWorker
                     let dict = template.value as! [String: AnyObject]
                     let name = template.key
                     let detail = dict["description"] as! String
-                    let newTemplate = TemplateForm(templateName: name, templateImagePath: "", templateDetail: detail)
+                    let imagePath = dict["imagePath"] as! String
+                    let newTemplate = TemplateForm(templateName: name, templateImagePath: imagePath, templateDetail: detail)
                     templates.append(newTemplate)
                 }
             }

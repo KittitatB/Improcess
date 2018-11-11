@@ -28,8 +28,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     @IBOutlet weak var projectDescription: UITextView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
-    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
-    
+//    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollview: UIScrollView!
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -75,12 +75,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        let a = ProjectTask(name: "aa")
-        let b = ProjectTask(name: "bb")
-        projectTask.append(a)
-        projectTask.append(b)
         loadData()
-        print(projectTask)
+//        print(projectTask)
     }
     
     // MARK: Do something
@@ -118,21 +114,43 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         updateTableview()
     }
     
-    func adjustHeight(){
-        var viewHeight = 667
-        if projectTask.count > 1{
-            viewHeight += (projectTask.count - 1)
-        }
-        scrollHeight.constant = CGFloat(viewHeight)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        adjustHeight()
+//        adjustHeight()
     }
     
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
         tableview.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        scrollview.layoutIfNeeded()
+        var viewHeight = 603
+        let a = ProjectTask(name: "aa")
+        let b = ProjectTask(name: "bb")
+        let a1 = ProjectTask(name: "aa")
+        let b1 = ProjectTask(name: "bb")
+        let a2 = ProjectTask(name: "aa")
+        let b2 = ProjectTask(name: "bb")
+        let a3 = ProjectTask(name: "aa")
+        let b3 = ProjectTask(name: "bb")
+        let a4 = ProjectTask(name: "aa")
+        let b4 = ProjectTask(name: "bb")
+        projectTask.append(a)
+        projectTask.append(b)
+        projectTask.append(b1)
+        projectTask.append(b2)
+        projectTask.append(b3)
+        projectTask.append(b4)
+        projectTask.append(a1)
+        projectTask.append(a2)
+        projectTask.append(a3)
+        projectTask.append(a4)
+        updateTableview()
+        if projectTask.count > 1{
+            viewHeight += (projectTask.count - 1)
+        }
+        scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
     
 }

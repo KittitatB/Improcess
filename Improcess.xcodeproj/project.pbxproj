@@ -184,8 +184,8 @@
 				4ED34A1E217C740600471D20 /* AddProjectName */,
 				4ED34A2B217C776A00471D20 /* AddProjectSummary */,
 				4ED34A642181C06A00471D20 /* AddProjectDefects */,
-				4EDC04CE21878EF50019DC07 /* ProjectPage */,
 				4E711F6F2192BE0400DD8743 /* TemplatesPage */,
+				4EDC04CE21878EF50019DC07 /* ProjectPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -638,7 +638,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -654,7 +657,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

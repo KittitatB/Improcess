@@ -30,15 +30,6 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
     var project: ProjectDetail?
     // MARK: Do something
     
-    //    func doSomething(request: ProjectPage.Something.Request)
-    //    {
-    //        worker = ProjectPageWorker()
-    //        worker?.doSomeWork()
-    //
-    //        let response = ProjectPage.Something.Response()
-    //        presenter?.presentSomething(response: response)
-    //    }
-    
     func receiveProject() {
         let response = ProjectPage.Project.Response(project: project!)
         presenter?.presentProject(response: response)

@@ -24,7 +24,6 @@ enum ProjectPage
         struct Response
         {
             var project: ProjectDetail
-            
         }
         struct ViewModel
         {

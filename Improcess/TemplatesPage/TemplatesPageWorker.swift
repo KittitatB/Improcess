@@ -34,10 +34,18 @@ class TemplatesPageWorker
         
     }
     
-    func createProjectWithSelectedTemplate(projectName:String, template: String){
+    func createProjectWithSelectedTemplate(projectName:String, template: String, projectDescription: String){
         let uid = Auth.auth().currentUser?.uid
+        let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         Database.database().reference().child("templates").child(template).observe(.value) { (snapshot) in
-            Database.database().reference().child(uid!).child("projects").child(projectName).setValue(snapshot.value)
+            let firebaseRef = Database.database().reference().child(uid!).child("projects").child(projectName)
+            let projectDetail = [
+                "description" : projectDescription ,
+                "timestamp" : timestamp,
+                "taskQuantity" : 0
+                ] as [String : Any]
+            firebaseRef.setValue(snapshot.value)
+            firebaseRef.updateChildValues(projectDetail)
         }
     }
 }

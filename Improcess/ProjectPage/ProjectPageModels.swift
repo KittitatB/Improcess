@@ -34,4 +34,9 @@ enum ProjectPage
 
 struct ProjectTask {
     var name: String
+    
+    init(myName: String) {
+        name = myName
+    }
 }
+

@@ -53,10 +53,14 @@ struct ProjectDetail {
     var name: String?
     var timestamp: Int?
     var detail: String?
+    var imagePath: String?
+    var taskQuantity: Int?
     
-    init(thisName: String, thisTimestamp: Int, thisDetail: String) {
+    init(thisName: String, thisTimestamp: Int, thisDetail: String, thisImagePath: String, thisTask: Int?) {
         name = thisName
         timestamp = thisTimestamp
         detail = thisDetail
+        imagePath = thisImagePath
+        taskQuantity = thisTask
     }
 }

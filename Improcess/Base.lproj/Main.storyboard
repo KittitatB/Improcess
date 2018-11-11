@@ -312,27 +312,54 @@
                                 <rect key="frame" x="0.0" y="177" width="375" height="449"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="45" id="DlV-uC-d2L" customClass="ProjectCell" customModule="Improcess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="45"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="75" id="DlV-uC-d2L" customClass="ProjectCell" customModule="Improcess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DlV-uC-d2L" id="oIp-tM-8yh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHZ-Bl-Kzm">
-                                                    <rect key="frame" x="22.5" y="9.5" width="54" height="26"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="22"/>
-                                                    <color key="textColor" red="0.2483671308" green="0.55145847800000003" blue="0.94584923980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="83" y="11" width="54" height="26"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="erV-h3-eX5">
+                                                    <rect key="frame" x="15" y="7.5" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="2nd-1Y-jbe"/>
+                                                        <constraint firstAttribute="height" constant="60" id="p33-WH-44d"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAh-co-H1F">
+                                                    <rect key="frame" x="83" y="46" width="9" height="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cT1-Eq-s6z">
+                                                    <rect key="frame" x="96" y="46" width="36" height="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="centerY" secondItem="oIp-tM-8yh" secondAttribute="centerY" id="pXj-Yk-WXL"/>
-                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="leading" secondItem="oIp-tM-8yh" secondAttribute="leadingMargin" constant="7.5" id="rjN-Y7-WCs"/>
+                                                <constraint firstItem="cT1-Eq-s6z" firstAttribute="height" secondItem="qAh-co-H1F" secondAttribute="height" id="3Jd-WZ-If2"/>
+                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="top" secondItem="oIp-tM-8yh" secondAttribute="topMargin" id="Cpf-Tr-pPH"/>
+                                                <constraint firstItem="cT1-Eq-s6z" firstAttribute="leading" secondItem="qAh-co-H1F" secondAttribute="trailing" constant="4" id="Dxd-8q-G5W"/>
+                                                <constraint firstItem="erV-h3-eX5" firstAttribute="leading" secondItem="oIp-tM-8yh" secondAttribute="leading" constant="15" id="hex-m5-BI5"/>
+                                                <constraint firstItem="erV-h3-eX5" firstAttribute="centerY" secondItem="oIp-tM-8yh" secondAttribute="centerY" id="ifq-WR-bRq"/>
+                                                <constraint firstItem="cT1-Eq-s6z" firstAttribute="centerY" secondItem="qAh-co-H1F" secondAttribute="centerY" id="pIE-JU-AEe"/>
+                                                <constraint firstItem="qHZ-Bl-Kzm" firstAttribute="leading" secondItem="erV-h3-eX5" secondAttribute="trailing" constant="8" id="sAV-Qh-2A2"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qAh-co-H1F" secondAttribute="bottom" id="sTH-pX-sUB"/>
+                                                <constraint firstItem="qAh-co-H1F" firstAttribute="leading" secondItem="erV-h3-eX5" secondAttribute="trailing" constant="8" id="tya-Fq-Ne9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="projectImage" destination="erV-h3-eX5" id="iqR-N0-mvr"/>
                                             <outlet property="projectNameLabel" destination="qHZ-Bl-Kzm" id="u0s-hS-a5e"/>
+                                            <outlet property="projectTask" destination="qAh-co-H1F" id="zn6-ME-KVV"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -689,8 +716,8 @@
                                                         <action selector="handlePlus:" destination="ded-eD-PL2" eventType="touchUpInside" id="LJs-ws-QAw"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Step" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-NJ-XuU">
-                                                    <rect key="frame" x="53" y="10.5" width="89" height="24"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Phase" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-NJ-XuU">
+                                                    <rect key="frame" x="53" y="10.5" width="102" height="24"/>
                                                     <color key="textColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -904,8 +931,8 @@
                                                         <action selector="handlePlus:" destination="Spb-KD-TJS" eventType="touchUpInside" id="qli-ll-6SV"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Step" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-Gu-w4m">
-                                                    <rect key="frame" x="53" y="10.5" width="89" height="24"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Defect" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-Gu-w4m">
+                                                    <rect key="frame" x="53" y="10.5" width="105" height="24"/>
                                                     <color key="textColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits"/>

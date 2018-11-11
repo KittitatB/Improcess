@@ -17,19 +17,21 @@ protocol ProjectPageDisplayLogic: class
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
 }
 
-class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate
+class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CellLogic
 {
     var interactor: ProjectPageBusinessLogic?
     var router: (NSObjectProtocol & ProjectPageRoutingLogic & ProjectPageDataPassing)?
     var projectTask = [ProjectTask]()
+    var cellStack: Int?
+    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     // MARK: Object lifecycle
     
     @IBOutlet weak var projectName: UILabel!
     @IBOutlet weak var projectDescription: UITextView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
-//    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollview: UIScrollView!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -76,7 +78,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     {
         super.viewDidLoad()
         loadData()
-//        print(projectTask)
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: Do something
@@ -100,6 +102,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == projectTask.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
+            cell.cellInteractor = self
             return cell
         }
         else {
@@ -114,10 +117,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         updateTableview()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-//        adjustHeight()
-    }
-    
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
         tableview.reloadData()
@@ -126,31 +125,45 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     override func viewDidLayoutSubviews() {
         scrollview.layoutIfNeeded()
         var viewHeight = 603
-        let a = ProjectTask(name: "aa")
-        let b = ProjectTask(name: "bb")
-        let a1 = ProjectTask(name: "aa")
-        let b1 = ProjectTask(name: "bb")
-        let a2 = ProjectTask(name: "aa")
-        let b2 = ProjectTask(name: "bb")
-        let a3 = ProjectTask(name: "aa")
-        let b3 = ProjectTask(name: "bb")
-        let a4 = ProjectTask(name: "aa")
-        let b4 = ProjectTask(name: "bb")
-        projectTask.append(a)
-        projectTask.append(b)
-        projectTask.append(b1)
-        projectTask.append(b2)
-        projectTask.append(b3)
-        projectTask.append(b4)
-        projectTask.append(a1)
-        projectTask.append(a2)
-        projectTask.append(a3)
-        projectTask.append(a4)
         updateTableview()
-        if projectTask.count > 1{
-            viewHeight += (projectTask.count - 1)
+        if (projectTask.count) > 2{
+            viewHeight += (projectTask.count - 2) * 45
         }
         scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func showDoneButton() {
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc func buttonTapped(){
+        view.endEditing(true)
+    }
+    
+    func hideDoneButton(){
+        self.navigationItem.rightBarButtonItem = nil
+    }
+    
+    func addStep(name: String) {
+        let newTask = ProjectTask(myName: name)
+        projectTask.append(newTask)
+        view.setNeedsLayout()
+    }
+    
+    func deleteStep(index: Int) {
+        // ยังไม่ใช้ในนี้
+    }
+    
+    func updateStepDetail(index: Int, newDescription: String) {
+        //อันนี้ก็ไม่ใช้
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        view.setNeedsLayout()
+    }
 }

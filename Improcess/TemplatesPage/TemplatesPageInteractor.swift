@@ -45,7 +45,7 @@ class TemplatesPageInteractor: TemplatesPageBusinessLogic, TemplatesPageDataStor
     
     func createProject(template: String) {
         worker = TemplatesPageWorker()
-        worker?.createProjectWithSelectedTemplate(projectName: proJectName!, template: template)
+        worker?.createProjectWithSelectedTemplate(projectName: proJectName!, template: template, projectDescription: proJectDetails!)
     }
 }
 

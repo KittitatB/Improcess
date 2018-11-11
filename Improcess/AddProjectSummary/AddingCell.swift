@@ -20,9 +20,11 @@ class AddingCell: UITableViewCell {
 
     @IBOutlet weak var addStepTextField: UITextField!
     weak var cellInteractor: CellLogic?
+    var addRemember: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        addRemember = addStepTextField.text
         // Initialization code
     }
 
@@ -47,7 +49,7 @@ class AddingCell: UITableViewCell {
         if addStepTextField.text != "" {
             cellInteractor?.addStep(name: addStepTextField.text!)
         }
-        addStepTextField.text = "Add Step"
+        addStepTextField.text = addRemember
         cellInteractor?.hideDoneButton()
     }
 }

@@ -25,7 +25,9 @@ class LandingPageWorker
                     let projectName = project.key
                     let projectTimestamp = dict["timestamp"] as! Int
                     let projectDetail = dict["description"] as! String
-                    let newProject = ProjectDetail(thisName: projectName, thisTimestamp: projectTimestamp, thisDetail: projectDetail)
+                    let projectImage = dict["imagePath"] as! String
+                    let projectTask = dict["taskQuantity"] as! Int
+                    let newProject = ProjectDetail(thisName: projectName, thisTimestamp: projectTimestamp, thisDetail: projectDetail, thisImagePath: projectImage, thisTask: projectTask)
                     projects.append(newProject)
                 }
                 completionHandler(projects)

@@ -11,7 +11,8 @@ import UIKit
 class ProjectCell: UITableViewCell {
 
     @IBOutlet weak var projectNameLabel: UILabel!
-    
+    @IBOutlet weak var projectTask: UILabel!
+    @IBOutlet weak var projectImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

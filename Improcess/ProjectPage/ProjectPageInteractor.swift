@@ -15,6 +15,7 @@ import UIKit
 protocol ProjectPageBusinessLogic
 {
     var project: ProjectDetail? {get set}
+    func addTask(name: String)
     func receiveProject()
 }
 
@@ -34,5 +35,10 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
         let response = ProjectPage.Project.Response(project: project!)
         presenter?.presentProject(response: response)
     }
+    
+    func addTask(name: String) {
+        
+    }
+
     
 }

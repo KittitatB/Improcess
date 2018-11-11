@@ -12,6 +12,7 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 protocol LandingPageDisplayLogic: class
 {
@@ -101,11 +102,14 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectCell
         cell.projectNameLabel.text = projects[indexPath.row].name
+        let imageURL = URL(string: projects[indexPath.row].imagePath!)
+        cell.projectImage.kf.setImage(with: imageURL)
+        cell.projectTask.text = "\(String(describing: projects[indexPath.row].taskQuantity!))"
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 75
     }
     
     func loadProjects(){

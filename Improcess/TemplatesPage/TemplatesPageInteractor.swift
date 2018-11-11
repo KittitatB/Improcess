@@ -15,6 +15,7 @@ import UIKit
 protocol TemplatesPageBusinessLogic
 {
     func requestTemplates()
+    func createProject(template:String)
 }
 
 protocol TemplatesPageDataStore
@@ -40,6 +41,11 @@ class TemplatesPageInteractor: TemplatesPageBusinessLogic, TemplatesPageDataStor
             let response = TemplatesPage.Template.Response(templates: template)
             self.presenter?.presentTemplates(response: response)
         })
+    }
+    
+    func createProject(template: String) {
+        worker = TemplatesPageWorker()
+        worker?.createProjectWithSelectedTemplate(projectName: proJectName!, template: template)
     }
 }
 

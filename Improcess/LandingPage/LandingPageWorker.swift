@@ -18,7 +18,7 @@ class LandingPageWorker
     func requestProjectFormFirebase(uid: String!, completionHandler: @escaping([ProjectDetail]) -> Void)
     {
         var projects = [ProjectDetail]()
-        Database.database().reference().child(uid!).child("project").observeSingleEvent(of: .value) { (snapshot) in
+        Database.database().reference().child(uid!).child("projects").observeSingleEvent(of: .value) { (snapshot) in
             if let projectsDic = snapshot.value as? [String : AnyObject]{
                 for project in projectsDic{
                     let dict = project.value as! [String: AnyObject]

@@ -103,9 +103,7 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
         cell.templateName.text = templates[indexPath.row].templateName
         cell.templateDetail.text = templates[indexPath.row].templateDetail
         let imageURL = URL(string: templates[indexPath.row].templateImagePath!)
-        //        print(templates[indexPath.row].templateImagePath)
         cell.templateImage.kf.setImage(with: imageURL)
-        //        print("downloaded?")
         return cell
     }
     
@@ -119,12 +117,10 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
             selectedTemplate = indexPath.row
             cell?.layer.borderWidth = 2.0
             cell?.layer.borderColor = UIColor.init(red: 53/256, green: 146/256, blue: 245/256, alpha: 1).cgColor
-            print("select")
         }
         else{
             selectedTemplate = nil
             cell?.layer.borderWidth = 0.0
-            print("deselect")
         }
     }
     
@@ -143,4 +139,27 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
         }
         return indexPath
     }
+    
+    @IBAction func createProject(_ sender: Any) {
+        if selectedTemplate == nil{
+            let alert = UIAlertController(title: "Error", message: "Please choose template of the project!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            interactor?.createProject(template: templates[selectedTemplate!].templateName!)
+            displayAlert()
+        }
+    }
+    
+    func displayAlert() {
+        let alert = UIAlertController(title: "Success", message: "Project have been created!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+            var viewControllers = self.navigationController?.viewControllers
+            viewControllers?.removeLast(2) // views to pop
+            self.navigationController?.setViewControllers(viewControllers!, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

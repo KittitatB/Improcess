@@ -29,22 +29,7 @@ enum TemplatesPage
             var templates: [TemplateForm]?
         }
     }
-    
-    enum Image
-    {
-        struct Request
-        {
-            var imagePath: UIImage?
-        }
-        struct Response
-        {
-            var templateImage: UIImage?
-        }
-        struct ViewModel
-        {
-            var templateImage: UIImage?
-        }
-    }
+
 }
 
 struct TemplateForm{

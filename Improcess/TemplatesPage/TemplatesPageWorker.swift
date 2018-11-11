@@ -33,4 +33,11 @@ class TemplatesPageWorker
         }
         
     }
+    
+    func createProjectWithSelectedTemplate(projectName:String, template: String){
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child("templates").child(template).observe(.value) { (snapshot) in
+            Database.database().reference().child(uid!).child("projects").child(projectName).setValue(snapshot.value)
+        }
+    }
 }

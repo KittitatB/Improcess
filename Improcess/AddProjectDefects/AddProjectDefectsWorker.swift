@@ -19,8 +19,7 @@ class AddProjectDefectsWorker
     {
         let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         let uid = Auth.auth().currentUser?.uid
-        let firebasePath = Database.database().reference().child(uid!).child("project").child(projectName)
-//        let firebasePath = Database.database().reference().child("templates").child(projectName)
+        let firebasePath = Database.database().reference().child(uid!).child("projects").child(projectName)
         let projectDetail = [
             "description" : projectDescription ?? "",
             "timestamp" : timestamp

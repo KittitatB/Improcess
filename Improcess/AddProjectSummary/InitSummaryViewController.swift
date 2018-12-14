@@ -17,7 +17,7 @@ protocol InitSummaryDisplayLogic: class
     func displayNewStep()
 }
 
-class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
+class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic, UITextFieldDelegate
 {
     
     var interactor: InitSummaryBusinessLogic?
@@ -97,12 +97,15 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
         if indexPath.row == data.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell", for: indexPath) as! AddingCell
             cell.cellInteractor = self
+            cell.addStepTextField.delegate = self
             return cell
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "stepcell", for: indexPath) as! StepCell
             cell.stepName.text = data[indexPath.row].name
+            cell.stepName.delegate = self
             cell.stepDescription.text = data[indexPath.row].description
+            cell.stepDescription.delegate = self
             cell.cellInteractor = self
             return cell
         }

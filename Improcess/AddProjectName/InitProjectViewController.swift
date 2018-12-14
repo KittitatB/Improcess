@@ -17,7 +17,7 @@ protocol InitProjectDisplayLogic: class
 {
 }
 
-class InitProjectViewController: UIViewController, InitProjectDisplayLogic
+class InitProjectViewController: UIViewController, InitProjectDisplayLogic, UITextFieldDelegate
 {
     var interactor: InitProjectBusinessLogic?
     var router: (NSObjectProtocol & InitProjectRoutingLogic & InitProjectDataPassing)?
@@ -71,11 +71,19 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.projectNameTextField.delegate = self
+        self.projectDetailsTextField.delegate = self
+        self.hideKeyboardWhenTappedAround()
     }
     
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     @IBAction func nextHandler(_ sender: Any) {
         if projectNameTextField.text == ""{

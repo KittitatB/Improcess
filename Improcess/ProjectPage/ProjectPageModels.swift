@@ -14,8 +14,6 @@ import UIKit
 
 enum ProjectPage
 {
-    // MARK: Use cases
-    
     enum Project
     {
         struct Request

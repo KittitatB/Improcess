@@ -17,7 +17,7 @@ protocol AddProjectDefectsDisplayLogic: class
     func displayAlert()
 }
 
-class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic
+class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDisplayLogic, UITableViewDelegate, UITableViewDataSource, CellLogic, UITextFieldDelegate
 {
     
     var interactor: AddProjectDefectsBusinessLogic?
@@ -96,12 +96,15 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
         if indexPath.row == data.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell2", for: indexPath) as! AddingCell
             cell.cellInteractor = self
+            cell.addStepTextField.delegate = self
             return cell
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "defectCell", for: indexPath) as! StepCell
             cell.stepName.text = data[indexPath.row].name
+            cell.stepName.delegate = self
             cell.stepDescription.text = data[indexPath.row].description
+            cell.stepDescription.delegate = self
             cell.cellInteractor = self
             return cell
         }

@@ -86,7 +86,7 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
     func displayTemplates(viewModel: TemplatesPage.Template.ViewModel)
     {
         templates = viewModel.templates!
-        tableviewHeight.constant = CGFloat(templates.count * 125)
+        tableviewHeight.constant = CGFloat(templates.count * 175)
         tableview.reloadData()
     }
     
@@ -108,7 +108,7 @@ class TemplatesPageViewController: UIViewController, TemplatesPageDisplayLogic, 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125
+        return 175
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -84,6 +84,14 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        KingfisherManager.shared.cache.cleanExpiredDiskCache()
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()

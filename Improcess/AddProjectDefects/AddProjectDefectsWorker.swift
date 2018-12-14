@@ -22,7 +22,9 @@ class AddProjectDefectsWorker
         let firebasePath = Database.database().reference().child(uid!).child("projects").child(projectName)
         let projectDetail = [
             "description" : projectDescription ?? "",
-            "timestamp" : timestamp
+            "timestamp" : timestamp,
+            "imagePath" : "https://firebasestorage.googleapis.com/v0/b/improcess-65d37.appspot.com/o/templateIcon%2Fcustomize.png?alt=media&token=f95924af-86a2-43ff-b4af-47abfccec5d9",
+            "taskQuantity" : 0
         ] as [String : Any]
         firebasePath.setValue(projectDetail)
         

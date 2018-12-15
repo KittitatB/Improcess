@@ -28,6 +28,21 @@ enum ProjectPage
             var project: ProjectDetail
         }
     }
+    
+    enum Task
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var task: [ProjectTask]
+        }
+        struct ViewModel
+        {
+            var task: [ProjectTask]
+        }
+    }
 }
 
 struct ProjectTask {

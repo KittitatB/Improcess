@@ -15,6 +15,7 @@ import UIKit
 protocol ProjectPagePresentationLogic
 {
     func presentProject(response: ProjectPage.Project.Response)
+    func presentTask(response: ProjectPage.Task.Response)
 }
 
 class ProjectPagePresenter: ProjectPagePresentationLogic
@@ -27,5 +28,11 @@ class ProjectPagePresenter: ProjectPagePresentationLogic
     {
         let viewModel = ProjectPage.Project.ViewModel(project: response.project)
         viewController?.displayProject(viewModel: viewModel)
+    }
+    
+    func presentTask(response: ProjectPage.Task.Response)
+    {
+        let viewModel = ProjectPage.Task.ViewModel(task: response.task)
+        viewController?.displayTask(viewModel: viewModel)
     }
 }

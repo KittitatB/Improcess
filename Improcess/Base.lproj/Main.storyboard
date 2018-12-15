@@ -24,9 +24,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFZ-JF-DDL">
-                                <rect key="frame" x="171" y="598" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFZ-JF-DDL">
+                                <rect key="frame" x="191" y="558.5" width="32" height="30"/>
                                 <state key="normal" title="Next"/>
                                 <connections>
                                     <segue destination="e96-Zg-Kdf" kind="show" id="gLQ-3H-8GC"/>
@@ -37,6 +36,8 @@
                         <constraints>
                             <constraint firstItem="b22-Jz-uTO" firstAttribute="centerX" secondItem="6bD-rf-Jkb" secondAttribute="centerX" id="106-od-kt4"/>
                             <constraint firstItem="b22-Jz-uTO" firstAttribute="centerY" secondItem="6bD-rf-Jkb" secondAttribute="centerY" id="OQK-pE-dat"/>
+                            <constraint firstItem="XFZ-JF-DDL" firstAttribute="centerX" secondItem="6bD-rf-Jkb" secondAttribute="centerX" id="n6H-nc-km1"/>
+                            <constraint firstItem="XFZ-JF-DDL" firstAttribute="top" secondItem="b22-Jz-uTO" secondAttribute="bottom" constant="100" id="vpd-he-CrU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5qV-g7-gOf"/>
                     </view>
@@ -1481,6 +1482,6 @@
         <image name="trianglify" width="1125" height="2436"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OYE-hD-zzt"/>
+        <segue reference="gLQ-3H-8GC"/>
     </inferredMetricsTieBreakers>
 </document>

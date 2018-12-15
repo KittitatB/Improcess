@@ -17,6 +17,7 @@ protocol ProjectPageBusinessLogic
     var project: ProjectDetail? {get set}
     func addTask(task: String, numberOfTask: Int)
     func receiveProject()
+    func requestTasks()
 }
 
 protocol ProjectPageDataStore
@@ -41,5 +42,15 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
         worker?.updateTaskChild(project: project!, task: task, numberOfTask: numberOfTask)
     }
 
+    func requestTasks() {
+        worker = ProjectPageWorker()
+        if project?.taskQuantity == 0 {
+            return
+        }
+        worker?.requestTaskFormFirebase(project: project!, completionHandler: { (tasks) in
+            let response = ProjectPage.Task.Response(task: tasks)
+            self.presenter?.presentTask(response: response)
+        })
+    }
     
 }

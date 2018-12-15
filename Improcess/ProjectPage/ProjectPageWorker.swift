@@ -20,6 +20,26 @@ class ProjectPageWorker
     {
         let uid = Auth.auth().currentUser?.uid
         Database.database().reference().child(uid!).child("projects").child(project.name!).updateChildValues(["taskQuantity": numberOfTask] as [String : Int])
-        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child("task").updateChildValues(["status": "Open"] as [String : String])
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Open"] as [String : String])
+    }
+    
+    func requestTaskFormFirebase(project: ProjectDetail,completionHandler: @escaping([ProjectTask]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var tasks = [ProjectTask]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").observeSingleEvent(of: .value) { (snapshot) in
+            if let tasksDic = snapshot.value as? [String : AnyObject]{
+                for task in tasksDic{
+                    let dict = task.value as! [String: AnyObject]
+                    let taskName = task.key
+                    print(dict)
+                    let taskStatus = dict["status"] as! String
+                    let newTask = ProjectTask(myName: taskName, myStatus: taskStatus)
+                    tasks.append(newTask)
+                }
+                completionHandler(tasks)
+            }
+        }
+        
     }
 }

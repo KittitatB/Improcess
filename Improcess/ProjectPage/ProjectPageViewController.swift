@@ -15,6 +15,7 @@ import UIKit
 protocol ProjectPageDisplayLogic: class
 {
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
+    func displayTask(viewModel: ProjectPage.Task.ViewModel)
 }
 
 class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CellLogic
@@ -77,14 +78,30 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     override func viewDidLoad()
     {
-        super.viewDidLoad()
         loadData()
         self.hideKeyboardWhenTappedAround()
+        super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadTask()
+        view.setNeedsLayout()
+    }
+    
     
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
+    func loadTask(){
+        interactor?.requestTasks()
+    }
+    
+    func displayTask(viewModel: ProjectPage.Task.ViewModel) {
+        for task in viewModel.task{
+            projectTask.append(task)
+        }
+        updateTableview()
+    }
     
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
     {
@@ -172,7 +189,4 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         //
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        view.setNeedsLayout()
-    }
 }

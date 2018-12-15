@@ -11,6 +11,7 @@ import UIKit
 class TaskCell: UITableViewCell {
     
     @IBOutlet weak var taskNameLabel: UITextField!
+    @IBOutlet weak var status: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

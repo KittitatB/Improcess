@@ -11,10 +11,15 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class ProjectPageWorker
 {
-    func doSomeWork()
+    func updateTaskChild(project: ProjectDetail, task: String, numberOfTask: Int)
     {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child(uid!).child("projects").child(project.name!).updateChildValues(["taskQuantity": numberOfTask] as [String : Int])
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child("task").updateChildValues(["status": "Open"] as [String : String])
     }
 }

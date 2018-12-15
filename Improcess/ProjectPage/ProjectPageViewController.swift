@@ -23,6 +23,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     var router: (NSObjectProtocol & ProjectPageRoutingLogic & ProjectPageDataPassing)?
     var projectTask = [ProjectTask]()
     var cellStack: Int?
+    var statusColor:[String:UIColor] = ["Open":UIColor.init(red: 76/255, green: 217/255, blue: 100/255, alpha: 1),"WIP":UIColor.init(red: 255/255, green: 204/255, blue: 0/255, alpha: 1),"Close":UIColor.init(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)]
     let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     // MARK: Object lifecycle
     
@@ -108,6 +109,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskCell
             cell.taskNameLabel.text = projectTask[indexPath.row].name
+            cell.status.text = projectTask[indexPath.row].status
+            cell.status.textColor = statusColor[projectTask[indexPath.row].status]
             return cell
         }
     }
@@ -150,9 +153,15 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func addStep(name: String) {
-        let newTask = ProjectTask(myName: name)
+        let newTask = ProjectTask(myName: name, myStatus: "Open")
         projectTask.append(newTask)
-        view.setNeedsLayout()
+        let queue = DispatchQueue(label: "work-queue")
+        queue.async {
+            self.interactor?.addTask(task: name, numberOfTask: self.projectTask.count)
+        }
+        DispatchQueue.main.async {
+            self.view.setNeedsLayout()
+        }
     }
     
     func deleteStep(index: Int) {
@@ -160,7 +169,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func updateStepDetail(index: Int, newDescription: String) {
-        //อันนี้ก็ไม่ใช้
+        //
     }
     
     override func viewWillAppear(_ animated: Bool) {

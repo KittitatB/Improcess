@@ -32,9 +32,11 @@ enum ProjectPage
 
 struct ProjectTask {
     var name: String
+    var status: String
     
-    init(myName: String) {
+    init(myName: String, myStatus: String) {
         name = myName
+        status = myStatus
     }
 }
 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2684AB21C7FD2300B776D1 /* TaskPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A521C7FD2300B776D1 /* TaskPagePresenter.swift */; };
+		4E2684AC21C7FD2300B776D1 /* TaskPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A621C7FD2300B776D1 /* TaskPageWorker.swift */; };
+		4E2684AD21C7FD2300B776D1 /* TaskPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A721C7FD2300B776D1 /* TaskPageRouter.swift */; };
+		4E2684AE21C7FD2300B776D1 /* TaskPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A821C7FD2300B776D1 /* TaskPageModels.swift */; };
+		4E2684AF21C7FD2300B776D1 /* TaskPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A921C7FD2300B776D1 /* TaskPageViewController.swift */; };
+		4E2684B021C7FD2300B776D1 /* TaskPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684AA21C7FD2300B776D1 /* TaskPageInteractor.swift */; };
 		4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */; };
 		4E452D84216C8C0F00BBCC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E452D82216C8C0F00BBCC34 /* Main.storyboard */; };
 		4E452D86216C8C1200BBCC34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E452D85216C8C1200BBCC34 /* Assets.xcassets */; };
@@ -71,6 +77,12 @@
 
 /* Begin PBXFileReference section */
 		13EFEEE65834922F5DE4C06D /* Pods-Improcess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.debug.xcconfig"; sourceTree = "<group>"; };
+		4E2684A521C7FD2300B776D1 /* TaskPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPagePresenter.swift; sourceTree = "<group>"; };
+		4E2684A621C7FD2300B776D1 /* TaskPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageWorker.swift; sourceTree = "<group>"; };
+		4E2684A721C7FD2300B776D1 /* TaskPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageRouter.swift; sourceTree = "<group>"; };
+		4E2684A821C7FD2300B776D1 /* TaskPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageModels.swift; sourceTree = "<group>"; };
+		4E2684A921C7FD2300B776D1 /* TaskPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageViewController.swift; sourceTree = "<group>"; };
+		4E2684AA21C7FD2300B776D1 /* TaskPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageInteractor.swift; sourceTree = "<group>"; };
 		4E452D79216C8C0F00BBCC34 /* Improcess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Improcess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E452D83216C8C0F00BBCC34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -157,6 +169,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4E2684A421C7FCF100B776D1 /* TaskPage */ = {
+			isa = PBXGroup;
+			children = (
+				4E2684A521C7FD2300B776D1 /* TaskPagePresenter.swift */,
+				4E2684A621C7FD2300B776D1 /* TaskPageWorker.swift */,
+				4E2684A721C7FD2300B776D1 /* TaskPageRouter.swift */,
+				4E2684A821C7FD2300B776D1 /* TaskPageModels.swift */,
+				4E2684A921C7FD2300B776D1 /* TaskPageViewController.swift */,
+				4E2684AA21C7FD2300B776D1 /* TaskPageInteractor.swift */,
+			);
+			path = TaskPage;
+			sourceTree = "<group>";
+		};
 		4E452D70216C8C0F00BBCC34 = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +211,7 @@
 				4ED34A642181C06A00471D20 /* AddProjectDefects */,
 				4E711F6F2192BE0400DD8743 /* TemplatesPage */,
 				4EDC04CE21878EF50019DC07 /* ProjectPage */,
+				4E2684A421C7FCF100B776D1 /* TaskPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -442,6 +468,7 @@
 				4E537F68217486EC001F97F1 /* SignupPageWorker.swift in Sources */,
 				4E537F4B216DC255001F97F1 /* LoginPageWorker.swift in Sources */,
 				4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */,
+				4E2684AF21C7FD2300B776D1 /* TaskPageViewController.swift in Sources */,
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
 				4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */,
@@ -459,6 +486,7 @@
 				4ED34A6B2181C0B500471D20 /* AddProjectDefectsPresenter.swift in Sources */,
 				4E711F782192BE3200DD8743 /* TemplatesPageRouter.swift in Sources */,
 				4EDC04DA21878F2A0019DC07 /* ProjectPageInteractor.swift in Sources */,
+				4E2684AE21C7FD2300B776D1 /* TaskPageModels.swift in Sources */,
 				4E711F762192BE3200DD8743 /* TemplatesPagePresenter.swift in Sources */,
 				4ED34A6E2181C0B500471D20 /* AddProjectDefectsModels.swift in Sources */,
 				4ED34A6C2181C0B500471D20 /* AddProjectDefectsWorker.swift in Sources */,
@@ -466,7 +494,9 @@
 				4E711F7B2192BE3200DD8743 /* TemplatesPageInteractor.swift in Sources */,
 				4E537F4F216DC255001F97F1 /* LoginPageInteractor.swift in Sources */,
 				4E537F6A217486EC001F97F1 /* SignupPageModels.swift in Sources */,
+				4E2684AC21C7FD2300B776D1 /* TaskPageWorker.swift in Sources */,
 				4E711F772192BE3200DD8743 /* TemplatesPageWorker.swift in Sources */,
+				4E2684AD21C7FD2300B776D1 /* TaskPageRouter.swift in Sources */,
 				4E537F4E216DC255001F97F1 /* LoginPageViewController.swift in Sources */,
 				4EDC04D921878F2A0019DC07 /* ProjectPageViewController.swift in Sources */,
 				4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */,
@@ -478,6 +508,7 @@
 				4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */,
 				4EDC04D521878F2A0019DC07 /* ProjectPagePresenter.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
+				4E2684AB21C7FD2300B776D1 /* TaskPagePresenter.swift in Sources */,
 				4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,
 				4ED34A29217C744300471D20 /* InitProjectViewController.swift in Sources */,
@@ -489,6 +520,7 @@
 				4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */,
 				4ED34A38217C77D300471D20 /* InitSummaryViewController.swift in Sources */,
 				4ED34A6D2181C0B500471D20 /* AddProjectDefectsRouter.swift in Sources */,
+				4E2684B021C7FD2300B776D1 /* TaskPageInteractor.swift in Sources */,
 				4E537F7C2175B43C001F97F1 /* LandingPageInteractor.swift in Sources */,
 				4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */,
 			);

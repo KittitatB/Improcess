@@ -32,7 +32,6 @@ class ProjectPageWorker
                 for task in tasksDic{
                     let dict = task.value as! [String: AnyObject]
                     let taskName = task.key
-                    print(dict)
                     let taskStatus = dict["status"] as! String
                     let newTask = ProjectTask(myName: taskName, myStatus: taskStatus)
                     tasks.append(newTask)

@@ -8,8 +8,17 @@
 
 import UIKit
 
+protocol TaskLogic: class {
+    func addTask()
+}
+
 class AddTaskCell: UITableViewCell {
     
+    weak var cellInteractor: TaskLogic?
+    
+    @IBAction func handleAdd(_ sender: Any) {
+        cellInteractor?.addTask()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +36,11 @@ class AddTaskCell: UITableViewCell {
 
 class AddDefectCell: UITableViewCell {
     
+    weak var cellInteractor: TaskLogic?
+
+    @IBAction func handleAdd(_ sender: Any) {
+        cellInteractor?.addTask()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

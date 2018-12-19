@@ -1612,13 +1612,20 @@
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddTaskCell" rowHeight="60" id="l51-Su-JKd" customClass="AddTaskCell" customModule="Improcess" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="89" width="404" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l51-Su-JKd" id="BQG-u2-2DZ">
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l51-Su-JKd" id="BQG-u2-2DZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="404" height="59.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmU-SD-e9q">
-                                                                    <rect key="frame" x="20" y="11" width="364" height="38"/>
-                                                                    <state key="normal" title="Add"/>
+                                                                    <rect key="frame" x="20" y="55" width="364" height="34"/>
+                                                                    <color key="backgroundColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <state key="normal" title="Add">
+                                                                        <color key="titleColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="handleAdd:" destination="l51-Su-JKd" eventType="touchUpInside" id="wt2-Nv-ivb"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
@@ -1697,16 +1704,23 @@
                                                             <outlet property="timer" destination="OCp-HB-u7V" id="to4-2D-NeK"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddDefectCell" rowHeight="60" id="Gme-zi-scv" customClass="AddDefectCell">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddDefectCell" rowHeight="60" id="Gme-zi-scv" customClass="AddDefectCell" customModule="Improcess">
                                                         <rect key="frame" x="0.0" y="89" width="404" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gme-zi-scv" id="Gm8-EE-tz6">
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gme-zi-scv" id="Gm8-EE-tz6">
                                                             <rect key="frame" x="0.0" y="0.0" width="404" height="59.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhz-BQ-syf">
-                                                                    <rect key="frame" x="20" y="11" width="364" height="38"/>
-                                                                    <state key="normal" title="Add"/>
+                                                                    <rect key="frame" x="20" y="55" width="364" height="34"/>
+                                                                    <color key="backgroundColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <state key="normal" title="Add">
+                                                                        <color key="titleColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="handleAdd:" destination="Gme-zi-scv" eventType="touchUpInside" id="fyj-71-253"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
@@ -1818,10 +1832,15 @@
                     </view>
                     <connections>
                         <outlet property="defectTable" destination="4qy-ye-9YA" id="nhm-ti-P6t"/>
+                        <outlet property="defectTableHeight" destination="6ca-RS-rJN" id="Wzs-rS-eJ0"/>
+                        <outlet property="planTableHeight" destination="Qzf-pD-xEe" id="Wgx-Si-fO2"/>
                         <outlet property="planningTable" destination="Swx-aO-MZg" id="BcP-Wd-pTx"/>
                         <outlet property="scrollHeight" destination="774-Ud-vCv" id="ezf-Fn-oOV"/>
+                        <outlet property="scrollView" destination="XsL-35-VmA" id="gOZ-1D-050"/>
                         <outlet property="summaryTable" destination="bf0-c5-Pdo" id="2yo-DO-4rI"/>
+                        <outlet property="summaryTableHeight" destination="faA-ad-4JJ" id="Vav-QF-xXe"/>
                         <outlet property="taskTable" destination="85E-c9-Z1j" id="okA-w2-HQI"/>
+                        <outlet property="taskTableHeight" destination="Cjp-k2-KsJ" id="R81-bG-dRz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9L7-1f-dfb" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,7 +17,7 @@ protocol TaskPageDisplayLogic: class
     func displaySomething(viewModel: TaskPage.Something.ViewModel)
 }
 
-class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
+class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource, TaskLogic
 {
     var interactor: TaskPageBusinessLogic?
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
@@ -30,7 +30,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var defectTable: UITableView!
     @IBOutlet weak var summaryTable: UITableView!
     @IBOutlet weak var scrollHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var planTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var taskTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var defectTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -107,11 +111,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         }
         
         if tableView == self.taskTable{
-            return tasks.count
+            return tasks.count + 1
         }
         
         if tableView == self.defectTable{
-            return tasks.count
+            return tasks.count + 1
         }
         
         if tableView == self.summaryTable{
@@ -129,19 +133,31 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         }
         
         if tableView == self.taskTable{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
-            cell.name.text = tasks[indexPath.row].name
-            cell.timer.text = String(describing: tasks[indexPath.row].timer)
-            cell.detail.text = tasks[indexPath.row].detail
-            return cell
+            if indexPath.row == tasks.count{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AddTaskCell", for: indexPath) as! AddTaskCell
+                cell.cellInteractor = self
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
+                cell.name.text = tasks[indexPath.row].name
+                cell.timer.text = String(describing: tasks[indexPath.row].timer)
+                cell.detail.text = tasks[indexPath.row].detail
+                return cell}
         }
         
         if tableView == self.defectTable{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
-            cell.name.text = tasks[indexPath.row].name
-            cell.timer.text = String(describing: tasks[indexPath.row].timer)
-            cell.detail.text = tasks[indexPath.row].detail
-            return cell
+            if indexPath.row == tasks.count{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AddDefectCell", for: indexPath) as! AddDefectCell
+                cell.cellInteractor = self
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
+                cell.name.text = tasks[indexPath.row].name
+                cell.timer.text = String(describing: tasks[indexPath.row].timer)
+                cell.detail.text = tasks[indexPath.row].detail
+                return cell}
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
@@ -152,4 +168,34 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func addTask() {
+        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
+        tasks.append(task)
+        updateTableview()
+        self.view.setNeedsLayout()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        scrollView.layoutIfNeeded()
+        var viewHeight = 774
+        updateTableview()
+        if (metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count) > 6 {
+            viewHeight += ((metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count - 6)*80)
+        }
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+    }
+    
+    func updateTableview(){
+        taskTableHeight.constant = CGFloat((tasks.count + 1) * 80)
+        defectTableHeight.constant = CGFloat((tasks.count + 1) * 80)
+        taskTable.reloadData()
+        defectTable.reloadData()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }

@@ -15,7 +15,6 @@ import UIKit
 enum TaskPage
 {
     // MARK: Use cases
-    
     enum Something
     {
         struct Request
@@ -28,4 +27,18 @@ enum TaskPage
         {
         }
     }
+}
+
+struct DefectList{
+
+}
+
+struct PhraseList {
+    var name: String?
+    var timer: Int?
+    var detail: String?
+}
+
+struct KeyMetricList {
+    var name: String?
 }

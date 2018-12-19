@@ -17,12 +17,19 @@ protocol TaskPageDisplayLogic: class
     func displaySomething(viewModel: TaskPage.Something.ViewModel)
 }
 
-class TaskPageViewController: UIViewController, TaskPageDisplayLogic
+class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
 {
     var interactor: TaskPageBusinessLogic?
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
-    
+    var tasks = [PhraseList]()
+    var metrics = [KeyMetricList]()
     // MARK: Object lifecycle
+    
+    @IBOutlet weak var planningTable: UITableView!
+    @IBOutlet weak var taskTable: UITableView!
+    @IBOutlet weak var defectTable: UITableView!
+    @IBOutlet weak var summaryTable: UITableView!
+    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -69,7 +76,14 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
+        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
+        tasks.append(task)
+        let metric = KeyMetricList(name: "bb")
+        metrics.append(metric)
+        planningTable.reloadData()
+        taskTable.reloadData()
+        defectTable.reloadData()
+        summaryTable.reloadData()
     }
     
     // MARK: Do something
@@ -84,6 +98,58 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic
     
     func displaySomething(viewModel: TaskPage.Something.ViewModel)
     {
-        //nameTextField.text = viewModel.name
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.planningTable{
+            return metrics.count
+        }
+        
+        if tableView == self.taskTable{
+            return tasks.count
+        }
+        
+        if tableView == self.defectTable{
+            return tasks.count
+        }
+        
+        if tableView == self.summaryTable{
+            return metrics.count
+        }
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.planningTable{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
+            cell.name.text = metrics[indexPath.row].name
+            return cell
+        }
+        
+        if tableView == self.taskTable{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
+            cell.name.text = tasks[indexPath.row].name
+            cell.timer.text = String(describing: tasks[indexPath.row].timer)
+            cell.detail.text = tasks[indexPath.row].detail
+            return cell
+        }
+        
+        if tableView == self.defectTable{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
+            cell.name.text = tasks[indexPath.row].name
+            cell.timer.text = String(describing: tasks[indexPath.row].timer)
+            cell.detail.text = tasks[indexPath.row].detail
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
+        cell.name.text = metrics[indexPath.row].name
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }

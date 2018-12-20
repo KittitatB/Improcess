@@ -11,7 +11,7 @@
 //
 
 import UIKit
-import iOSDropDown
+import PopupDialog
 
 protocol TaskPageDisplayLogic: class
 {
@@ -89,14 +89,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         taskTable.reloadData()
         defectTable.reloadData()
         summaryTable.reloadData()
-        dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
-        // Its Id Values and its optional
-        dropDown.optionIds = [1,23,54,22]
-        // The the Closure returns Selected Index and String
-        dropDown.didSelect{(selectedText , index ,id) in
-           print(selectedText," ",index)
         }
-    }
+    
     
     // MARK: Do something
     
@@ -178,11 +172,34 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func addTask() {
-        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
-        tasks.append(task)
-        updateTableview()
-        self.view.setNeedsLayout()
+//        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
+//        tasks.append(task)
+//        updateTableview()
+//        self.view.setNeedsLayout()
+        let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
+        
+        // Create the dialog
+        let popup = PopupDialog(viewController: ratingVC,
+                                buttonAlignment: .horizontal,
+                                transitionStyle: .bounceDown,
+                                tapGestureDismissal: true,
+                                panGestureDismissal: false)
+        
+        // Create first button
+        let buttonOne = CancelButton(title: "CANCEL", height: 60) {
+        }
+        
+        // Create second button
+        let buttonTwo = DefaultButton(title: "RATE", height: 60) {
+        }
+        
+        // Add buttons to dialog
+        popup.addButtons([buttonOne, buttonTwo])
+        
+        // Present dialog
+        present(popup, animated: true, completion: nil)
     }
+
     
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
@@ -206,6 +223,5 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         return true
     }
     
-    @IBOutlet weak var dropDown: DropDown!
     // The list of array to display. Can be changed dynamically
 }

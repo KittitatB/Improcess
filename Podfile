@@ -9,5 +9,7 @@ target 'Improcess' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  pod 'Kingfisher', '~> 4.0'  
+  pod 'Kingfisher', '~> 4.0'
+  pod 'PopupDialog', '~> 0.9'
+  pod 'iOSDropDown', '~> 0.2.7'   
 end

@@ -16,6 +16,7 @@
 		4E3CF27521CA7A0700673C64 /* PhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CF27421CA7A0700673C64 /* PhraseCell.swift */; };
 		4E3CF27721CA7A1900673C64 /* MetricCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CF27621CA7A1900673C64 /* MetricCell.swift */; };
 		4E3CF27921CA7B6700673C64 /* AddTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CF27821CA7B6700673C64 /* AddTaskCell.swift */; };
+		4E3CF27B21CBB55B00673C64 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E3CF27A21CBB55B00673C64 /* iOSDropDown.framework */; };
 		4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */; };
 		4E452D84216C8C0F00BBCC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E452D82216C8C0F00BBCC34 /* Main.storyboard */; };
 		4E452D86216C8C1200BBCC34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E452D85216C8C1200BBCC34 /* Assets.xcassets */; };
@@ -89,6 +90,7 @@
 		4E3CF27421CA7A0700673C64 /* PhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCell.swift; sourceTree = "<group>"; };
 		4E3CF27621CA7A1900673C64 /* MetricCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCell.swift; sourceTree = "<group>"; };
 		4E3CF27821CA7B6700673C64 /* AddTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskCell.swift; sourceTree = "<group>"; };
+		4E3CF27A21CBB55B00673C64 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E452D79216C8C0F00BBCC34 /* Improcess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Improcess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E452D83216C8C0F00BBCC34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E3CF27B21CBB55B00673C64 /* iOSDropDown.framework in Frameworks */,
 				E6BDBCB2891A8731CA563E8A /* Pods_Improcess.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +347,7 @@
 		7D86F2E7F9830EFEABD05162 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E3CF27A21CBB55B00673C64 /* iOSDropDown.framework */,
 				84851F7F64CC28BE7A5141BD /* Pods_Improcess.framework */,
 			);
 			name = Frameworks;
@@ -445,17 +449,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Improcess/Pods-Improcess-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSDropDown/iOSDropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);

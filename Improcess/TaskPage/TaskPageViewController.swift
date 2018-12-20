@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import iOSDropDown
 
 protocol TaskPageDisplayLogic: class
 {
@@ -88,6 +89,13 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         taskTable.reloadData()
         defectTable.reloadData()
         summaryTable.reloadData()
+        dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
+        // Its Id Values and its optional
+        dropDown.optionIds = [1,23,54,22]
+        // The the Closure returns Selected Index and String
+        dropDown.didSelect{(selectedText , index ,id) in
+           print(selectedText," ",index)
+        }
     }
     
     // MARK: Do something
@@ -198,4 +206,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         return true
     }
     
+    @IBOutlet weak var dropDown: DropDown!
+    // The list of array to display. Can be changed dynamically
 }

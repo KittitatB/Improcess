@@ -186,11 +186,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                                 panGestureDismissal: false)
         
         // Create first button
-        let buttonOne = CancelButton(title: "CANCEL", height: 60) {
+        let buttonOne = CancelButton(title: "CANCEL", height: 40) {
         }
         
         // Create second button
-        let buttonTwo = DefaultButton(title: "RATE", height: 60) {
+        let buttonTwo = DefaultButton(title: "DONE", height: 40) {
         }
         
         // Add buttons to dialog

@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import iOSDropDown
 
 class MetricCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var dropDown: DropDown!
     override func awakeFromNib() {
         super.awakeFromNib()
+        dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
+        // Its Id Values and its optional
+        dropDown.optionIds = [1,23,54,22] 
         // Initialization code
     }
 

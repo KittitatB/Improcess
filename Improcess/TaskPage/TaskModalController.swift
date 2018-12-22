@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import iOSDropDown
 
 class TaskModalController: UIViewController {
 
     @IBOutlet weak var commentTextField: UITextField!
-
+    
+    @IBOutlet weak var taskName: UILabel!
+    @IBOutlet weak var sec: UITextField!
+    @IBOutlet weak var min: UITextField!
+    @IBOutlet weak var hour: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         commentTextField.delegate = self
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
@@ -26,6 +31,16 @@ class TaskModalController: UIViewController {
 
     @objc func endEditing() {
         view.endEditing(true)
+    }
+    
+    @IBAction func timerStart(_ sender: Any) {
+    }
+    
+    @IBAction func PauseTimer(_ sender: Any) {
+    }
+    
+    
+    @IBAction func resetTimer(_ sender: Any) {
     }
 }
 

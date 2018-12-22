@@ -12,6 +12,7 @@
 
 import UIKit
 import PopupDialog
+import iOSDropDown
 
 protocol TaskPageDisplayLogic: class
 {
@@ -36,6 +37,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var defectTableHeight: NSLayoutConstraint!
     @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -89,7 +92,24 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         taskTable.reloadData()
         defectTable.reloadData()
         summaryTable.reloadData()
+        dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
+        //Its Id Values and its optional
+        dropDown.optionIds = [1,23,54,22]
+        // The the Closure returns Selected Index and String
+        dropDown.listWillAppear {
+            UIView.animate(withDuration: 0.25, animations: {
+                 self.addDefectViewHeight.constant += 3 * 30
+                self.view.layoutIfNeeded()
+            })
         }
+        
+        dropDown.listWillDisappear {
+            UIView.animate(withDuration: 0.8, animations: {
+                self.addDefectViewHeight.constant = 80
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
     
     
     // MARK: Do something
@@ -117,7 +137,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         }
         
         if tableView == self.defectTable{
-            return tasks.count + 1
+            return tasks.count
         }
         
         if tableView == self.summaryTable{
@@ -182,15 +202,15 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         let popup = PopupDialog(viewController: ratingVC,
                                 buttonAlignment: .horizontal,
                                 transitionStyle: .bounceDown,
-                                tapGestureDismissal: true,
+                                tapGestureDismissal: false,
                                 panGestureDismissal: false)
         
         // Create first button
-        let buttonOne = CancelButton(title: "CANCEL", height: 40) {
+        let buttonOne = CancelButton(title: "CANCEL", height: 50) {
         }
         
         // Create second button
-        let buttonTwo = DefaultButton(title: "DONE", height: 40) {
+        let buttonTwo = DefaultButton(title: "DONE", height: 50) {
         }
         
         // Add buttons to dialog
@@ -224,4 +244,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     // The list of array to display. Can be changed dynamically
+    
+    @IBOutlet weak var dropDown: DropDown!
+    
 }

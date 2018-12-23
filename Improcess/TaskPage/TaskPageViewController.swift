@@ -27,6 +27,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     var metrics = [KeyMetricList]()
     // MARK: Object lifecycle
     
+    @IBOutlet weak var addDefectView: UIView!
     @IBOutlet weak var planningTable: UITableView!
     @IBOutlet weak var taskTable: UITableView!
     @IBOutlet weak var defectTable: UITableView!
@@ -95,20 +96,21 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
         //Its Id Values and its optional
         dropDown.optionIds = [1,23,54,22]
+        addDefectView.allowTouchesOfViewsOutsideBounds = true
         // The the Closure returns Selected Index and String
-        dropDown.listWillAppear {
-            UIView.animate(withDuration: 0.25, animations: {
-                 self.addDefectViewHeight.constant += 3 * 30
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-        dropDown.listWillDisappear {
-            UIView.animate(withDuration: 0.8, animations: {
-                self.addDefectViewHeight.constant = 80
-                self.view.layoutIfNeeded()
-            })
-        }
+        //        dropDown.listWillAppear {
+        //            UIView.animate(withDuration: 0.25, animations: {
+        //                 self.addDefectViewHeight.constant += 3 * 30
+        //                self.view.layoutIfNeeded()
+        //            })
+        //        }
+        //
+        //        dropDown.listWillDisappear {
+        //            UIView.animate(withDuration: 0.8, animations: {
+        //                self.addDefectViewHeight.constant = 80
+        //                self.view.layoutIfNeeded()
+        //            })
+        //        }
     }
     
     
@@ -192,10 +194,10 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func addTask() {
-//        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
-//        tasks.append(task)
-//        updateTableview()
-//        self.view.setNeedsLayout()
+        //        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
+        //        tasks.append(task)
+        //        updateTableview()
+        //        self.view.setNeedsLayout()
         let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
         
         // Create the dialog
@@ -219,7 +221,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         // Present dialog
         present(popup, animated: true, completion: nil)
     }
-
+    
     
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
@@ -248,3 +250,63 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var dropDown: DropDown!
     
 }
+
+public extension UIView {
+    
+    private struct ExtendedTouchAssociatedKey {
+        static var outsideOfBounds = "viewExtensionAllowTouchesOutsideOfBounds"
+    }
+    
+    /// This propery is set on the parent of the view that first clips the content you want to be touchable
+    /// outside of the bounds
+    var allowTouchesOfViewsOutsideBounds:Bool {
+        get {
+            return objc_getAssociatedObject(self, &ExtendedTouchAssociatedKey.outsideOfBounds) as? Bool ?? false
+        }
+        set {
+            UIView.swizzlePointInsideIfNeeded()
+            subviews.forEach({$0.allowTouchesOfViewsOutsideBounds = newValue})
+            objc_setAssociatedObject(self, &ExtendedTouchAssociatedKey.outsideOfBounds, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    func hasSubview(at point:CGPoint) -> Bool {
+        
+        if subviews.count == 0 {
+            return self.bounds.contains(point)
+        }
+        return subviews.contains(where: { (subview) -> Bool in
+            let converted = self.convert(point, to: subview)
+            return subview.hasSubview(at: converted)
+        })
+        
+    }
+    
+    static private var swizzledMethods:Bool = false
+    
+    @objc func _point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        if allowTouchesOfViewsOutsideBounds {
+            return  _point(inside:point,with:event) || hasSubview(at: point)
+        }
+        return _point(inside:point,with:event)
+    }
+    
+    static private func swizzlePointInsideIfNeeded() {
+        if swizzledMethods {
+            return
+        }
+        swizzledMethods = true
+        let aClass: AnyClass! = UIView.self
+        let originalSelector = #selector(point(inside:with:))
+        let swizzledSelector = #selector(_point(inside:with:))
+        swizzling(aClass, originalSelector, swizzledSelector)
+    }
+}
+
+private let swizzling: (AnyClass, Selector, Selector) -> () = { forClass, originalSelector, swizzledSelector in
+    let originalMethod = class_getInstanceMethod(forClass, originalSelector)
+    let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
+    method_exchangeImplementations(originalMethod!, swizzledMethod!)
+}
+

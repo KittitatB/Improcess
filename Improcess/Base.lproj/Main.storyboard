@@ -1829,6 +1829,7 @@
                         <viewLayoutGuide key="safeArea" id="I6b-6f-yyH"/>
                     </view>
                     <connections>
+                        <outlet property="addDefectView" destination="3kc-6u-apr" id="Wrw-0H-aov"/>
                         <outlet property="addDefectViewHeight" destination="sP4-1v-B5c" id="9bi-W6-E9q"/>
                         <outlet property="defectTable" destination="4qy-ye-9YA" id="nhm-ti-P6t"/>
                         <outlet property="defectTableHeight" destination="6ca-RS-rJN" id="Wzs-rS-eJ0"/>

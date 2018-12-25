@@ -97,20 +97,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         //Its Id Values and its optional
         dropDown.optionIds = [1,23,54,22]
         addDefectView.allowTouchesOfViewsOutsideBounds = true
-        // The the Closure returns Selected Index and String
-        //        dropDown.listWillAppear {
-        //            UIView.animate(withDuration: 0.25, animations: {
-        //                 self.addDefectViewHeight.constant += 3 * 30
-        //                self.view.layoutIfNeeded()
-        //            })
-        //        }
-        //
-        //        dropDown.listWillDisappear {
-        //            UIView.animate(withDuration: 0.8, animations: {
-        //                self.addDefectViewHeight.constant = 80
-        //                self.view.layoutIfNeeded()
-        //            })
-        //        }
     }
     
     

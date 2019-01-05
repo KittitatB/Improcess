@@ -26,8 +26,6 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     // MARK: Object lifecycle
     
     var data = [AddProjectDefects.Defects.ViewModel]()
-    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
-    @IBOutlet weak var tableview: UITableView!
     let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -81,7 +79,8 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     
     // MARK: Do something
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableview: UITableView!
     
     func displaySomething(viewModel: AddProjectDefects.Defects.ViewModel)
     {

@@ -26,13 +26,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     var cellStack: Int?
     var statusColor:[String:UIColor] = ["Open":UIColor.init(red: 76/255, green: 217/255, blue: 100/255, alpha: 1),"WIP":UIColor.init(red: 255/255, green: 204/255, blue: 0/255, alpha: 1),"Close":UIColor.init(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)]
     let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
-    // MARK: Object lifecycle
-    
-    @IBOutlet weak var projectName: UILabel!
-    @IBOutlet weak var projectDescription: UITextView!
-    @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
-    @IBOutlet weak var scrollview: UIScrollView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -88,10 +81,24 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         view.setNeedsLayout()
     }
     
+    override func viewDidLayoutSubviews() {
+        scrollview.layoutIfNeeded()
+        var viewHeight = 603
+        updateTableview()
+        if (projectTask.count) > 2{
+            viewHeight += (projectTask.count - 2) * 45
+        }
+        scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+    }
     
     // MARK: Do something
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var projectName: UILabel!
+    @IBOutlet weak var projectDescription: UITextView!
+    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollview: UIScrollView!
+    
     func loadTask(){
         interactor?.requestTasks()
     }
@@ -140,16 +147,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
         tableview.reloadData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        scrollview.layoutIfNeeded()
-        var viewHeight = 603
-        updateTableview()
-        if (projectTask.count) > 2{
-            viewHeight += (projectTask.count - 2) * 45
-        }
-        scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

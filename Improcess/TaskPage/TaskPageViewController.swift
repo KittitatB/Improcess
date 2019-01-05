@@ -25,20 +25,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
     var tasks = [PhraseList]()
     var metrics = [KeyMetricList]()
-    // MARK: Object lifecycle
-    
-    @IBOutlet weak var addDefectView: UIView!
-    @IBOutlet weak var planningTable: UITableView!
-    @IBOutlet weak var taskTable: UITableView!
-    @IBOutlet weak var defectTable: UITableView!
-    @IBOutlet weak var summaryTable: UITableView!
-    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
-    @IBOutlet weak var planTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var taskTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var defectTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -99,8 +85,31 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         addDefectView.allowTouchesOfViewsOutsideBounds = true
     }
     
+    override func viewDidLayoutSubviews() {
+        scrollView.layoutIfNeeded()
+        var viewHeight = 774
+        updateTableview()
+        if (metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count) > 6 {
+            viewHeight += ((metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count - 6)*80)
+        }
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+    }
+    
     
     // MARK: Do something
+
+    @IBOutlet weak var addDefectView: UIView!
+    @IBOutlet weak var planningTable: UITableView!
+    @IBOutlet weak var taskTable: UITableView!
+    @IBOutlet weak var defectTable: UITableView!
+    @IBOutlet weak var summaryTable: UITableView!
+    @IBOutlet weak var scrollHeight: NSLayoutConstraint!
+    @IBOutlet weak var planTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var taskTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var defectTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
     
     //@IBOutlet weak var nameTextField: UITextField!
     
@@ -206,17 +215,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         
         // Present dialog
         present(popup, animated: true, completion: nil)
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        scrollView.layoutIfNeeded()
-        var viewHeight = 774
-        updateTableview()
-        if (metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count) > 6 {
-            viewHeight += ((metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count - 6)*80)
-        }
-        scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
     
     func updateTableview(){

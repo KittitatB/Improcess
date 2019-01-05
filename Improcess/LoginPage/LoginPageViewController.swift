@@ -22,9 +22,6 @@ class LoginPageViewController: UIViewController, LoginPageDisplayLogic, UITextFi
     var interactor: LoginPageBusinessLogic?
     var router: (NSObjectProtocol & LoginPageRoutingLogic & LoginPageDataPassing)?
     
-    @IBOutlet weak var usernameTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -74,6 +71,11 @@ class LoginPageViewController: UIViewController, LoginPageDisplayLogic, UITextFi
         self.usernameTextfield.delegate = self
         self.passwordTextfield.delegate = self
     }
+    
+    // MARK: Do something
+    @IBOutlet weak var usernameTextfield: UITextField!
+    @IBOutlet weak var passwordTextfield: UITextField!
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

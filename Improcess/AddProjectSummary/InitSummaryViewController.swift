@@ -23,10 +23,6 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     var interactor: InitSummaryBusinessLogic?
     var router: (NSObjectProtocol & InitSummaryRoutingLogic & InitSummaryDataPassing)?
     var data = [InitSummary.Step.ViewModel]()
-    // MARK: Object lifecycle
-    
-    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
-    @IBOutlet weak var tableview: UITableView!
     let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -80,8 +76,9 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     
     // MARK: Do something
     
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+    @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableview: UITableView!
+
     
     func displayNewStep()
     {

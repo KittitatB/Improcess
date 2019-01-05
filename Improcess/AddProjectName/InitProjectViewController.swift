@@ -21,9 +21,7 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic, UITe
 {
     var interactor: InitProjectBusinessLogic?
     var router: (NSObjectProtocol & InitProjectRoutingLogic & InitProjectDataPassing)?
-    var names = [String]()
-    @IBOutlet weak var projectNameTextField: UITextField!
-    @IBOutlet weak var projectDetailsTextField: UITextField!
+
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -78,7 +76,9 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic, UITe
     
     // MARK: Do something
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    var names = [String]()
+    @IBOutlet weak var projectNameTextField: UITextField!
+    @IBOutlet weak var projectDetailsTextField: UITextField!
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

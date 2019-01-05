@@ -55,3 +55,11 @@ struct ProjectTask {
     }
 }
 
+struct DefectTypeList {
+    var name: String?
+}
+
+struct PhraseTypeList {
+    var name: String?
+}
+

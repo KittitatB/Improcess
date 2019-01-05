@@ -23,8 +23,6 @@ class SignupPageViewController: UIViewController, SignupPageDisplayLogic, UIText
     var router: (NSObjectProtocol & SignupPageRoutingLogic & SignupPageDataPassing)?
     
     // MARK: Object lifecycle
-    @IBOutlet weak var usernameTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -76,12 +74,14 @@ class SignupPageViewController: UIViewController, SignupPageDisplayLogic, UIText
         self.passwordTextfield.delegate = self
     }
     
+    // MARK: Do something
+    @IBOutlet weak var usernameTextfield: UITextField!
+    @IBOutlet weak var passwordTextfield: UITextField!
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    // MARK: Do something
-    
     
     func displaySignupResult(viewModel: SignupPage.SignupData.ViewModel)
     {

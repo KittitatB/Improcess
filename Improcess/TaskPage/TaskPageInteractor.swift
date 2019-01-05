@@ -14,7 +14,7 @@ import UIKit
 
 protocol TaskPageBusinessLogic
 {
-    func doSomething(request: TaskPage.Something.Request)
+    func loadProjectData(request: TaskPage.ProjectData.Request)
 }
 
 protocol TaskPageDataStore
@@ -30,12 +30,12 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     
     // MARK: Do something
     
-    func doSomething(request: TaskPage.Something.Request)
+    func loadProjectData(request: TaskPage.ProjectData.Request)
     {
-        worker = TaskPageWorker()
-        worker?.doSomeWork()
-        
-        let response = TaskPage.Something.Response()
-        presenter?.presentSomething(response: response)
+//        worker = TaskPageWorker()
+//        worker?.doSomeWork()
+//        
+////        let response = TaskPage.Something.Response()
+//        presenter?.presentSomething(response: response)
     }
 }

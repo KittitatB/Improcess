@@ -25,9 +25,6 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     var interactor: LandingPageBusinessLogic?
     var router: (NSObjectProtocol & LandingPageRoutingLogic & LandingPageDataPassing)?
     
-    @IBOutlet weak var dateLabel: UILabel!
-    
-    @IBOutlet weak var tableview: UITableView!
     var projects = [ProjectDetail]()
     // MARK: Object lifecycle
     
@@ -97,6 +94,11 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
         super.viewDidLoad()
         interactor?.getDate()
     }
+    
+    //do something
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var tableview: UITableView!
     
     func displayDate(viewModel: LandingPage.Date.ViewModel)
     {

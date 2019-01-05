@@ -140,9 +140,19 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func loadData(){
-        interactor?.receiveProject()
-        updateTableview()
-    }
+        let queue = DispatchQueue(label: "worker-queue")
+        
+        queue.async {
+            self.interactor?.requestPhraseList()
+            self.interactor?.requestDefectList()
+        }
+        
+        DispatchQueue.main.async {
+            self.interactor?.receiveProject()
+            self.updateTableview()
+        }
+        
+}
     
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
@@ -169,8 +179,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     func addStep(name: String) {
         let newTask = ProjectTask(myName: name, myStatus: "Open")
         projectTask.append(newTask)
-        let queue = DispatchQueue(label: "work-queue")
-        queue.async {
+        let work_queue = DispatchQueue(label: "work-queue")
+        work_queue.async {
             self.interactor?.addTask(task: name, numberOfTask: self.projectTask.count)
         }
         DispatchQueue.main.async {

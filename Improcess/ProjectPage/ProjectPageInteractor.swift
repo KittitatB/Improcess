@@ -18,11 +18,14 @@ protocol ProjectPageBusinessLogic
     func addTask(task: String, numberOfTask: Int)
     func receiveProject()
     func requestTasks()
+    func requestPhraseList()
+    func requestDefectList()
 }
 
 protocol ProjectPageDataStore
 {
     var project: ProjectDetail? {get set}
+    
 }
 
 class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
@@ -30,6 +33,7 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
     var presenter: ProjectPagePresentationLogic?
     var worker: ProjectPageWorker?
     var project: ProjectDetail?
+    var phraseList: [PhraseTypeList] = []
     // MARK: Do something
     
     func receiveProject() {
@@ -53,4 +57,18 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
         })
     }
     
+    func requestPhraseList() {
+        worker = ProjectPageWorker()
+    
+        worker?.requestPhraseListFormFirebase(project: project!, completionHandler: { (list) in
+            print(list)
+        })
+    }
+    
+    func requestDefectList() {
+        worker = ProjectPageWorker()
+
+        worker?.requestDefectListFormFirebase(project: project!, completionHandler: { (list) in
+        })
+    }
 }

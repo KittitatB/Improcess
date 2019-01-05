@@ -16,7 +16,7 @@ import iOSDropDown
 
 protocol TaskPageDisplayLogic: class
 {
-    func displaySomething(viewModel: TaskPage.Something.ViewModel)
+    func displaySomething(viewModel: TaskPage.ProjectData.ViewModel)
 }
 
 class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource, TaskLogic
@@ -79,9 +79,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         taskTable.reloadData()
         defectTable.reloadData()
         summaryTable.reloadData()
-        dropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
+        defectsDropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
         //Its Id Values and its optional
-        dropDown.optionIds = [1,23,54,22]
+        defectsDropDown.optionIds = [1,23,54,22]
         addDefectView.allowTouchesOfViewsOutsideBounds = true
     }
     
@@ -110,16 +110,18 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var defectsDropDown: DropDown!
+    @IBOutlet weak var phraseDropDown: DropDown!
     
     //@IBOutlet weak var nameTextField: UITextField!
     
     func doSomething()
     {
-        let request = TaskPage.Something.Request()
-        interactor?.doSomething(request: request)
+//        let request = TaskPage.ProjectData.Request()
+//        interactor?.doSomething(request: request)
     }
     
-    func displaySomething(viewModel: TaskPage.Something.ViewModel)
+    func displaySomething(viewModel: TaskPage.ProjectData.ViewModel)
     {
         
     }
@@ -128,19 +130,15 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.planningTable{
             return metrics.count
         }
-        
         if tableView == self.taskTable{
-            return tasks.count + 1
+            return tasks.count
         }
-        
         if tableView == self.defectTable{
             return tasks.count
         }
-        
         if tableView == self.summaryTable{
             return metrics.count
         }
-        
         return 0
     }
     
@@ -189,10 +187,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func addTask() {
-        //        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
-        //        tasks.append(task)
-        //        updateTableview()
-        //        self.view.setNeedsLayout()
         let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
         
         // Create the dialog
@@ -218,8 +212,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func updateTableview(){
-        taskTableHeight.constant = CGFloat((tasks.count + 1) * 80)
-        defectTableHeight.constant = CGFloat((tasks.count + 1) * 80)
+        taskTableHeight.constant = CGFloat((tasks.count) * 80)
+        defectTableHeight.constant = CGFloat((tasks.count) * 80)
         taskTable.reloadData()
         defectTable.reloadData()
     }
@@ -229,10 +223,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         return true
     }
     
-    // The list of array to display. Can be changed dynamically
+    @IBAction func taskAdded(_ sender: Any) {
+    }
     
-    @IBOutlet weak var dropDown: DropDown!
-    
+    @IBAction func defectAdded(_ sender: Any) {
+    }
 }
 
 public extension UIView {

@@ -14,31 +14,34 @@ import UIKit
 
 enum TaskPage
 {
-    // MARK: Use cases
-    enum Something
+    enum ProjectData
     {
         struct Request
         {
         }
         struct Response
         {
+            
         }
         struct ViewModel
         {
+            
         }
     }
 }
 
-struct DefectList{
+struct KeyMetricList {
+    var name: String?
+}
 
+struct DefectList{
+    var name: String?
+    var timer: Int?
+    var detail: String?
 }
 
 struct PhraseList {
     var name: String?
     var timer: Int?
     var detail: String?
-}
-
-struct KeyMetricList {
-    var name: String?
 }

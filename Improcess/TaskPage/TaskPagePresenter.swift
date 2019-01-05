@@ -14,7 +14,7 @@ import UIKit
 
 protocol TaskPagePresentationLogic
 {
-    func presentSomething(response: TaskPage.Something.Response)
+    func presentSomething(response: TaskPage.ProjectData.Response)
 }
 
 class TaskPagePresenter: TaskPagePresentationLogic
@@ -23,9 +23,9 @@ class TaskPagePresenter: TaskPagePresentationLogic
     
     // MARK: Do something
     
-    func presentSomething(response: TaskPage.Something.Response)
+    func presentSomething(response: TaskPage.ProjectData.Response)
     {
-        let viewModel = TaskPage.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+//        let viewModel = TaskPage.ProjectData.ViewModel()
+//        viewController?.displaySomething(viewModel: viewModel)
     }
 }

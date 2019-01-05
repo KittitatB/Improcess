@@ -14,7 +14,5 @@ import UIKit
 
 class TaskPageWorker
 {
-    func doSomeWork()
-    {
-    }
+    
 }

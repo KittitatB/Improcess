@@ -39,6 +39,32 @@ class ProjectPageWorker
                 completionHandler(tasks)
             }
         }
+    }
+    
+    func requestPhraseListFormFirebase(project: ProjectDetail,completionHandler: @escaping([PhraseTypeList]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var phrases = [PhraseTypeList]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("step").observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value as Any)
+        }
         
+    }
+    
+    func requestDefectListFormFirebase(project: ProjectDetail,completionHandler: @escaping([DefectTypeList]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var defects = [DefectTypeList]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("defect").observeSingleEvent(of: .value) { (snapshot) in
+            if let defectDic = snapshot.value as? [String : AnyObject]{
+                for defect in defectDic{
+                    let dict = defect.value as! [String: AnyObject]
+                    let name = dict["defectName"] as! String
+                    let newList = DefectTypeList(name: name)
+                    defects.append(newList)
+                }
+                completionHandler(defects)
+            }
+        }
     }
 }

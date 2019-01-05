@@ -33,7 +33,7 @@ class AddProjectDefectsWorker
                 "stepName" : step.name,
                 "stepDesccription" : step.description
                 ] as [String : Any]
-            firebasePath.child("step").child(String("\(String(describing: step.index))")).setValue(stepDetail)
+            firebasePath.child("step").child(String(step.index)).setValue(stepDetail)
         }
         
         for defect in defects{
@@ -41,7 +41,7 @@ class AddProjectDefectsWorker
                 "defectName" : defect.name,
                 "defectDesccription" : defect.description
                 ] as [String : Any]
-            firebasePath.child("defect").child(String("\(String(describing: defect.index))")).setValue(defectDetail)
+            firebasePath.child("defect").child(String(defect.index)).setValue(defectDetail)
         }
     }
 }

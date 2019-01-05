@@ -46,7 +46,12 @@ class ProjectPageWorker
         let uid = Auth.auth().currentUser?.uid
         var phrases = [PhraseTypeList]()
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("step").observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value as Any)
+            guard let phraseList = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            for phrase in phraseList{
+                if let dict = phrase.value as? [String : AnyObject]{
+                    print(dict["stepName"] as! String)
+                }
+            }
         }
         
     }

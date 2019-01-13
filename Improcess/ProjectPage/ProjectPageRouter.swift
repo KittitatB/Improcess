@@ -31,30 +31,32 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
     
     func routeToTaskPage(segue: UIStoryboardSegue?)
     {
-      if let segue = segue {
-        let destinationVC = segue.destination as! TaskPageViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToTaskPage(source: dataStore!, destination: &destinationDS)
-      } else {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "TaskPageViewController") as! TaskPageViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToTaskPage(source: dataStore!, destination: &destinationDS)
-        navigateToTaskPage(source: viewController!, destination: destinationVC)
-      }
+        if let segue = segue {
+            let destinationVC = segue.destination as! TaskPageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToTaskPage(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "TaskPageViewController") as! TaskPageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToTaskPage(source: dataStore!, destination: &destinationDS)
+            navigateToTaskPage(source: viewController!, destination: destinationVC)
+        }
     }
     
     // MARK: Navigation
     
     func navigateToTaskPage(source: ProjectPageViewController, destination: TaskPageViewController)
     {
-      source.show(destination, sender: nil)
+        source.show(destination, sender: nil)
     }
     
     // MARK: Passing data
     
     func passDataToTaskPage(source: ProjectPageDataStore, destination: inout TaskPageDataStore)
     {
-//      destination.name = source.name
+        destination.defectList = source.defectList
+        destination.phraseList = source.phraseList
+        destination.selectedTask = source.selectedTask
     }
 }

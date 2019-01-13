@@ -17,6 +17,7 @@ protocol ProjectPageBusinessLogic
     var project: ProjectDetail? {get set}
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
+    var selectedTask: ProjectTask? {get set}
     
     func addTask(task: String, numberOfTask: Int)
     func receiveProject()
@@ -30,15 +31,17 @@ protocol ProjectPageDataStore
     var project: ProjectDetail? {get set}
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
+    var selectedTask: ProjectTask? {get set}
 }
 
 class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
 {
+    var phraseList: [PhraseTypeList] = []
+    var defectList: [DefectTypeList] = []
+    var selectedTask: ProjectTask?
     var presenter: ProjectPagePresentationLogic?
     var worker: ProjectPageWorker?
     var project: ProjectDetail?
-    var phraseList: [PhraseTypeList] = []
-    var defectList: [DefectTypeList] = []
     // MARK: Do something
     
     func receiveProject() {

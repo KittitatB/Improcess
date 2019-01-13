@@ -14,28 +14,29 @@ import UIKit
 
 protocol TaskPageBusinessLogic
 {
-    func loadProjectData(request: TaskPage.ProjectData.Request)
+    func loadDropDown()
 }
 
 protocol TaskPageDataStore
 {
-    //var name: String { get set }
+    var phraseList: [PhraseTypeList] {get set}
+    var defectList: [DefectTypeList] {get set}
+    var selectedTask: ProjectTask? {get set}
 }
 
 class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
 {
     var presenter: TaskPagePresentationLogic?
     var worker: TaskPageWorker?
-    //var name: String = ""
+    var phraseList: [PhraseTypeList] = []
+    var defectList: [DefectTypeList] = []
+    var selectedTask: ProjectTask?
     
     // MARK: Do something
     
-    func loadProjectData(request: TaskPage.ProjectData.Request)
+    func loadDropDown()
     {
-//        worker = TaskPageWorker()
-//        worker?.doSomeWork()
-//        
-////        let response = TaskPage.Something.Response()
-//        presenter?.presentSomething(response: response)
+        let response = TaskPage.DropDown.Response(phraseList: phraseList, defectList: defectList)
+        presenter?.presentDropDown(response: response)
     }
 }

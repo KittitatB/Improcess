@@ -100,6 +100,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     @IBOutlet weak var scrollview: UIScrollView!
     
     func loadTask(){
+        projectTask.removeAll()
         interactor?.requestTasks()
     }
     
@@ -139,7 +140,13 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        interactor?.selectedTask = projectTask[indexPath.row]
+        router?.routeToTaskPage(segue: nil)
+    }
+    
     func loadData(){
+        
         let queue = DispatchQueue(label: "worker-queue")
         
         queue.async {
@@ -152,7 +159,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
             self.updateTableview()
         }
         
-}
+    }
     
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
@@ -187,6 +194,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
             self.view.setNeedsLayout()
         }
     }
+    
     
     func deleteStep(index: Int) {
         // ยังไม่ใช้ในนี้

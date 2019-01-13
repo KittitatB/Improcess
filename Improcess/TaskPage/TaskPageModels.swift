@@ -28,6 +28,23 @@ enum TaskPage
             
         }
     }
+    
+    enum DropDown
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var phraseList: [PhraseTypeList]
+            var defectList: [DefectTypeList]
+        }
+        struct ViewModel
+        {
+            var phraseList: [PhraseTypeList]
+            var defectList: [DefectTypeList]
+        }
+    }
 }
 
 struct KeyMetricList {

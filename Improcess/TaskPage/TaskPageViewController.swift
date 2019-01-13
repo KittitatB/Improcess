@@ -16,7 +16,7 @@ import iOSDropDown
 
 protocol TaskPageDisplayLogic: class
 {
-    func displaySomething(viewModel: TaskPage.ProjectData.ViewModel)
+    func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel)
 }
 
 class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource, TaskLogic
@@ -79,10 +79,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         taskTable.reloadData()
         defectTable.reloadData()
         summaryTable.reloadData()
-        defectsDropDown.optionArray = ["Option 1", "Option 2", "Option 3"]
-        //Its Id Values and its optional
-        defectsDropDown.optionIds = [1,23,54,22]
         addDefectView.allowTouchesOfViewsOutsideBounds = true
+        interactor?.loadDropDown()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,7 +95,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     
     // MARK: Do something
-
+    
     @IBOutlet weak var addDefectView: UIView!
     @IBOutlet weak var planningTable: UITableView!
     @IBOutlet weak var taskTable: UITableView!
@@ -115,15 +113,27 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func doSomething()
-    {
-//        let request = TaskPage.ProjectData.Request()
-//        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: TaskPage.ProjectData.ViewModel)
-    {
-        
+    func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel) {
+        var defectsArray: [String] = []
+        var phrasesArray: [String] = []
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            for phrase in viewmodel.phraseList{
+                phrasesArray.append(phrase.name!)
+            }
+            
+            for defect in viewmodel.defectList{
+                defectsArray.append(defect.name!)
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.phraseDropDown.optionArray = phrasesArray
+                self?.defectsDropDown.optionArray = defectsArray
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -158,7 +168,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
                 cell.name.text = tasks[indexPath.row].name
-                cell.timer.text = String(describing: tasks[indexPath.row].timer)
+                cell.timer.text = String(describing: tasks[indexPath.row].timer!)
                 cell.detail.text = tasks[indexPath.row].detail
                 return cell}
         }
@@ -172,7 +182,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
                 cell.name.text = tasks[indexPath.row].name
-                cell.timer.text = String(describing: tasks[indexPath.row].timer)
+                cell.timer.text = String(describing: tasks[indexPath.row].timer!)
                 cell.detail.text = tasks[indexPath.row].detail
                 return cell}
         }

@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ProjectPageRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToTaskPage(segue: UIStoryboardSegue?)
 }
 
 protocol ProjectPageDataPassing
@@ -29,32 +29,32 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToTaskPage(segue: UIStoryboardSegue?)
+    {
+      if let segue = segue {
+        let destinationVC = segue.destination as! TaskPageViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToTaskPage(source: dataStore!, destination: &destinationDS)
+      } else {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "TaskPageViewController") as! TaskPageViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToTaskPage(source: dataStore!, destination: &destinationDS)
+        navigateToTaskPage(source: viewController!, destination: destinationVC)
+      }
+    }
     
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: ProjectPageViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
+    func navigateToTaskPage(source: ProjectPageViewController, destination: TaskPageViewController)
+    {
+      source.show(destination, sender: nil)
+    }
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: ProjectPageDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToTaskPage(source: ProjectPageDataStore, destination: inout TaskPageDataStore)
+    {
+//      destination.name = source.name
+    }
 }

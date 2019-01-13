@@ -43,6 +43,36 @@ enum ProjectPage
             var task: [ProjectTask]
         }
     }
+    
+    enum phraseList
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var list: [phraseList]
+        }
+        struct ViewModel
+        {
+            var list: [phraseList]
+        }
+    }
+    
+    enum defectList
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var list: [defectList]
+        }
+        struct ViewModel
+        {
+            var list: [defectList]
+        }
+    }
 }
 
 struct ProjectTask {

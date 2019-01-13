@@ -49,11 +49,13 @@ class ProjectPageWorker
             guard let phraseList = snapshot.children.allObjects as? [DataSnapshot] else { return }
             for phrase in phraseList{
                 if let dict = phrase.value as? [String : AnyObject]{
-                    print(dict["stepName"] as! String)
+                    let name = dict["stepName"] as! String
+                    let newList = PhraseTypeList(name: name)
+                    phrases.append(newList)
                 }
             }
+            completionHandler(phrases)
         }
-        
     }
     
     func requestDefectListFormFirebase(project: ProjectDetail,completionHandler: @escaping([DefectTypeList]) -> Void)
@@ -61,9 +63,9 @@ class ProjectPageWorker
         let uid = Auth.auth().currentUser?.uid
         var defects = [DefectTypeList]()
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("defect").observeSingleEvent(of: .value) { (snapshot) in
-            if let defectDic = snapshot.value as? [String : AnyObject]{
-                for defect in defectDic{
-                    let dict = defect.value as! [String: AnyObject]
+            guard let defectList = snapshot.children.allObjects as? [DataSnapshot] else {return}
+            for defect in defectList{
+                if let dict = defect.value as? [String : AnyObject]{
                     let name = dict["defectName"] as! String
                     let newList = DefectTypeList(name: name)
                     defects.append(newList)

@@ -15,6 +15,9 @@ import UIKit
 protocol ProjectPageBusinessLogic
 {
     var project: ProjectDetail? {get set}
+    var phraseList: [PhraseTypeList] {get set}
+    var defectList: [DefectTypeList] {get set}
+    
     func addTask(task: String, numberOfTask: Int)
     func receiveProject()
     func requestTasks()
@@ -25,7 +28,8 @@ protocol ProjectPageBusinessLogic
 protocol ProjectPageDataStore
 {
     var project: ProjectDetail? {get set}
-    
+    var phraseList: [PhraseTypeList] {get set}
+    var defectList: [DefectTypeList] {get set}
 }
 
 class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
@@ -34,6 +38,7 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
     var worker: ProjectPageWorker?
     var project: ProjectDetail?
     var phraseList: [PhraseTypeList] = []
+    var defectList: [DefectTypeList] = []
     // MARK: Do something
     
     func receiveProject() {
@@ -60,15 +65,16 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
     func requestPhraseList() {
         worker = ProjectPageWorker()
     
-        worker?.requestPhraseListFormFirebase(project: project!, completionHandler: { (list) in
-            print(list)
+        worker?.requestPhraseListFormFirebase(project: project!, completionHandler: { (lists) in
+            self.phraseList = lists
         })
     }
     
     func requestDefectList() {
         worker = ProjectPageWorker()
 
-        worker?.requestDefectListFormFirebase(project: project!, completionHandler: { (list) in
+        worker?.requestDefectListFormFirebase(project: project!, completionHandler: { (lists) in
+            self.defectList = lists
         })
     }
 }

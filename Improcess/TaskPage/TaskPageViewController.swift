@@ -19,11 +19,12 @@ protocol TaskPageDisplayLogic: class
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel)
 }
 
-class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource, TaskLogic
+class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
 {
     var interactor: TaskPageBusinessLogic?
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
     var tasks = [PhraseList]()
+    var defects = [DefectList]()
     var metrics = [KeyMetricList]()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -71,15 +72,14 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        let task = PhraseList(name: "aa", timer: 90, detail:"lorem dsasasadasdadsdsaasasdsad")
-        tasks.append(task)
-        let metric = KeyMetricList(name: "bb")
-        metrics.append(metric)
-        planningTable.reloadData()
-        taskTable.reloadData()
-        defectTable.reloadData()
-        summaryTable.reloadData()
+        updateTableview()
+        let metric1 = KeyMetricList(name: "Time")
+        let metric2 = KeyMetricList(name: "Line of Code")
+        metrics.append(metric1)
+        metrics.append(metric2)
+        setupMatrixTableView()
         addDefectView.allowTouchesOfViewsOutsideBounds = true
+        addPhraseView.allowTouchesOfViewsOutsideBounds = true
         interactor?.loadDropDown()
     }
     
@@ -87,8 +87,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         scrollView.layoutIfNeeded()
         var viewHeight = 774
         updateTableview()
-        if (metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count) > 6 {
-            viewHeight += ((metrics.count + (tasks.count + 1) + (tasks.count + 1) + metrics.count - 6)*80)
+        let tableviewsHeightSummary = (120 * metrics.count) + ((defects.count + tasks.count) * 80)
+        if tableviewsHeightSummary > 480 {
+            viewHeight += tableviewsHeightSummary - 480
         }
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
@@ -96,6 +97,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     // MARK: Do something
     
+    @IBOutlet weak var addPhraseView: UIView!
     @IBOutlet weak var addDefectView: UIView!
     @IBOutlet weak var planningTable: UITableView!
     @IBOutlet weak var taskTable: UITableView!
@@ -112,6 +114,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var phraseDropDown: DropDown!
     
     //@IBOutlet weak var nameTextField: UITextField!
+    
+    
     
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel) {
         var defectsArray: [String] = []
@@ -144,7 +148,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             return tasks.count
         }
         if tableView == self.defectTable{
-            return tasks.count
+            return defects.count
         }
         if tableView == self.summaryTable{
             return metrics.count
@@ -155,44 +159,38 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.planningTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
-            cell.name.text = metrics[indexPath.row].name
+            cell.name.text = "Expect "+metrics[indexPath.row].name!
             return cell
         }
         
         if tableView == self.taskTable{
-            if indexPath.row == tasks.count{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "AddTaskCell", for: indexPath) as! AddTaskCell
-                cell.cellInteractor = self
-                return cell
-            }
-            else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
-                cell.name.text = tasks[indexPath.row].name
-                cell.timer.text = String(describing: tasks[indexPath.row].timer!)
-                cell.detail.text = tasks[indexPath.row].detail
-                return cell}
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
+            cell.name.text = tasks[indexPath.row].name
+            cell.timer.text = String(describing: tasks[indexPath.row].timer!)
+            cell.detail.text = tasks[indexPath.row].detail
+            return cell
         }
         
         if tableView == self.defectTable{
-            if indexPath.row == tasks.count{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "AddDefectCell", for: indexPath) as! AddDefectCell
-                cell.cellInteractor = self
-                return cell
-            }
-            else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
-                cell.name.text = tasks[indexPath.row].name
-                cell.timer.text = String(describing: tasks[indexPath.row].timer!)
-                cell.detail.text = tasks[indexPath.row].detail
-                return cell}
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
+            cell.name.text = defects[indexPath.row].name
+            cell.timer.text = String(describing: defects[indexPath.row].timer!)
+            cell.detail.text = defects[indexPath.row].detail
+            return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
-        cell.name.text = metrics[indexPath.row].name
+        cell.name.text = "Actual " + metrics[indexPath.row].name!
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == self.planningTable{
+            return 60
+        }
+        if tableView == self.summaryTable{
+            return 60
+        }
         return 80
     }
     
@@ -221,9 +219,16 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         present(popup, animated: true, completion: nil)
     }
     
+    func setupMatrixTableView(){
+        let metricsCount = metrics.count
+        planTableHeight.constant = CGFloat((metricsCount) * 60)
+        summaryTableHeight.constant = CGFloat((metricsCount) * 60)
+        view.setNeedsLayout()
+    }
+    
     func updateTableview(){
         taskTableHeight.constant = CGFloat((tasks.count) * 80)
-        defectTableHeight.constant = CGFloat((tasks.count) * 80)
+        defectTableHeight.constant = CGFloat((defects.count) * 80)
         taskTable.reloadData()
         defectTable.reloadData()
     }
@@ -234,9 +239,21 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     @IBAction func taskAdded(_ sender: Any) {
+        guard phraseDropDown.selectedIndex != nil else {return}
+        let task = PhraseList(name: phraseDropDown.text, timer: 00, detail: "")
+        phraseDropDown.text = ""
+        phraseDropDown.selectedIndex = nil
+        tasks.append(task)
+        view.setNeedsLayout()
     }
     
     @IBAction func defectAdded(_ sender: Any) {
+        guard defectsDropDown.selectedIndex != nil else {return}
+        let defect = DefectList(name: defectsDropDown.text, timer: 00, detail: "")
+        defectsDropDown.text = ""
+        defectsDropDown.selectedIndex = nil
+        defects.append(defect)
+        view.setNeedsLayout()
     }
 }
 

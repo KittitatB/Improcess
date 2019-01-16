@@ -194,29 +194,32 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         return 80
     }
     
-    func addTask() {
-        let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
-        
-        // Create the dialog
-        let popup = PopupDialog(viewController: ratingVC,
-                                buttonAlignment: .horizontal,
-                                transitionStyle: .bounceDown,
-                                tapGestureDismissal: false,
-                                panGestureDismissal: false)
-        
-        // Create first button
-        let buttonOne = CancelButton(title: "CANCEL", height: 50) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.taskTable{
+            let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
+            ratingVC.name = tasks[indexPath.row].name
+            // Create the dialog
+            let popup = PopupDialog(viewController: ratingVC,
+                                    buttonAlignment: .horizontal,
+                                    transitionStyle: .bounceDown,
+                                    tapGestureDismissal: false,
+                                    panGestureDismissal: false)
+            
+            // Create first button
+            let buttonOne = CancelButton(title: "CANCEL", height: 50) {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
+            // Create second button
+            let buttonTwo = DefaultButton(title: "DONE", height: 50) {
+            }
+            
+            // Add buttons to dialog
+            popup.addButtons([buttonOne, buttonTwo])
+            
+            // Present dialog
+            present(popup, animated: true, completion: nil)
         }
-        
-        // Create second button
-        let buttonTwo = DefaultButton(title: "DONE", height: 50) {
-        }
-        
-        // Add buttons to dialog
-        popup.addButtons([buttonOne, buttonTwo])
-        
-        // Present dialog
-        present(popup, animated: true, completion: nil)
     }
     
     func setupMatrixTableView(){

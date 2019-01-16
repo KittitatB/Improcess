@@ -11,15 +11,24 @@ import iOSDropDown
 
 class TaskModalController: UIViewController {
 
+    var name: String?
+    var time = 0
     @IBOutlet weak var commentTextField: UITextField!
-    
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var sec: UITextField!
     @IBOutlet weak var min: UITextField!
     @IBOutlet weak var hour: UITextField!
     
+    var minutes = 60
+    var hours = 60*60
+    var isTimerRunning = false
+    var timer = Timer()
+    var resumeTapped = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        taskName.text = name ?? "Found Nil"
+        updateClock()
         commentTextField.delegate = self
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
@@ -34,13 +43,51 @@ class TaskModalController: UIViewController {
     }
     
     @IBAction func timerStart(_ sender: Any) {
+        if isTimerRunning == false {
+            runTimer()
+            isTimerRunning = true
+        }
     }
     
     @IBAction func PauseTimer(_ sender: Any) {
+        if self.resumeTapped == false {
+            timer.invalidate()
+            self.resumeTapped = true
+        } else {
+            runTimer()
+            self.resumeTapped = false
+        }
     }
     
     
     @IBAction func resetTimer(_ sender: Any) {
+        time = 0
+    }
+    
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer(){
+        time += 1
+        updateClock()
+    }
+    
+    func updateClock(){
+        let timeToSec = (time % hours) % minutes
+        let timeToMin = (time % hours)/minutes
+        let timeToHour = time / hours
+        hour.text = timeToString(time: timeToHour)
+        min.text = timeToString(time: timeToMin)
+        sec.text = timeToString(time: timeToSec)
+        
+    }
+    
+    func timeToString(time: Int) -> (String){
+        if time < 10 {
+            return "0" + String(time)
+        }
+        return String(time)
     }
 }
 

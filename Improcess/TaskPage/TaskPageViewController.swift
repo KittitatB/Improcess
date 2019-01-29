@@ -17,6 +17,7 @@ import iOSDropDown
 protocol TaskPageDisplayLogic: class
 {
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel)
+    func displayPhrases(viewmodel: TaskPage.ProjectData.ViewModel)
 }
 
 class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
@@ -26,6 +27,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     var tasks = [PhraseList]()
     var defects = [DefectList]()
     var metrics = [KeyMetricList]()
+    lazy var defectsArray: [String] = []
+    lazy var phrasesArray: [String] = []
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -83,6 +86,12 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         interactor?.loadDropDown()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tasks.removeAll()
+        interactor?.loadPhrase()
+        view.setNeedsLayout()
+    }
+    
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
         var viewHeight = 774
@@ -115,27 +124,28 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    
+    func displayPhrases(viewmodel: TaskPage.ProjectData.ViewModel){
+        tasks = viewmodel.phrases
+        updateTableview()
+    }
     
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel) {
-        var defectsArray: [String] = []
-        var phrasesArray: [String] = []
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else {
                 return
             }
             
             for phrase in viewmodel.phraseList{
-                phrasesArray.append(phrase.name!)
+                self.phrasesArray.append(phrase.name!)
             }
             
             for defect in viewmodel.defectList{
-                defectsArray.append(defect.name!)
+                self.defectsArray.append(defect.name!)
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.phraseDropDown.optionArray = phrasesArray
-                self?.defectsDropDown.optionArray = defectsArray
+                self?.phraseDropDown.optionArray = (self?.phrasesArray)!
+                self?.defectsDropDown.optionArray = (self?.defectsArray)!
             }
         }
     }
@@ -198,6 +208,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.taskTable{
             let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
             ratingVC.name = tasks[indexPath.row].name
+            ratingVC.commentText = tasks[indexPath.row].detail
+            ratingVC.time = tasks[indexPath.row].timer!
+            
             // Create the dialog
             let popup = PopupDialog(viewController: ratingVC,
                                     buttonAlignment: .horizontal,
@@ -212,6 +225,44 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             
             // Create second button
             let buttonTwo = DefaultButton(title: "DONE", height: 50) {
+                self.tasks[indexPath.row].timer = ratingVC.time
+                self.tasks[indexPath.row].detail = ratingVC.commentTextField.text
+                self.interactor?.addPhrase(phrase: self.tasks[indexPath.row])
+                self.taskTable.reloadData()
+            }
+            
+            // Add buttons to dialog
+            popup.addButtons([buttonOne, buttonTwo])
+            
+            // Present dialog
+            present(popup, animated: true, completion: nil)
+        }
+        
+        if tableView == self.defectTable{
+            let ratingVC = DefectModalController(nibName: "DefectModalController", bundle: nil)
+            ratingVC.phrasesArray = phrasesArray
+//            ratingVC.name = tasks[indexPath.row].name
+//            ratingVC.commentText = tasks[indexPath.row].detail
+//            ratingVC.time = tasks[indexPath.row].timer!
+            
+            // Create the dialog
+            let popup = PopupDialog(viewController: ratingVC,
+                                    buttonAlignment: .horizontal,
+                                    transitionStyle: .bounceDown,
+                                    tapGestureDismissal: false,
+                                    panGestureDismissal: false)
+            
+            // Create first button
+            let buttonOne = CancelButton(title: "CANCEL", height: 50) {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+            
+            // Create second button
+            let buttonTwo = DefaultButton(title: "DONE", height: 50) {
+//                self.tasks[indexPath.row].timer = ratingVC.time
+//                self.tasks[indexPath.row].detail = ratingVC.commentTextField.text
+//                self.interactor?.addPhrase(phrase: self.tasks[indexPath.row])
+//                self.taskTable.reloadData()
             }
             
             // Add buttons to dialog

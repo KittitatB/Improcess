@@ -15,6 +15,8 @@ import UIKit
 protocol TaskPageBusinessLogic
 {
     func loadDropDown()
+    func loadPhrase()
+    func addPhrase(phrase: PhraseList)
 }
 
 protocol TaskPageDataStore
@@ -22,6 +24,7 @@ protocol TaskPageDataStore
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
     var selectedTask: ProjectTask? {get set}
+    var projectDetail: ProjectDetail? {get set}
 }
 
 class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
@@ -31,6 +34,7 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     var phraseList: [PhraseTypeList] = []
     var defectList: [DefectTypeList] = []
     var selectedTask: ProjectTask?
+    var projectDetail: ProjectDetail?
     
     // MARK: Do something
     
@@ -38,5 +42,19 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     {
         let response = TaskPage.DropDown.Response(phraseList: phraseList, defectList: defectList)
         presenter?.presentDropDown(response: response)
+    }
+    
+    func addPhrase(phrase: PhraseList) {
+        worker = TaskPageWorker()
+        worker?.updateTaskPhrase(project: projectDetail!, task: (selectedTask?.name)!, projectPhrase: phrase)
+    }
+    
+    func loadPhrase(){
+        worker = TaskPageWorker()
+        
+        worker?.requestPhraseFormFirebase(project: projectDetail!, task: (selectedTask?.name)!, completionHandler: { (phrases) in
+            let response = TaskPage.ProjectData.Response(phrases: phrases)
+            self.presenter?.presentPhrases(response: response)
+        })
     }
 }

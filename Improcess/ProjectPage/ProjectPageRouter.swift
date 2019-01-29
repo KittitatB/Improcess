@@ -58,5 +58,6 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
         destination.defectList = source.defectList
         destination.phraseList = source.phraseList
         destination.selectedTask = source.selectedTask
+        destination.projectDetail = source.project
     }
 }

@@ -15,6 +15,7 @@ import UIKit
 protocol TaskPagePresentationLogic
 {
     func presentDropDown(response: TaskPage.DropDown.Response)
+    func presentPhrases(response: TaskPage.ProjectData.Response)
 }
 
 class TaskPagePresenter: TaskPagePresentationLogic
@@ -27,5 +28,10 @@ class TaskPagePresenter: TaskPagePresentationLogic
     {
         let viewModel = TaskPage.DropDown.ViewModel(phraseList: response.phraseList, defectList: response.defectList)
         viewController?.displayDropDown(viewmodel: viewModel)
+    }
+    
+    func presentPhrases(response: TaskPage.ProjectData.Response){
+        let viewModel = TaskPage.ProjectData.ViewModel(phrases: response.phrases)
+        viewController?.displayPhrases(viewmodel: viewModel)
     }
 }

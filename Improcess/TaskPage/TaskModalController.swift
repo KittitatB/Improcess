@@ -13,6 +13,8 @@ class TaskModalController: UIViewController {
 
     var name: String?
     var time = 0
+    var commentText: String?
+    
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var sec: UITextField!
@@ -29,6 +31,7 @@ class TaskModalController: UIViewController {
         super.viewDidLoad()
         taskName.text = name ?? "Found Nil"
         updateClock()
+        commentTextField.text = commentText ?? ""
         commentTextField.delegate = self
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
@@ -40,6 +43,7 @@ class TaskModalController: UIViewController {
 
     @objc func endEditing() {
         view.endEditing(true)
+        commentText = commentTextField.text ?? ""
     }
     
     @IBAction func timerStart(_ sender: Any) {

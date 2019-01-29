@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E032A4422003A8D00BB5C19 /* DefectModalController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E032A4322003A8D00BB5C19 /* DefectModalController.xib */; };
+		4E032A4622003D4E00BB5C19 /* DefectModalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E032A4522003D4E00BB5C19 /* DefectModalController.swift */; };
 		4E2684AB21C7FD2300B776D1 /* TaskPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A521C7FD2300B776D1 /* TaskPagePresenter.swift */; };
 		4E2684AC21C7FD2300B776D1 /* TaskPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A621C7FD2300B776D1 /* TaskPageWorker.swift */; };
 		4E2684AD21C7FD2300B776D1 /* TaskPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A721C7FD2300B776D1 /* TaskPageRouter.swift */; };
@@ -82,6 +84,8 @@
 
 /* Begin PBXFileReference section */
 		13EFEEE65834922F5DE4C06D /* Pods-Improcess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Improcess.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Improcess/Pods-Improcess.debug.xcconfig"; sourceTree = "<group>"; };
+		4E032A4322003A8D00BB5C19 /* DefectModalController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefectModalController.xib; sourceTree = "<group>"; };
+		4E032A4522003D4E00BB5C19 /* DefectModalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefectModalController.swift; sourceTree = "<group>"; };
 		4E2684A521C7FD2300B776D1 /* TaskPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPagePresenter.swift; sourceTree = "<group>"; };
 		4E2684A621C7FD2300B776D1 /* TaskPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageWorker.swift; sourceTree = "<group>"; };
 		4E2684A721C7FD2300B776D1 /* TaskPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageRouter.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 				4E3CF28421CC096C00673C64 /* TaskModalController.xib */,
 				4E3CF27421CA7A0700673C64 /* PhraseCell.swift */,
 				4E3CF27621CA7A1900673C64 /* MetricCell.swift */,
+				4E032A4322003A8D00BB5C19 /* DefectModalController.xib */,
+				4E032A4522003D4E00BB5C19 /* DefectModalController.swift */,
 			);
 			path = TaskPage;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				4E452D91216C8CEB00BBCC34 /* GoogleService-Info.plist in Resources */,
 				4E452D86216C8C1200BBCC34 /* Assets.xcassets in Resources */,
 				4E452D84216C8C0F00BBCC34 /* Main.storyboard in Resources */,
+				4E032A4422003A8D00BB5C19 /* DefectModalController.xib in Resources */,
 				4E3CF28621CC096C00673C64 /* TaskModalController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +504,7 @@
 				4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */,
 				4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */,
 				4ED34A35217C77D300471D20 /* InitSummaryWorker.swift in Sources */,
+				4E032A4622003D4E00BB5C19 /* DefectModalController.swift in Sources */,
 				4E3CF27521CA7A0700673C64 /* PhraseCell.swift in Sources */,
 				4ED34A36217C77D300471D20 /* InitSummaryRouter.swift in Sources */,
 				4E537F4C216DC255001F97F1 /* LoginPageRouter.swift in Sources */,

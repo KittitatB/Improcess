@@ -21,11 +21,11 @@ enum TaskPage
         }
         struct Response
         {
-            
+            var phrases: [PhraseList]
         }
         struct ViewModel
         {
-            
+            var phrases: [PhraseList]
         }
     }
     

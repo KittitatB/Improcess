@@ -16,7 +16,9 @@ protocol TaskPageBusinessLogic
 {
     func loadDropDown()
     func loadPhrase()
+    func loadDefect()
     func addPhrase(phrase: PhraseList)
+    func addDefect(defect: DefectList)
 }
 
 protocol TaskPageDataStore
@@ -49,12 +51,26 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
         worker?.updateTaskPhrase(project: projectDetail!, task: (selectedTask?.name)!, projectPhrase: phrase)
     }
     
+    func addDefect(defect: DefectList) {
+        worker = TaskPageWorker()
+        worker?.updateTaskDefect(project: projectDetail!, task: (selectedTask?.name)!, projectDefect: defect)
+    }
+    
     func loadPhrase(){
         worker = TaskPageWorker()
         
         worker?.requestPhraseFormFirebase(project: projectDetail!, task: (selectedTask?.name)!, completionHandler: { (phrases) in
-            let response = TaskPage.ProjectData.Response(phrases: phrases)
+            let response = TaskPage.Phrase.Response(phrases: phrases)
             self.presenter?.presentPhrases(response: response)
+        })
+    }
+    
+    func loadDefect() {
+        worker = TaskPageWorker()
+        
+        worker?.requestDefectFormFirebase(project: projectDetail!, task: (selectedTask?.name)!, completionHandler: { (defects) in
+            let response = TaskPage.Defect.Response(defects: defects)
+            self.presenter?.presentDefects(response: response)
         })
     }
 }

@@ -17,7 +17,8 @@ import iOSDropDown
 protocol TaskPageDisplayLogic: class
 {
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel)
-    func displayPhrases(viewmodel: TaskPage.ProjectData.ViewModel)
+    func displayPhrases(viewmodel: TaskPage.Phrase.ViewModel)
+    func displayDefects(viewmodel: TaskPage.Defect.ViewModel)
 }
 
 class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
@@ -124,8 +125,13 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func displayPhrases(viewmodel: TaskPage.ProjectData.ViewModel){
+    func displayPhrases(viewmodel: TaskPage.Phrase.ViewModel){
         tasks = viewmodel.phrases
+        updateTableview()
+    }
+    
+    func displayDefects(viewmodel: TaskPage.Defect.ViewModel) {
+        defects = viewmodel.defects
         updateTableview()
     }
     
@@ -184,7 +190,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.defectTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DefectCell", for: indexPath) as! DefectCell
             cell.name.text = defects[indexPath.row].name
-            cell.timer.text = String(describing: defects[indexPath.row].timer!)
             cell.detail.text = defects[indexPath.row].detail
             return cell
         }
@@ -241,9 +246,10 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.defectTable{
             let ratingVC = DefectModalController(nibName: "DefectModalController", bundle: nil)
             ratingVC.phrasesArray = phrasesArray
-//            ratingVC.name = tasks[indexPath.row].name
-//            ratingVC.commentText = tasks[indexPath.row].detail
-//            ratingVC.time = tasks[indexPath.row].timer!
+            ratingVC.type = defects[indexPath.row].name
+            ratingVC.commentText = defects[indexPath.row].detail
+            ratingVC.injected = defects[indexPath.row].injected ?? ""
+            ratingVC.removed = defects[indexPath.row].removed ?? ""
             
             // Create the dialog
             let popup = PopupDialog(viewController: ratingVC,
@@ -259,10 +265,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             
             // Create second button
             let buttonTwo = DefaultButton(title: "DONE", height: 50) {
-//                self.tasks[indexPath.row].timer = ratingVC.time
-//                self.tasks[indexPath.row].detail = ratingVC.commentTextField.text
-//                self.interactor?.addPhrase(phrase: self.tasks[indexPath.row])
-//                self.taskTable.reloadData()
+                self.defects[indexPath.row].detail = ratingVC.comment.text
+                self.defects[indexPath.row].injected = ratingVC.injectedPhrase.text
+                self.defects[indexPath.row].removed = ratingVC.removedPhrase.text
+                self.interactor?.addDefect(defect: self.defects[indexPath.row])
+                self.taskTable.reloadData()
             }
             
             // Add buttons to dialog
@@ -303,7 +310,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     @IBAction func defectAdded(_ sender: Any) {
         guard defectsDropDown.selectedIndex != nil else {return}
-        let defect = DefectList(name: defectsDropDown.text, timer: 00, detail: "")
+        let defect = DefectList(name: defectsDropDown.text,injected:"",removed:"", detail: "")
         defectsDropDown.text = ""
         defectsDropDown.selectedIndex = nil
         defects.append(defect)

@@ -14,7 +14,7 @@ import UIKit
 
 enum TaskPage
 {
-    enum ProjectData
+    enum Phrase
     {
         struct Request
         {
@@ -26,6 +26,22 @@ enum TaskPage
         struct ViewModel
         {
             var phrases: [PhraseList]
+
+        }
+    }
+    
+    enum Defect
+    {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var defects: [DefectList]
+        }
+        struct ViewModel
+        {
+            var defects: [DefectList]
         }
     }
     
@@ -53,7 +69,8 @@ struct KeyMetricList {
 
 struct DefectList{
     var name: String?
-    var timer: Int?
+    var injected: String?
+    var removed: String?
     var detail: String?
 }
 

@@ -11,6 +11,10 @@ import iOSDropDown
 
 class DefectModalController: UIViewController {
     var phrasesArray: [String] = []
+    var type: String?
+    var commentText: String?
+    var injected: String?
+    var removed: String?
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var injectedPhrase: DropDown!
@@ -18,9 +22,24 @@ class DefectModalController: UIViewController {
     @IBOutlet weak var comment: UITextField!
    
     override func viewDidLoad() {
+        comment.delegate = self
         injectedPhrase.optionArray = phrasesArray
         removedPhrase.optionArray = phrasesArray
         injectedPhrase.allowTouchesOfViewsOutsideBounds = true
         removedPhrase.allowTouchesOfViewsOutsideBounds = true
+    }
+    
+    @objc func endEditing() {
+        view.endEditing(true)
+        commentText = comment.text ?? ""
+    }
+    
+}
+
+extension DefectModalController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing()
+        return true
     }
 }

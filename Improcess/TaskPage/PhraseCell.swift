@@ -28,7 +28,6 @@ class PhraseCell: UITableViewCell {
 
 class DefectCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var timer: UILabel!
     @IBOutlet weak var detail: UITextField!
     
     override func awakeFromNib() {

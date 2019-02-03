@@ -1635,12 +1635,6 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCp-HB-u7V">
-                                                                    <rect key="frame" x="354" y="7" width="45" height="21"/>
-                                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzJ-Lx-n0e">
                                                                     <rect key="frame" x="5" y="28.5" width="339" height="32"/>
                                                                     <constraints>
@@ -1655,16 +1649,12 @@
                                                             <constraints>
                                                                 <constraint firstItem="aUH-rZ-FWS" firstAttribute="leading" secondItem="ATp-vF-tQI" secondAttribute="leading" constant="5" id="3EV-mZ-Srs"/>
                                                                 <constraint firstAttribute="bottom" secondItem="hzJ-Lx-n0e" secondAttribute="bottom" id="3nY-ky-V6i"/>
-                                                                <constraint firstAttribute="trailing" secondItem="OCp-HB-u7V" secondAttribute="trailing" constant="5" id="CLU-NB-HcM"/>
                                                                 <constraint firstItem="aUH-rZ-FWS" firstAttribute="top" secondItem="ATp-vF-tQI" secondAttribute="top" constant="5" id="DxD-Tz-0fK"/>
-                                                                <constraint firstItem="OCp-HB-u7V" firstAttribute="top" secondItem="ATp-vF-tQI" secondAttribute="top" constant="7" id="IFA-7s-ISY"/>
-                                                                <constraint firstAttribute="trailing" secondItem="OCp-HB-u7V" secondAttribute="trailing" constant="5" id="Iup-eb-b9l"/>
                                                                 <constraint firstItem="aUH-rZ-FWS" firstAttribute="leading" secondItem="ATp-vF-tQI" secondAttribute="leading" constant="5" id="KQp-kO-kdy"/>
                                                                 <constraint firstItem="hzJ-Lx-n0e" firstAttribute="leading" secondItem="ATp-vF-tQI" secondAttribute="leading" constant="5" id="LaY-Js-Rl8"/>
                                                                 <constraint firstAttribute="trailing" secondItem="hzJ-Lx-n0e" secondAttribute="trailing" constant="60" id="OLE-Z2-cKE"/>
                                                                 <constraint firstAttribute="bottom" secondItem="hzJ-Lx-n0e" secondAttribute="bottom" id="asc-0i-bMq"/>
                                                                 <constraint firstItem="hzJ-Lx-n0e" firstAttribute="leading" secondItem="ATp-vF-tQI" secondAttribute="leading" constant="5" id="bec-VI-E7U"/>
-                                                                <constraint firstItem="OCp-HB-u7V" firstAttribute="top" secondItem="ATp-vF-tQI" secondAttribute="top" constant="7" id="fef-fb-DVt"/>
                                                                 <constraint firstItem="hzJ-Lx-n0e" firstAttribute="top" secondItem="aUH-rZ-FWS" secondAttribute="bottom" constant="0.5" id="niC-16-7ED"/>
                                                                 <constraint firstAttribute="trailing" secondItem="hzJ-Lx-n0e" secondAttribute="trailing" constant="60" id="vmK-6l-jgv"/>
                                                                 <constraint firstItem="hzJ-Lx-n0e" firstAttribute="top" secondItem="aUH-rZ-FWS" secondAttribute="bottom" constant="0.5" id="xE3-Uj-vjf"/>
@@ -1674,7 +1664,6 @@
                                                         <connections>
                                                             <outlet property="detail" destination="hzJ-Lx-n0e" id="0UP-FN-Hva"/>
                                                             <outlet property="name" destination="aUH-rZ-FWS" id="XrX-dr-Vz1"/>
-                                                            <outlet property="timer" destination="OCp-HB-u7V" id="to4-2D-NeK"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>

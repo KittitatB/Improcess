@@ -21,18 +21,39 @@ class TaskPageWorker
     {
         let uid = Auth.auth().currentUser?.uid
         var phrases = [PhraseList]()
-        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").observeSingleEvent(of: .value) { (snapshot) in
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot)
             if let tasksDic = snapshot.value as? [String : AnyObject]{
                 for task in tasksDic{
                     let dict = task.value as! [String: AnyObject]
-                    let name = dict["phrase"] as! String
+                    let name = dict["defect"] as! String
                     let comment = dict["comment"] as! String
                     let time = dict["time"] as! Int
                     let tempPhrase = PhraseList(name: name, timer: time, detail: comment)
                    phrases.append(tempPhrase)
                 }
                 completionHandler(phrases)
+            }
+        }
+    }
+    
+    func requestDefectFormFirebase(project: ProjectDetail, task: String,completionHandler: @escaping([DefectList]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var defects = [DefectList]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+            if let tasksDic = snapshot.value as? [String : AnyObject]{
+                for task in tasksDic{
+                    let dict = task.value as! [String: AnyObject]
+                    let name = dict["defect"] as! String
+                    let comment = dict["comment"] as! String
+                    let injected = dict["injected"] as! String
+                    let removed = dict["removed"] as! String
+                    let tempDefect = DefectList(name: name, injected: injected, removed: removed, detail: comment)
+                    defects.append(tempDefect)
+                }
+                completionHandler(defects)
             }
         }
     }
@@ -47,5 +68,17 @@ class TaskPageWorker
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "WIP"] as [String : String])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").childByAutoId().updateChildValues(phraseDetail)
+    }
+    
+    func updateTaskDefect(project: ProjectDetail, task: String, projectDefect: DefectList)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        let phraseDetail = [
+            "defect" : projectDefect.name!,
+            "injected" : projectDefect.injected!,
+            "removed" : projectDefect.removed!,
+            "comment" : projectDefect.detail!
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").childByAutoId().updateChildValues(phraseDetail)
     }
 }

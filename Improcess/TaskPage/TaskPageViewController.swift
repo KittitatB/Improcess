@@ -317,6 +317,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         view.setNeedsLayout()
     }
     
+    
+    @IBAction func finishUpTask(_ sender: Any) {
+        interactor?.finishingUp()
+    }
+    
 }
 
 public extension UIView {

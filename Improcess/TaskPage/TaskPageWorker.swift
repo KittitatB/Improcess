@@ -79,4 +79,9 @@ class TaskPageWorker
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").childByAutoId().updateChildValues(phraseDetail)
     }
+    
+    func finishUpTask(project: ProjectDetail, task: String){
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Close"] as [String : String])
+    }
 }

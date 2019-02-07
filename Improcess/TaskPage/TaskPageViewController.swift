@@ -90,16 +90,15 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         tasks.removeAll()
         interactor?.loadPhrase()
-        view.setNeedsLayout()
+        interactor?.loadDefect()
     }
     
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
         var viewHeight = 774
-        updateTableview()
         let tableviewsHeightSummary = (120 * metrics.count) + ((defects.count + tasks.count) * 80)
-        if tableviewsHeightSummary > 480 {
-            viewHeight += tableviewsHeightSummary - 480
+        if tableviewsHeightSummary > 400 {
+            viewHeight += tableviewsHeightSummary - 400
         }
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
     }
@@ -292,6 +291,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         defectTableHeight.constant = CGFloat((defects.count) * 80)
         taskTable.reloadData()
         defectTable.reloadData()
+        view.setNeedsLayout()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -316,6 +316,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         defects.append(defect)
         view.setNeedsLayout()
     }
+    
 }
 
 public extension UIView {

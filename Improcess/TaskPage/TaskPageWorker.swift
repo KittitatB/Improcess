@@ -21,12 +21,11 @@ class TaskPageWorker
     {
         let uid = Auth.auth().currentUser?.uid
         var phrases = [PhraseList]()
-        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot)
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").observeSingleEvent(of: .value) { (snapshot) in
             if let tasksDic = snapshot.value as? [String : AnyObject]{
                 for task in tasksDic{
                     let dict = task.value as! [String: AnyObject]
-                    let name = dict["defect"] as! String
+                    let name = dict["phrase"] as! String
                     let comment = dict["comment"] as! String
                     let time = dict["time"] as! Int
                     let tempPhrase = PhraseList(name: name, timer: time, detail: comment)
@@ -41,8 +40,7 @@ class TaskPageWorker
     {
         let uid = Auth.auth().currentUser?.uid
         var defects = [DefectList]()
-        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot)
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").observeSingleEvent(of: .value) { (snapshot) in
             if let tasksDic = snapshot.value as? [String : AnyObject]{
                 for task in tasksDic{
                     let dict = task.value as! [String: AnyObject]

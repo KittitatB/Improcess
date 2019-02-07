@@ -8,6 +8,7 @@
 
 import UIKit
 import iOSDropDown
+import Firebase
 
 class MetricCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
@@ -18,9 +19,12 @@ class MetricCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
+    
+    @IBAction func setMetric(_ sender: Any) {
+    }
+    
 
 }
 
@@ -36,5 +40,9 @@ class SummaryCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    @IBAction func setActual(_ sender: Any) {
+    }
+    
     
 }

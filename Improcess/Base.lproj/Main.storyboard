@@ -1536,6 +1536,9 @@
                                                                     <nil key="textColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <action selector="setMetric:" destination="fKc-lR-03V" eventType="editingDidEnd" id="Oxr-sR-ceP"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -1701,6 +1704,9 @@
                                                                     <nil key="textColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <action selector="setActual:" destination="qZ1-bV-dXK" eventType="editingDidEnd" id="vCn-jI-UYP"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -1806,6 +1812,18 @@
                                                     <constraint firstItem="Syc-mP-FSX" firstAttribute="centerY" secondItem="ZB7-wG-daL" secondAttribute="centerY" id="sAE-np-JoL"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q8O-QW-uOI">
+                                                <rect key="frame" x="157" y="676" width="100" height="35"/>
+                                                <color key="backgroundColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="0v9-4L-WcY"/>
+                                                    <constraint firstAttribute="height" constant="35" id="z2i-Az-dWH"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                                <state key="normal" title="Finish">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1832,6 +1850,8 @@
                                             <constraint firstItem="4qy-ye-9YA" firstAttribute="top" secondItem="p2p-f7-nYQ" secondAttribute="bottom" constant="5" id="k6Z-fk-3AY"/>
                                             <constraint firstItem="4qy-ye-9YA" firstAttribute="leading" secondItem="UiI-Bt-nxS" secondAttribute="leading" constant="5" id="lUR-1X-oRE"/>
                                             <constraint firstItem="Swx-aO-MZg" firstAttribute="top" secondItem="SJh-no-8cb" secondAttribute="bottom" constant="5" id="mfN-2g-1dP"/>
+                                            <constraint firstItem="q8O-QW-uOI" firstAttribute="centerX" secondItem="UiI-Bt-nxS" secondAttribute="centerX" id="paP-t8-1WZ"/>
+                                            <constraint firstItem="q8O-QW-uOI" firstAttribute="top" secondItem="bf0-c5-Pdo" secondAttribute="bottom" constant="40" id="vwZ-rG-qdg"/>
                                             <constraint firstAttribute="trailing" secondItem="3kc-6u-apr" secondAttribute="trailing" constant="5" id="x2e-yY-rew"/>
                                             <constraint firstItem="85E-c9-Z1j" firstAttribute="top" secondItem="VWE-1x-6Da" secondAttribute="bottom" constant="5" id="xgh-fz-NUY"/>
                                             <constraint firstItem="VWE-1x-6Da" firstAttribute="leading" secondItem="UiI-Bt-nxS" secondAttribute="leading" constant="8" id="zRM-vw-ggH"/>

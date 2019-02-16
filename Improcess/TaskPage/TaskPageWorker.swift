@@ -80,8 +80,13 @@ class TaskPageWorker
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").childByAutoId().updateChildValues(phraseDetail)
     }
     
-    func finishUpTask(project: ProjectDetail, task: String){
+    func finishUpTask(project: ProjectDetail, task: String, problem: String, improvement: String){
         let uid = Auth.auth().currentUser?.uid
+        let pip = [
+            "problem" : problem,
+            "improvement proposal" : improvement,
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(pip)
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Close"] as [String : String])
     }
 }

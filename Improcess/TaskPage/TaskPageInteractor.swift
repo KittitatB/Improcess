@@ -17,7 +17,7 @@ protocol TaskPageBusinessLogic
     func loadDropDown()
     func loadPhrase()
     func loadDefect()
-    func finishingUp()
+    func finishingUp(problem: String, improvement: String)
     func addPhrase(phrase: PhraseList)
     func addDefect(defect: DefectList)
 }
@@ -75,8 +75,8 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
         })
     }
     
-    func finishingUp() {
+    func finishingUp(problem: String, improvement: String) {
          worker = TaskPageWorker()
-        worker?.finishUpTask(project: projectDetail!, task: (selectedTask?.name)!)
+        worker?.finishUpTask(project: projectDetail!, task: (selectedTask?.name)!, problem: problem, improvement: improvement)
     }
 }

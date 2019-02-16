@@ -84,6 +84,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         setupMatrixTableView()
         addDefectView.allowTouchesOfViewsOutsideBounds = true
         addPhraseView.allowTouchesOfViewsOutsideBounds = true
+        self.hideKeyboardWhenTappedAround()
         interactor?.loadDropDown()
     }
     
@@ -95,12 +96,13 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
-        var viewHeight = 774
+        var viewHeight = 1050
         let tableviewsHeightSummary = (120 * metrics.count) + ((defects.count + tasks.count) * 80)
         if tableviewsHeightSummary > 400 {
             viewHeight += tableviewsHeightSummary - 400
         }
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+        scrollHeight.constant = scrollView.contentSize.height - 750
     }
     
     
@@ -121,6 +123,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
     @IBOutlet weak var defectsDropDown: DropDown!
     @IBOutlet weak var phraseDropDown: DropDown!
+    @IBOutlet weak var problemTextfield: UITextField!
+    @IBOutlet weak var improvementTextfield: UITextField!
+    @IBOutlet weak var mainView: UIView!
     
     //@IBOutlet weak var nameTextField: UITextField!
     
@@ -268,7 +273,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defects[indexPath.row].injected = ratingVC.injectedPhrase.text
                 self.defects[indexPath.row].removed = ratingVC.removedPhrase.text
                 self.interactor?.addDefect(defect: self.defects[indexPath.row])
-                self.taskTable.reloadData()
+                self.defectTable.reloadData()
             }
             
             // Add buttons to dialog
@@ -305,7 +310,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         phraseDropDown.text = ""
         phraseDropDown.selectedIndex = nil
         tasks.append(task)
-        view.setNeedsLayout()
+        updateTableview()
     }
     
     @IBAction func defectAdded(_ sender: Any) {
@@ -314,12 +319,15 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         defectsDropDown.text = ""
         defectsDropDown.selectedIndex = nil
         defects.append(defect)
-        view.setNeedsLayout()
+        updateTableview()
     }
     
     
     @IBAction func finishUpTask(_ sender: Any) {
-        interactor?.finishingUp()
+        interactor?.finishingUp(problem: problemTextfield.text ?? "" , improvement: improvementTextfield.text ?? "")
+        var viewControllers = self.navigationController?.viewControllers
+        viewControllers?.removeLast(1) // views to pop
+        self.navigationController?.setViewControllers(viewControllers!, animated: true)
     }
     
 }

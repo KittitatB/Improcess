@@ -27,6 +27,10 @@ class DefectModalController: UIViewController {
         removedPhrase.optionArray = phrasesArray
         injectedPhrase.allowTouchesOfViewsOutsideBounds = true
         removedPhrase.allowTouchesOfViewsOutsideBounds = true
+        name.text = type
+        injectedPhrase.text = injected
+        removedPhrase.text = removed
+        comment.text = commentText
     }
     
     @objc func endEditing() {

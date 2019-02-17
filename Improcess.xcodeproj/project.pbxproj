@@ -51,6 +51,12 @@
 		4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */; };
 		4E711F7B2192BE3200DD8743 /* TemplatesPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */; };
 		4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F7C2192BE7700DD8743 /* TemplateCell.swift */; };
+		4EA68DAC22196B7600D222B1 /* ProducivilityPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA622196B7600D222B1 /* ProducivilityPagePresenter.swift */; };
+		4EA68DAD22196B7600D222B1 /* ProducivilityPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA722196B7600D222B1 /* ProducivilityPageWorker.swift */; };
+		4EA68DAE22196B7600D222B1 /* ProducivilityPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA822196B7600D222B1 /* ProducivilityPageRouter.swift */; };
+		4EA68DAF22196B7600D222B1 /* ProducivilityPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA922196B7600D222B1 /* ProducivilityPageModels.swift */; };
+		4EA68DB022196B7600D222B1 /* ProducivilityPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DAA22196B7600D222B1 /* ProducivilityPageViewController.swift */; };
+		4EA68DB122196B7600D222B1 /* ProducivilityPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */; };
 		4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */; };
 		4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A20217C744300471D20 /* InitProjectWorker.swift */; };
 		4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A21217C744300471D20 /* InitProjectRouter.swift */; };
@@ -130,6 +136,12 @@
 		4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageViewController.swift; sourceTree = "<group>"; };
 		4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageInteractor.swift; sourceTree = "<group>"; };
 		4E711F7C2192BE7700DD8743 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
+		4EA68DA622196B7600D222B1 /* ProducivilityPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPagePresenter.swift; sourceTree = "<group>"; };
+		4EA68DA722196B7600D222B1 /* ProducivilityPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageWorker.swift; sourceTree = "<group>"; };
+		4EA68DA822196B7600D222B1 /* ProducivilityPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageRouter.swift; sourceTree = "<group>"; };
+		4EA68DA922196B7600D222B1 /* ProducivilityPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageModels.swift; sourceTree = "<group>"; };
+		4EA68DAA22196B7600D222B1 /* ProducivilityPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageViewController.swift; sourceTree = "<group>"; };
+		4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageInteractor.swift; sourceTree = "<group>"; };
 		4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectPresenter.swift; sourceTree = "<group>"; };
 		4ED34A20217C744300471D20 /* InitProjectWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectWorker.swift; sourceTree = "<group>"; };
 		4ED34A21217C744300471D20 /* InitProjectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectRouter.swift; sourceTree = "<group>"; };
@@ -233,6 +245,7 @@
 				4E711F6F2192BE0400DD8743 /* TemplatesPage */,
 				4EDC04CE21878EF50019DC07 /* ProjectPage */,
 				4E2684A421C7FCF100B776D1 /* TaskPage */,
+				4EA68DA522196B4F00D222B1 /* ProducivilityPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -296,6 +309,19 @@
 				4E711F7C2192BE7700DD8743 /* TemplateCell.swift */,
 			);
 			path = TemplatesPage;
+			sourceTree = "<group>";
+		};
+		4EA68DA522196B4F00D222B1 /* ProducivilityPage */ = {
+			isa = PBXGroup;
+			children = (
+				4EA68DA622196B7600D222B1 /* ProducivilityPagePresenter.swift */,
+				4EA68DA722196B7600D222B1 /* ProducivilityPageWorker.swift */,
+				4EA68DA822196B7600D222B1 /* ProducivilityPageRouter.swift */,
+				4EA68DA922196B7600D222B1 /* ProducivilityPageModels.swift */,
+				4EA68DAA22196B7600D222B1 /* ProducivilityPageViewController.swift */,
+				4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */,
+			);
+			path = ProducivilityPage;
 			sourceTree = "<group>";
 		};
 		4ED34A1E217C740600471D20 /* AddProjectName */ = {
@@ -460,6 +486,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Improcess/Pods-Improcess-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -471,6 +498,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -500,10 +528,12 @@
 				4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */,
 				4E2684AF21C7FD2300B776D1 /* TaskPageViewController.swift in Sources */,
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
+				4EA68DAC22196B7600D222B1 /* ProducivilityPagePresenter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
 				4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */,
 				4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */,
 				4ED34A35217C77D300471D20 /* InitSummaryWorker.swift in Sources */,
+				4EA68DAE22196B7600D222B1 /* ProducivilityPageRouter.swift in Sources */,
 				4E032A4622003D4E00BB5C19 /* DefectModalController.swift in Sources */,
 				4E3CF27521CA7A0700673C64 /* PhraseCell.swift in Sources */,
 				4ED34A36217C77D300471D20 /* InitSummaryRouter.swift in Sources */,
@@ -542,6 +572,7 @@
 				4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */,
 				4EDC04D521878F2A0019DC07 /* ProjectPagePresenter.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
+				4EA68DAF22196B7600D222B1 /* ProducivilityPageModels.swift in Sources */,
 				4E2684AB21C7FD2300B776D1 /* TaskPagePresenter.swift in Sources */,
 				4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,
@@ -551,12 +582,15 @@
 				4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */,
 				4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */,
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,
+				4EA68DB122196B7600D222B1 /* ProducivilityPageInteractor.swift in Sources */,
 				4E537F6B217486EC001F97F1 /* SignupPageViewController.swift in Sources */,
 				4ED34A38217C77D300471D20 /* InitSummaryViewController.swift in Sources */,
 				4ED34A6D2181C0B500471D20 /* AddProjectDefectsRouter.swift in Sources */,
 				4E2684B021C7FD2300B776D1 /* TaskPageInteractor.swift in Sources */,
+				4EA68DAD22196B7600D222B1 /* ProducivilityPageWorker.swift in Sources */,
 				4E537F7C2175B43C001F97F1 /* LandingPageInteractor.swift in Sources */,
 				4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */,
+				4EA68DB022196B7600D222B1 /* ProducivilityPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

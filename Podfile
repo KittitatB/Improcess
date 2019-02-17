@@ -12,4 +12,5 @@ target 'Improcess' do
   pod 'Kingfisher', '~> 4.0'
   pod 'PopupDialog', '~> 0.9'
   pod 'iOSDropDown', '~> 0.2.7'   
+  pod 'Charts'
 end

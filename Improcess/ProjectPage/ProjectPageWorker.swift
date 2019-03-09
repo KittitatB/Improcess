@@ -21,6 +21,25 @@ class ProjectPageWorker
         let uid = Auth.auth().currentUser?.uid
         Database.database().reference().child(uid!).child("projects").child(project.name!).updateChildValues(["taskQuantity": numberOfTask] as [String : Int])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Open"] as [String : String])
+        
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("metric").observeSingleEvent(of: .value) { (snapshot) in
+            var metrics = [String]()
+            guard let metricsList = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            for metric in metricsList{
+                metrics.append(metric.value as! String)
+            }
+        
+            for metric in metrics{
+                let estimateMetric = [
+                    "Estimated \(metric)" : "",
+                    ] as [String : Any]
+                let actualMetric = [
+                    "Actual \(metric)" : "",
+                    ] as [String : Any]
+                Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("estimate").updateChildValues(estimateMetric)
+                Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("actual").updateChildValues(actualMetric)
+            }
+        }
     }
     
     func requestTaskFormFirebase(project: ProjectDetail,completionHandler: @escaping([ProjectTask]) -> Void)

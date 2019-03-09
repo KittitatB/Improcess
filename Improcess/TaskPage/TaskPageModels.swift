@@ -79,3 +79,13 @@ struct PhraseList {
     var timer: Int?
     var detail: String?
 }
+
+struct PlanMetric{
+    var name: String?
+    var value: String?
+}
+
+struct ActualMetric {
+    var name: String?
+    var value: String?
+}

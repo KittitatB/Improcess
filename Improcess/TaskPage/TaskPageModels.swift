@@ -26,7 +26,7 @@ enum TaskPage
         struct ViewModel
         {
             var phrases: [PhraseList]
-
+            
         }
     }
     
@@ -42,6 +42,34 @@ enum TaskPage
         struct ViewModel
         {
             var defects: [DefectList]
+        }
+    }
+    
+    enum Estimate{
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var metrics: [PlanMetric]
+        }
+        struct ViewModel
+        {
+            var metrics: [PlanMetric]
+        }
+    }
+    
+    enum Actual{
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var metrics: [ActualMetric]
+        }
+        struct ViewModel
+        {
+            var metrics: [ActualMetric]
         }
     }
     
@@ -61,10 +89,6 @@ enum TaskPage
             var defectList: [DefectTypeList]
         }
     }
-}
-
-struct KeyMetricList {
-    var name: String?
 }
 
 struct DefectList{

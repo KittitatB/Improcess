@@ -36,6 +36,42 @@ class TaskPageWorker
         }
     }
     
+    func requestEstimatedMetricFormFirebase(project: ProjectDetail, task: String,completionHandler: @escaping([PlanMetric]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var metrics = [PlanMetric]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("estimate").observeSingleEvent(of: .value) { (snapshot) in
+            if let metricsDic = snapshot.value as? [String : AnyObject]{
+                for metric in metricsDic{
+                    let dict = metric.value as! [String: AnyObject]
+                    let name = metric.key
+                    let field = dict[name] as! String
+                    let temp = PlanMetric(name: name, value: field)
+                    metrics.append(temp)
+                }
+                completionHandler(metrics)
+            }
+        }
+    }
+    
+    func requestActualMetricFormFirebase(project: ProjectDetail, task: String,completionHandler: @escaping([ActualMetric]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var metrics = [ActualMetric]()
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("actual").observeSingleEvent(of: .value) { (snapshot) in
+            if let metricsDic = snapshot.value as? [String : AnyObject]{
+                for metric in metricsDic{
+                    let dict = metric.value as! [String: AnyObject]
+                    let name = metric.key
+                    let field = dict[name] as! String
+                    let temp = ActualMetric(name: name, value: field)
+                    metrics.append(temp)
+                }
+                completionHandler(metrics)
+            }
+        }
+    }
+    
     func requestDefectFormFirebase(project: ProjectDetail, task: String,completionHandler: @escaping([DefectList]) -> Void)
     {
         let uid = Auth.auth().currentUser?.uid

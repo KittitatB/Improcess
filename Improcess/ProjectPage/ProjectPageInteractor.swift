@@ -32,10 +32,13 @@ protocol ProjectPageDataStore
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
     var selectedTask: ProjectTask? {get set}
+    var tasks: [ProjectTask]? {get set}
 }
 
 class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
 {
+    var tasks: [ProjectTask]?
+    
     var phraseList: [PhraseTypeList] = []
     var defectList: [DefectTypeList] = []
     var selectedTask: ProjectTask?
@@ -61,6 +64,7 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
         }
         worker?.requestTaskFormFirebase(project: project!, completionHandler: { (tasks) in
             let response = ProjectPage.Task.Response(task: tasks)
+            self.tasks = tasks
             self.presenter?.presentTask(response: response)
         })
     }

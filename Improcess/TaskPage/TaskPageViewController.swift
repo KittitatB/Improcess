@@ -19,6 +19,8 @@ protocol TaskPageDisplayLogic: class
     func displayDropDown(viewmodel: TaskPage.DropDown.ViewModel)
     func displayPhrases(viewmodel: TaskPage.Phrase.ViewModel)
     func displayDefects(viewmodel: TaskPage.Defect.ViewModel)
+    func displayPlan(viewmodel: TaskPage.Estimate.ViewModel)
+    func displayActual(viewmodel: TaskPage.Actual.ViewModel)
 }
 
 class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
@@ -27,7 +29,8 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
     var tasks = [PhraseList]()
     var defects = [DefectList]()
-    var metrics = [KeyMetricList]()
+    var planMetrics = [PlanMetric]()
+    var actualMetrics = [ActualMetric]()
     lazy var defectsArray: [String] = []
     lazy var phrasesArray: [String] = []
     
@@ -77,11 +80,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     {
         super.viewDidLoad()
         updateTableview()
-        let metric1 = KeyMetricList(name: "Time")
-        let metric2 = KeyMetricList(name: "Line of Code")
-        metrics.append(metric1)
-        metrics.append(metric2)
-        setupMatrixTableView()
         addDefectView.allowTouchesOfViewsOutsideBounds = true
         addPhraseView.allowTouchesOfViewsOutsideBounds = true
         self.hideKeyboardWhenTappedAround()
@@ -90,16 +88,18 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         tasks.removeAll()
+        interactor?.loadPlanMetrics()
         interactor?.loadPhrase()
         interactor?.loadDefect()
+        interactor?.loadActualMetrics()
     }
     
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
-        var viewHeight = 1050
-        let tableviewsHeightSummary = (120 * metrics.count) + ((defects.count + tasks.count) * 80)
-        if tableviewsHeightSummary > 400 {
-            viewHeight += tableviewsHeightSummary - 400
+        var viewHeight = 950
+        let tableviewsHeightSummary = (120 * planMetrics.count) + ((defects.count + tasks.count) * 80)
+        if tableviewsHeightSummary > 300 {
+            viewHeight += tableviewsHeightSummary - 300
         }
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
         scrollHeight.constant = scrollView.contentSize.height - 750
@@ -128,6 +128,16 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var mainView: UIView!
     
     //@IBOutlet weak var nameTextField: UITextField!
+    
+    func displayActual(viewmodel: TaskPage.Actual.ViewModel) {
+        actualMetrics = viewmodel.metrics
+        setupMatrixTableView()
+    }
+    
+    func displayPlan(viewmodel: TaskPage.Estimate.ViewModel) {
+        planMetrics = viewmodel.metrics
+        setupMatrixTableView()
+    }
     
     func displayPhrases(viewmodel: TaskPage.Phrase.ViewModel){
         tasks = viewmodel.phrases
@@ -162,7 +172,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.planningTable{
-            return metrics.count
+            return planMetrics.count
         }
         if tableView == self.taskTable{
             return tasks.count
@@ -171,7 +181,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             return defects.count
         }
         if tableView == self.summaryTable{
-            return metrics.count
+            return actualMetrics.count
         }
         return 0
     }
@@ -179,7 +189,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.planningTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
-            cell.name.text = "Expect "+metrics[indexPath.row].name!
+            cell.name.text = planMetrics[indexPath.row].name!
+            cell.project = interactor!.projectDetail
+            cell.task = interactor?.selectedTask?.name
             return cell
         }
         
@@ -199,7 +211,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
-        cell.name.text = "Actual " + metrics[indexPath.row].name!
+        cell.name.text = actualMetrics[indexPath.row].name!
+        cell.project = interactor!.projectDetail
+        cell.task = interactor?.selectedTask?.name
         return cell
     }
     
@@ -285,9 +299,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func setupMatrixTableView(){
-        let metricsCount = metrics.count
+        let metricsCount = actualMetrics.count
         planTableHeight.constant = CGFloat((metricsCount) * 60)
         summaryTableHeight.constant = CGFloat((metricsCount) * 60)
+        planningTable.reloadData()
+        summaryTable.reloadData()
         view.setNeedsLayout()
     }
     

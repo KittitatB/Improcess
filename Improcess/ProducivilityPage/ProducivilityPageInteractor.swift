@@ -14,28 +14,30 @@ import UIKit
 
 protocol ProducivilityPageBusinessLogic
 {
-    func doSomething(request: ProducivilityPage.Something.Request)
+     func getAllTaskProducivility()
 }
 
 protocol ProducivilityPageDataStore
 {
-    //var name: String { get set }
+    var projectDetail: ProjectDetail? {get set}
+    var tasks: [ProjectTask]? {get set}
 }
 
 class ProducivilityPageInteractor: ProducivilityPageBusinessLogic, ProducivilityPageDataStore
 {
+    var tasks: [ProjectTask]?
+    
+    var projectDetail: ProjectDetail?
+
     var presenter: ProducivilityPagePresentationLogic?
     var worker: ProducivilityPageWorker?
     //var name: String = ""
     
-    // MARK: Do something
-    
-    func doSomething(request: ProducivilityPage.Something.Request)
-    {
+    func getAllTaskProducivility(){
         worker = ProducivilityPageWorker()
-        worker?.doSomeWork()
-        
-        let response = ProducivilityPage.Something.Response()
-        presenter?.presentSomething(response: response)
+        worker?.getAllTasksProducivility(project: projectDetail!, tasks: tasks!, completionHandler:  { (lists) in
+            let response = ProducivilityPage.Producivility.Response(tasksProducivility: lists)
+            self.presenter?.presentProducivility(response: response)
+        })
     }
 }

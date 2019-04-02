@@ -14,9 +14,13 @@ import UIKit
 
 protocol TaskPageBusinessLogic
 {
+    var selectedTask: ProjectTask? {get}
+    var projectDetail: ProjectDetail? {get}
     func loadDropDown()
     func loadPhrase()
     func loadDefect()
+    func loadPlanMetrics()
+    func loadActualMetrics()
     func finishingUp(problem: String, improvement: String)
     func addPhrase(phrase: PhraseList)
     func addDefect(defect: DefectList)
@@ -40,6 +44,22 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     var projectDetail: ProjectDetail?
     
     // MARK: Do something
+    
+    func loadPlanMetrics() {
+        worker = TaskPageWorker()
+        worker?.requestEstimatedMetricFormFirebase(project: projectDetail!, task: (selectedTask?.name)!, completionHandler: { (metrics) in
+            let response = TaskPage.Estimate.Response(metrics: metrics)
+            self.presenter?.presentPlanMetrics(response: response)
+        })
+    }
+    
+    func loadActualMetrics() {
+        worker = TaskPageWorker()
+        worker?.requestActualMetricFormFirebase(project: projectDetail!, task: (selectedTask?.name)!, completionHandler: { (metrics) in
+            let response = TaskPage.Actual.Response(metrics: metrics)
+            self.presenter?.presentActualMetrics(response: response)
+        })
+    }
     
     func loadDropDown()
     {

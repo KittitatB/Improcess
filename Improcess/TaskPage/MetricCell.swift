@@ -12,6 +12,10 @@ import Firebase
 
 class MetricCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var field: UITextField!
+    
+    var project: ProjectDetail?
+    var task: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +27,11 @@ class MetricCell: UITableViewCell {
     }
     
     @IBAction func setMetric(_ sender: Any) {
+        let uid = Auth.auth().currentUser?.uid
+        let update = [
+            name.text! : field.text!
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("estimate").updateChildValues(update)
     }
     
 
@@ -30,6 +39,11 @@ class MetricCell: UITableViewCell {
 
 class SummaryCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var field: UITextField!
+    
+    var project: ProjectDetail?
+    var task: String?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -42,7 +56,11 @@ class SummaryCell: UITableViewCell {
     }
     
     @IBAction func setActual(_ sender: Any) {
+        let uid = Auth.auth().currentUser?.uid
+        let update = [
+            name.text! : field.text!
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("actual").updateChildValues(update)
     }
-    
     
 }

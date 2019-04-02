@@ -202,6 +202,10 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func updateStepDetail(index: Int, newDescription: String) {
         //
+    }    
+    
+    @IBAction func routeToProducivility(_ sender: Any) {
+        router?.routeToProducivilityPage(segue: nil)
     }
     
 }

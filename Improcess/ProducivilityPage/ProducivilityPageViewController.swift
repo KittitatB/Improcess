@@ -12,10 +12,11 @@
 
 import UIKit
 import Charts
+import Firebase
 
 protocol ProducivilityPageDisplayLogic: class
 {
-    func displaySomething(viewModel: ProducivilityPage.Something.ViewModel)
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
 }
 
 class ProducivilityPageViewController: UIViewController, ProducivilityPageDisplayLogic
@@ -70,9 +71,8 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         setupChart()
-        ChartUpdate()
+        loadData()
     }
     
     // MARK: Do something
@@ -95,7 +95,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         xAxis.labelFont = .systemFont(ofSize: 10)
         xAxis.granularity = 1
         xAxis.labelCount = 7
-        xAxis.valueFormatter = TaskAxisFormatter()
+//        xAxis.valueFormatter = TaskAxisFormatter()
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
@@ -130,32 +130,26 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         l.xEntrySpace = 4
     }
     
-    func doSomething()
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
     {
-        let request = ProducivilityPage.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func ChartUpdate () {
         chartView.noDataText = "Loading"
+        var entry = [BarChartDataEntry]()
         
-        let entry1 = BarChartDataEntry(x: 1, y: 36.7)
-        let entry2 = BarChartDataEntry(x: 2, y: 42.0)
-        let entry3 = BarChartDataEntry(x: 3, y: 40.60)
-        let dataSet = BarChartDataSet(values: [entry1, entry2, entry3], label: "Tasks")
+        for i in 0..<viewModel.tasksProducivility.count{
+            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.tasksProducivility[i].taskProducivility!))
+            entry.append(temp)
+        }
+        
+        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
         let data = BarChartData(dataSets: [dataSet])
         chartView.data = data
         dataSet.colors = ChartColorTemplates.colorful()
         
-        //All other additions to this function will go here
-        
-        //This must stay at end of function
         chartView.notifyDataSetChanged()
     }
     
-    func displaySomething(viewModel: ProducivilityPage.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    func loadData(){
+        interactor?.getAllTaskProducivility()
     }
 }
 

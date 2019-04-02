@@ -17,6 +17,8 @@ protocol TaskPagePresentationLogic
     func presentDropDown(response: TaskPage.DropDown.Response)
     func presentPhrases(response: TaskPage.Phrase.Response)
     func presentDefects(response: TaskPage.Defect.Response)
+    func presentPlanMetrics(response: TaskPage.Estimate.Response)
+    func presentActualMetrics(response: TaskPage.Actual.Response)
 }
 
 class TaskPagePresenter: TaskPagePresentationLogic
@@ -24,6 +26,15 @@ class TaskPagePresenter: TaskPagePresentationLogic
     weak var viewController: TaskPageDisplayLogic?
     
     // MARK: Do something
+    func presentActualMetrics(response: TaskPage.Actual.Response) {
+        let viewModel = TaskPage.Actual.ViewModel(metrics:response.metrics)
+        viewController?.displayActual(viewmodel: viewModel)
+    }
+    
+    func presentPlanMetrics(response: TaskPage.Estimate.Response) {
+        let viewModel = TaskPage.Estimate.ViewModel(metrics: response.metrics)
+        viewController?.displayPlan(viewmodel: viewModel)
+    }
     
     func presentDropDown(response: TaskPage.DropDown.Response)
     {

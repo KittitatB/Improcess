@@ -57,6 +57,12 @@
 		4EA68DAF22196B7600D222B1 /* ProducivilityPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA922196B7600D222B1 /* ProducivilityPageModels.swift */; };
 		4EA68DB022196B7600D222B1 /* ProducivilityPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DAA22196B7600D222B1 /* ProducivilityPageViewController.swift */; };
 		4EA68DB122196B7600D222B1 /* ProducivilityPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */; };
+		4EA68DBB223A2B4800D222B1 /* ChartsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DB5223A2B4800D222B1 /* ChartsPresenter.swift */; };
+		4EA68DBC223A2B4800D222B1 /* ChartsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DB6223A2B4800D222B1 /* ChartsWorker.swift */; };
+		4EA68DBD223A2B4800D222B1 /* ChartsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DB7223A2B4800D222B1 /* ChartsRouter.swift */; };
+		4EA68DBE223A2B4800D222B1 /* ChartsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DB8223A2B4800D222B1 /* ChartsModels.swift */; };
+		4EA68DBF223A2B4800D222B1 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DB9223A2B4800D222B1 /* ChartsViewController.swift */; };
+		4EA68DC0223A2B4800D222B1 /* ChartsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DBA223A2B4800D222B1 /* ChartsInteractor.swift */; };
 		4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */; };
 		4ED34A26217C744300471D20 /* InitProjectWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A20217C744300471D20 /* InitProjectWorker.swift */; };
 		4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34A21217C744300471D20 /* InitProjectRouter.swift */; };
@@ -142,6 +148,12 @@
 		4EA68DA922196B7600D222B1 /* ProducivilityPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageModels.swift; sourceTree = "<group>"; };
 		4EA68DAA22196B7600D222B1 /* ProducivilityPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageViewController.swift; sourceTree = "<group>"; };
 		4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageInteractor.swift; sourceTree = "<group>"; };
+		4EA68DB5223A2B4800D222B1 /* ChartsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsPresenter.swift; sourceTree = "<group>"; };
+		4EA68DB6223A2B4800D222B1 /* ChartsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsWorker.swift; sourceTree = "<group>"; };
+		4EA68DB7223A2B4800D222B1 /* ChartsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsRouter.swift; sourceTree = "<group>"; };
+		4EA68DB8223A2B4800D222B1 /* ChartsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsModels.swift; sourceTree = "<group>"; };
+		4EA68DB9223A2B4800D222B1 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
+		4EA68DBA223A2B4800D222B1 /* ChartsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsInteractor.swift; sourceTree = "<group>"; };
 		4ED34A1F217C744300471D20 /* InitProjectPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectPresenter.swift; sourceTree = "<group>"; };
 		4ED34A20217C744300471D20 /* InitProjectWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectWorker.swift; sourceTree = "<group>"; };
 		4ED34A21217C744300471D20 /* InitProjectRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitProjectRouter.swift; sourceTree = "<group>"; };
@@ -246,6 +258,7 @@
 				4EDC04CE21878EF50019DC07 /* ProjectPage */,
 				4E2684A421C7FCF100B776D1 /* TaskPage */,
 				4EA68DA522196B4F00D222B1 /* ProducivilityPage */,
+				4EA68DB4223A2ADD00D222B1 /* DefectChartPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -322,6 +335,19 @@
 				4EA68DAB22196B7600D222B1 /* ProducivilityPageInteractor.swift */,
 			);
 			path = ProducivilityPage;
+			sourceTree = "<group>";
+		};
+		4EA68DB4223A2ADD00D222B1 /* DefectChartPage */ = {
+			isa = PBXGroup;
+			children = (
+				4EA68DB5223A2B4800D222B1 /* ChartsPresenter.swift */,
+				4EA68DB6223A2B4800D222B1 /* ChartsWorker.swift */,
+				4EA68DB7223A2B4800D222B1 /* ChartsRouter.swift */,
+				4EA68DB8223A2B4800D222B1 /* ChartsModels.swift */,
+				4EA68DB9223A2B4800D222B1 /* ChartsViewController.swift */,
+				4EA68DBA223A2B4800D222B1 /* ChartsInteractor.swift */,
+			);
+			path = DefectChartPage;
 			sourceTree = "<group>";
 		};
 		4ED34A1E217C740600471D20 /* AddProjectName */ = {
@@ -527,6 +553,7 @@
 				4E537F4B216DC255001F97F1 /* LoginPageWorker.swift in Sources */,
 				4ED34A37217C77D300471D20 /* InitSummaryModels.swift in Sources */,
 				4E2684AF21C7FD2300B776D1 /* TaskPageViewController.swift in Sources */,
+				4EA68DBD223A2B4800D222B1 /* ChartsRouter.swift in Sources */,
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
 				4EA68DAC22196B7600D222B1 /* ProducivilityPagePresenter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
@@ -543,8 +570,10 @@
 				4ED34A34217C77D300471D20 /* InitSummaryPresenter.swift in Sources */,
 				4ED34A722185B82300471D20 /* ProjectCell.swift in Sources */,
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
+				4EA68DBE223A2B4800D222B1 /* ChartsModels.swift in Sources */,
 				4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */,
 				4E537F782175B43C001F97F1 /* LandingPageWorker.swift in Sources */,
+				4EA68DC0223A2B4800D222B1 /* ChartsInteractor.swift in Sources */,
 				4E537F67217486EC001F97F1 /* SignupPagePresenter.swift in Sources */,
 				4ED34A6B2181C0B500471D20 /* AddProjectDefectsPresenter.swift in Sources */,
 				4E711F782192BE3200DD8743 /* TemplatesPageRouter.swift in Sources */,
@@ -560,6 +589,7 @@
 				4E2684AC21C7FD2300B776D1 /* TaskPageWorker.swift in Sources */,
 				4E711F772192BE3200DD8743 /* TemplatesPageWorker.swift in Sources */,
 				4E2684AD21C7FD2300B776D1 /* TaskPageRouter.swift in Sources */,
+				4EA68DBC223A2B4800D222B1 /* ChartsWorker.swift in Sources */,
 				4E537F4E216DC255001F97F1 /* LoginPageViewController.swift in Sources */,
 				4EDC04D921878F2A0019DC07 /* ProjectPageViewController.swift in Sources */,
 				4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */,
@@ -573,6 +603,8 @@
 				4EDC04D521878F2A0019DC07 /* ProjectPagePresenter.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
 				4EA68DAF22196B7600D222B1 /* ProducivilityPageModels.swift in Sources */,
+				4EA68DBB223A2B4800D222B1 /* ChartsPresenter.swift in Sources */,
+				4EA68DBF223A2B4800D222B1 /* ChartsViewController.swift in Sources */,
 				4E2684AB21C7FD2300B776D1 /* TaskPagePresenter.swift in Sources */,
 				4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */,
 				4ED34A25217C744300471D20 /* InitProjectPresenter.swift in Sources */,

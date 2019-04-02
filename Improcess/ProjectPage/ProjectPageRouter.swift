@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ProjectPageRoutingLogic
 {
     func routeToTaskPage(segue: UIStoryboardSegue?)
+    func routeToProducivilityPage(segue: UIStoryboardSegue?)
 }
 
 protocol ProjectPageDataPassing
@@ -59,5 +60,35 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
         destination.phraseList = source.phraseList
         destination.selectedTask = source.selectedTask
         destination.projectDetail = source.project
+    }
+    
+    func routeToProducivilityPage(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ProducivilityPageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToProducivilityPage(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ProducivilityPageController") as! ProducivilityPageViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToProducivilityPage(source: dataStore!, destination: &destinationDS)
+            navigateToProducivilityPage(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToProducivilityPage(source: ProjectPageViewController, destination: ProducivilityPageViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToProducivilityPage(source: ProjectPageDataStore, destination: inout ProducivilityPageDataStore)
+    {
+        destination.projectDetail = source.project
+        destination.tasks = source.tasks
     }
 }

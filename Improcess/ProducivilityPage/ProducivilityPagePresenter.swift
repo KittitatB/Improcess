@@ -14,7 +14,7 @@ import UIKit
 
 protocol ProducivilityPagePresentationLogic
 {
-    func presentSomething(response: ProducivilityPage.Something.Response)
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
 }
 
 class ProducivilityPagePresenter: ProducivilityPagePresentationLogic
@@ -23,9 +23,10 @@ class ProducivilityPagePresenter: ProducivilityPagePresentationLogic
     
     // MARK: Do something
     
-    func presentSomething(response: ProducivilityPage.Something.Response)
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
     {
-        let viewModel = ProducivilityPage.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+        let viewModel = ProducivilityPage.Producivility.ViewModel(tasksProducivility: response.tasksProducivility)
+        viewController?.displayProducivility(viewModel: viewModel)
+        
     }
 }

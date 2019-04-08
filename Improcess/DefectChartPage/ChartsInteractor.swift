@@ -14,29 +14,46 @@ import UIKit
 
 protocol ChartsBusinessLogic
 {
-    func doSomething(request: Charts.Something.Request)
+    func getChartData()
+    func getDefectData()
 }
 
 protocol ChartsDataStore
 {
-    //var name: String { get set }
+    var projectDetail: ProjectDetail? {get set}
+    var tasks: [ProjectTask]? {get set}
 }
 
 class ChartsInteractor: ChartsBusinessLogic, ChartsDataStore
 {
+    var tasks: [ProjectTask]?
+    var projectDetail: ProjectDetail?
+    
     var presenter: ChartsPresentationLogic?
     var worker: ChartsWorker?
     //var name: String = ""
     
     // MARK: Do something
     
-    func doSomething(request: Charts.Something.Request)
-    {
+    func getChartData(){
         worker = ChartsWorker()
-        worker?.doSomeWork()
         
-        let response = Charts.Something.Response()
-        presenter?.presentSomething(response: response)
+        worker?.getChartData(project: projectDetail!, tasks: tasks!, completionHandler: { (list) in
+            let response = Charts.ChartsData.Response(predition: list)
+            self.presenter?.presentChart(response: response)
+        })
+        
+    }
+    
+    func getDefectData(){
+        worker = ChartsWorker()
+        
+        worker?.getDefectData(project: projectDetail!, tasks: tasks!, completionHandler: { (list) in
+            let response = Charts.DefectData.Response(defectQuantity: list)
+            self.presenter?.presentDefect(response: response)
+        })
     }
     
 }
+
+

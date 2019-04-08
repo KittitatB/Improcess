@@ -16,7 +16,8 @@ import Firebase
 
 protocol ChartsDisplayLogic: class
 {
-    func displaySomething(viewModel: Charts.Something.ViewModel)
+    func displayChart(viewModel: Charts.ChartsData.ViewModel)
+    func displayDefect(viewModel: Charts.DefectData.ViewModel)
 }
 
 class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDelegate
@@ -71,28 +72,63 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         setupChart()
-        ChartUpdate()
         setupChart2()
-        chartUpdate2()
+        interactor?.getDefectData()
+        interactor?.getChartData()
     }
     
     // MARK: Do something
     
     
-    @IBOutlet weak var predictonChart: BarChartView!
+
+    @IBOutlet weak var predictionChart: LineChartView!
     @IBOutlet weak var defectCharts: BarChartView!
     
-    func doSomething()
-    {
-        let request = Charts.Something.Request()
-        interactor?.doSomething(request: request)
+    func displayChart(viewModel: Charts.ChartsData.ViewModel) {
+        defectCharts.noDataText = "Loading"
+        var entry = [BarChartDataEntry]()
+        
+        for i in 0..<viewModel.predition.count{
+            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
+            entry.append(temp)
+        }
+        
+        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
+        let data = BarChartData(dataSets: [dataSet])
+        defectCharts.data = data
+        dataSet.colors = ChartColorTemplates.colorful()
+        
+        defectCharts.notifyDataSetChanged()
     }
     
-    func displaySomething(viewModel: Charts.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    func displayDefect(viewModel: Charts.DefectData.ViewModel) {
+        predictionChart.noDataText = "Loading"
+        var entry = [ChartDataEntry]()
+        
+        for i in 0..<viewModel.defectQuantity.count{
+            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.defectQuantity[i].numberOfDefects))
+            entry.append(temp)
+        }
+        
+        let set1 = LineChartDataSet(values: entry, label: "Tasks")
+        
+        set1.axisDependency = .left
+        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
+        set1.setCircleColor(.white)
+        set1.lineWidth = 2
+        set1.circleRadius = 3
+        set1.fillAlpha = 65/255
+        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+        set1.drawCircleHoleEnabled = false
+        
+        let data = LineChartData(dataSets: [set1])
+        data.setValueTextColor(.white)
+        data.setValueFont(.systemFont(ofSize: 9))
+        
+        predictionChart.data = data
+        predictionChart.notifyDataSetChanged()
     }
     
     func setupChart(){
@@ -143,32 +179,15 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         l.xEntrySpace = 4
     }
     
-    func ChartUpdate () {
-        defectCharts.noDataText = "Loading"
-        
-        let entry1 = BarChartDataEntry(x: 1, y: 13)
-        let entry2 = BarChartDataEntry(x: 2, y: 8)
-        let entry3 = BarChartDataEntry(x: 3, y: 7)
-        let dataSet = BarChartDataSet(values: [entry1, entry2, entry3], label: "Tasks")
-        let data = BarChartData(dataSets: [dataSet])
-        defectCharts.data = data
-        dataSet.colors = ChartColorTemplates.colorful()
-        
-        //All other additions to this function will go here
-        
-        //This must stay at end of function
-        defectCharts.notifyDataSetChanged()
-    }
-    
     func setupChart2(){
-        predictonChart.delegate = self
+        predictionChart.delegate = self
         
-        predictonChart.chartDescription?.enabled = false
-        predictonChart.dragEnabled = true
-        predictonChart.setScaleEnabled(true)
-        predictonChart.pinchZoomEnabled = true
+        predictionChart.chartDescription?.enabled = false
+        predictionChart.dragEnabled = true
+        predictionChart.setScaleEnabled(true)
+        predictionChart.pinchZoomEnabled = true
         
-        let l = predictonChart.legend
+        let l = predictionChart.legend
         l.form = .line
         l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
         l.textColor = .white
@@ -177,12 +196,12 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         l.orientation = .horizontal
         l.drawInside = false
         
-        let xAxis = predictonChart.xAxis
+        let xAxis = predictionChart.xAxis
         xAxis.labelFont = .systemFont(ofSize: 11)
         xAxis.labelTextColor = .white
         xAxis.drawAxisLineEnabled = false
         
-        let leftAxis = predictonChart.leftAxis
+        let leftAxis = predictionChart.leftAxis
         leftAxis.labelTextColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
         leftAxis.axisMaximum = 100
         leftAxis.axisMinimum = 0
@@ -194,36 +213,12 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         leftAxisFormatter.positiveSuffix = " %"
          leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
         
-        let rightAxis = predictonChart.rightAxis
+        let rightAxis = predictionChart.rightAxis
         rightAxis.labelTextColor = .red
         rightAxis.axisMaximum = 100
         rightAxis.axisMinimum = 0
         rightAxis.granularityEnabled = false
         
-    }
-    
-    func chartUpdate2(){
-        let entry1 = ChartDataEntry(x: 1, y: 56)
-        let entry2 = ChartDataEntry(x: 2, y: 18)
-        let entry3 = ChartDataEntry(x: 3, y: 32)
-        let set1 = LineChartDataSet(values: [entry1, entry2, entry3], label: "Tasks")
-        
-        set1.axisDependency = .left
-        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-        set1.setCircleColor(.white)
-        set1.lineWidth = 2
-        set1.circleRadius = 3
-        set1.fillAlpha = 65/255
-        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set1.drawCircleHoleEnabled = false
-        
-        let data = LineChartData(dataSets: [set1])
-        data.setValueTextColor(.white)
-        data.setValueFont(.systemFont(ofSize: 9))
-        
-        predictonChart.data = data
-        predictonChart.notifyDataSetChanged()
     }
     
 }

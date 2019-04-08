@@ -26,7 +26,6 @@ protocol ProducivilityPageDataStore
 class ProducivilityPageInteractor: ProducivilityPageBusinessLogic, ProducivilityPageDataStore
 {
     var tasks: [ProjectTask]?
-    
     var projectDetail: ProjectDetail?
 
     var presenter: ProducivilityPagePresentationLogic?

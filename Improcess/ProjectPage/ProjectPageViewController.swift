@@ -208,4 +208,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         router?.routeToProducivilityPage(segue: nil)
     }
     
+    @IBAction func routeToChartsPage(_ sender: Any) {
+        router?.routeToChartsPage(segue: nil)
+    }
 }

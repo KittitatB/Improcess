@@ -16,16 +16,55 @@ enum Charts
 {
     // MARK: Use cases
     
-    enum Something
+    enum ChartsData
     {
         struct Request
         {
+            
         }
         struct Response
         {
+            var predition: [PredictionChartsData]
         }
         struct ViewModel
         {
+            var predition: [PredictionChartsData]
         }
+    }
+    
+    enum DefectData
+    {
+        struct Request
+        {
+            
+        }
+        struct Response
+        {
+            var defectQuantity: [DefectChartData]
+        }
+        struct ViewModel
+        {
+            var defectQuantity: [DefectChartData]
+        }
+    }
+}
+
+struct PredictionChartsData{
+    var taskName: String
+    var predictionData: Float
+    
+    init(name: String, prediction: Float) {
+        self.taskName = name
+        self.predictionData = prediction
+    }
+}
+
+struct DefectChartData{
+    var taskName: String
+    var numberOfDefects: Int
+    
+    init(name: String,numberOfDefects: Int) {
+        self.taskName = name
+        self.numberOfDefects = numberOfDefects
     }
 }

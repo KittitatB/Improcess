@@ -14,18 +14,25 @@ import UIKit
 
 protocol ChartsPresentationLogic
 {
-    func presentSomething(response: Charts.Something.Response)
+    func presentChart(response: Charts.ChartsData.Response)
+    func presentDefect(response: Charts.DefectData.Response)
 }
 
 class ChartsPresenter: ChartsPresentationLogic
 {
+    
     weak var viewController: ChartsDisplayLogic?
     
     // MARK: Do something
     
-    func presentSomething(response: Charts.Something.Response)
+    func presentChart(response: Charts.ChartsData.Response)
     {
-        let viewModel = Charts.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+        let viewmodel = Charts.ChartsData.ViewModel(predition: response.predition)
+        viewController?.displayChart(viewModel: viewmodel)
+    }
+    
+    func presentDefect(response: Charts.DefectData.Response){
+        let viewmodel = Charts.DefectData.ViewModel(defectQuantity: response.defectQuantity)
+        viewController?.displayDefect(viewModel: viewmodel)
     }
 }

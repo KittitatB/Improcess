@@ -1154,7 +1154,7 @@
         <!--Charts View Controller-->
         <scene sceneID="w6f-wS-DXc">
             <objects>
-                <viewController id="M0G-8B-0T2" customClass="ChartsViewController" customModule="Improcess" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChartsPageController" id="M0G-8B-0T2" customClass="ChartsViewController" customModule="Improcess" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="exM-y3-Y6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1172,7 +1172,7 @@
                                                     <constraint firstAttribute="height" constant="500" id="Ird-uW-omJ"/>
                                                 </constraints>
                                             </view>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ava-Qu-Qb7" customClass="BarChartView" customModule="Charts">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ava-Qu-Qb7" customClass="LineChartView" customModule="Charts">
                                                 <rect key="frame" x="20" y="560" width="374" height="500"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1212,7 +1212,7 @@
                     </view>
                     <connections>
                         <outlet property="defectCharts" destination="8eP-ul-RD3" id="CuV-Iv-8wU"/>
-                        <outlet property="predictonChart" destination="Ava-Qu-Qb7" id="Rvu-YP-Z1F"/>
+                        <outlet property="predictionChart" destination="Ava-Qu-Qb7" id="FUS-bJ-Zw3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t8A-Mt-hfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1437,7 +1437,7 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Defect Analysis"/>
                                                         <connections>
-                                                            <segue destination="M0G-8B-0T2" kind="show" id="Q01-6T-LGr"/>
+                                                            <action selector="routeToChartsPage:" destination="lvI-3P-UV3" eventType="touchUpInside" id="Zdw-nm-hOS"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1579,6 +1579,7 @@
                         <outlet property="tableviewHeight" destination="h2S-cO-dsL" id="9r5-cL-DUr"/>
                         <segue destination="ksQ-wh-XYN" kind="show" identifier="TaskSegue" id="XzB-Pu-Rv1"/>
                         <segue destination="okQ-IF-ZMk" kind="show" id="z7M-Qi-ARM"/>
+                        <segue destination="M0G-8B-0T2" kind="show" id="LsO-AQ-TAm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VmB-RZ-wT6" userLabel="First Responder" sceneMemberID="firstResponder"/>

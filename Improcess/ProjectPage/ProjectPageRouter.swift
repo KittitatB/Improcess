@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToTaskPage(segue: UIStoryboardSegue?)
     func routeToProducivilityPage(segue: UIStoryboardSegue?)
+    func routeToChartsPage(segue: UIStoryboardSegue?)
 }
 
 protocol ProjectPageDataPassing
@@ -87,6 +88,36 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
     // MARK: Passing data
     
     func passDataToProducivilityPage(source: ProjectPageDataStore, destination: inout ProducivilityPageDataStore)
+    {
+        destination.projectDetail = source.project
+        destination.tasks = source.tasks
+    }
+    
+    func routeToChartsPage(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ChartsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToChartsPage(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChartsPageController") as! ChartsViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToChartsPage(source: dataStore!, destination: &destinationDS)
+            navigateToChartsPage(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToChartsPage(source: ProjectPageViewController, destination: ChartsViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToChartsPage(source: ProjectPageDataStore, destination: inout ChartsDataStore)
     {
         destination.projectDetail = source.project
         destination.tasks = source.tasks

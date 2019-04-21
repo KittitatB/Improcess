@@ -89,7 +89,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         }else{
             seeAllButton.setTitle("Show all tasks", for: .normal)
         }
-//        scrollview.layoutIfNeeded()
         var viewHeight = 623
         updateTableview()
         if (projectTask.count) > 2{

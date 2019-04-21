@@ -190,6 +190,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.planningTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
             cell.name.text = planMetrics[indexPath.row].name!
+            cell.field.text = planMetrics[indexPath.row].value!
             cell.project = interactor!.projectDetail
             cell.task = interactor?.selectedTask?.name
             return cell
@@ -212,6 +213,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
         cell.name.text = actualMetrics[indexPath.row].name!
+        cell.field.text = actualMetrics[indexPath.row].value!
         cell.project = interactor!.projectDetail
         cell.task = interactor?.selectedTask?.name
         return cell

@@ -79,7 +79,9 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
     
     //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var chartView: CombinedChartView!
-    
+    @IBOutlet weak var totalLineLabel: UILabel!
+    @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var averageLabel: UILabel!
     func setupChart(){
         
         self.title = "Producivility Chart"
@@ -87,7 +89,6 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         chartView.delegate = self
         
         chartView.chartDescription?.enabled = false
-        
         chartView.drawBarShadowEnabled = false
         chartView.highlightFullBarEnabled = false
         
@@ -137,15 +138,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         rightAxis.axisMinimum = 0
         
         let l = chartView.legend
-        l.horizontalAlignment = .left
-        l.verticalAlignment = .bottom
-        l.orientation = .horizontal
-        l.drawInside = false
-        l.form = .circle
-        l.formSize = 9
-        l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
-        l.wordWrapEnabled = true
-        l.xEntrySpace = 4
+        l.enabled = false
     }
     
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
@@ -159,6 +152,25 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         chartView.data = data
         
         chartView.notifyDataSetChanged()
+        
+        updateDetail(tasks: viewModel.tasksProducivility)
+    }
+    
+    func updateDetail(tasks: [TaskProducivility]){
+        var totalTime: Float = 0.0
+        var totalLine: Float = 0.0
+        var product: Float = 0.0
+        
+        for task in tasks{
+            totalTime += task.time!
+            totalLine += task.line!
+            product += task.taskProducivility!
+        }
+        
+        totalLineLabel.text = "\(Int(totalLine)) Line"
+        totalTimeLabel.text = "\(Int(totalTime)) Sec"
+        averageLabel.text = "\(product/Float(tasks.count)) Line/Hours"
+        
     }
     
     func loadData(){

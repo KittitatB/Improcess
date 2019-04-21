@@ -35,9 +35,13 @@ enum ProducivilityPage
 struct TaskProducivility{
     var taskName: String?
     var taskProducivility: Float?
+    var time: Float?
+    var line: Float?
     
-    init(name: String, producivility: Float) {
-        taskName = name
-        taskProducivility = producivility
+    init(name: String,time: Float, line: Float, producivility: Float) {
+        self.taskName = name
+        self.time = time
+        self.line = line
+        self.taskProducivility = producivility
     }
 }

@@ -19,11 +19,11 @@ protocol ProducivilityPageDisplayLogic: class
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
 }
 
-class ProducivilityPageViewController: UIViewController, ProducivilityPageDisplayLogic
+class ProducivilityPageViewController: UIViewController, ProducivilityPageDisplayLogic, ChartViewDelegate
 {
     var interactor: ProducivilityPageBusinessLogic?
     var router: (NSObjectProtocol & ProducivilityPageRoutingLogic & ProducivilityPageDataPassing)?
-    
+    var counter = 0.0
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -78,9 +78,23 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var chartView: BarChartView!
+    @IBOutlet weak var chartView: CombinedChartView!
     
     func setupChart(){
+        
+        self.title = "Producivility Chart"
+        
+        chartView.delegate = self
+        
+        chartView.chartDescription?.enabled = false
+        
+        chartView.drawBarShadowEnabled = false
+        chartView.highlightFullBarEnabled = false
+        
+        
+        chartView.drawOrder = [DrawOrder.bar.rawValue,
+                               DrawOrder.line.rawValue]
+        
         chartView.chartDescription?.enabled = false
         
         chartView.highlightPerTapEnabled = false
@@ -95,14 +109,17 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         xAxis.labelFont = .systemFont(ofSize: 10)
         xAxis.granularity = 1
         xAxis.labelCount = 7
-//        xAxis.valueFormatter = TaskAxisFormatter()
-        
+        xAxis.axisMaximum = counter + 0.5
+        xAxis.labelPosition = .bothSided
+        xAxis.axisMinimum = -0.5
+        xAxis.valueFormatter = TaskAxisFormatter()
+
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
         leftAxisFormatter.maximumFractionDigits = 1
         leftAxisFormatter.negativeSuffix = " Line/Hour"
         leftAxisFormatter.positiveSuffix = " Line/Hour"
-        
+
         let leftAxis = chartView.leftAxis
         leftAxis.labelFont = .systemFont(ofSize: 10)
         leftAxis.labelCount = 8
@@ -110,7 +127,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         leftAxis.labelPosition = .outsideChart
         leftAxis.spaceTop = 0.15
         leftAxis.axisMinimum = 0
-        
+
         let rightAxis = chartView.rightAxis
         rightAxis.enabled = true
         rightAxis.labelFont = .systemFont(ofSize: 10)
@@ -127,29 +144,52 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         l.form = .circle
         l.formSize = 9
         l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
+        l.wordWrapEnabled = true
         l.xEntrySpace = 4
     }
     
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
     {
-        chartView.noDataText = "Loading"
-        var entry = [BarChartDataEntry]()
+        counter = Double(viewModel.tasksProducivility.count)
+        let data = CombinedChartData()
+        data.lineData = generateLineData(tasks: viewModel.tasksProducivility)
+        data.barData = generateBarData(tasks: viewModel.tasksProducivility)
         
-        for i in 0..<viewModel.tasksProducivility.count{
-            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.tasksProducivility[i].taskProducivility!))
-            entry.append(temp)
-        }
-        
-        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
-        let data = BarChartData(dataSets: [dataSet])
+        chartView.xAxis.axisMaximum = data.xMax + 0.5
         chartView.data = data
-        dataSet.colors = ChartColorTemplates.colorful()
         
         chartView.notifyDataSetChanged()
     }
     
     func loadData(){
         interactor?.getAllTaskProducivility()
+    }
+    
+    func generateLineData(tasks: [TaskProducivility]) -> LineChartData {
+        let entry = (0..<tasks.count).map { (i) -> ChartDataEntry in
+            return ChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
+        }
+        
+        let set = LineChartDataSet(values: entry, label: "Tasks")
+        set.colors = ChartColorTemplates.joyful()
+        set.axisDependency = .left
+        
+        return LineChartData(dataSet: set)
+    }
+    
+    func generateBarData(tasks: [TaskProducivility]) -> BarChartData {
+        
+        let entry = (0..<tasks.count).map { (i) -> BarChartDataEntry in
+            return BarChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
+        }
+        
+        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
+        let data = BarChartData(dataSets: [dataSet])
+//        chartView.data = data
+        dataSet.colors = ChartColorTemplates.colorful()
+        dataSet.axisDependency = .left
+        
+        return data
     }
 }
 

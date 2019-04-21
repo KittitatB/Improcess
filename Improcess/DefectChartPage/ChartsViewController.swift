@@ -219,7 +219,6 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         predictionChart.pinchZoomEnabled = true
         
         let l = predictionChart.legend
-        l.form = .line
         l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
         l.textColor = .white
         l.horizontalAlignment = .left

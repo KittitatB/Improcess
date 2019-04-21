@@ -1127,7 +1127,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPP-Wj-hGi" customClass="BarChartView" customModule="Charts">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPP-Wj-hGi" customClass="CombinedChartView" customModule="Charts">
                                 <rect key="frame" x="20" y="108" width="374" height="500"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1144,7 +1144,7 @@
                         <viewLayoutGuide key="safeArea" id="kxh-Y8-iNO"/>
                     </view>
                     <connections>
-                        <outlet property="chartView" destination="tPP-Wj-hGi" id="Kpb-ZY-fzJ"/>
+                        <outlet property="chartView" destination="tPP-Wj-hGi" id="uMr-LE-HHO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XL8-j2-jxF" userLabel="First Responder" sceneMemberID="firstResponder"/>

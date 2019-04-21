@@ -81,54 +81,85 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     // MARK: Do something
     
     
-
+    
     @IBOutlet weak var predictionChart: LineChartView!
     @IBOutlet weak var defectCharts: BarChartView!
     
     func displayChart(viewModel: Charts.ChartsData.ViewModel) {
-        defectCharts.noDataText = "Loading"
-        var entry = [BarChartDataEntry]()
-        
-        for i in 0..<viewModel.predition.count{
-            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
-            entry.append(temp)
-        }
-        
-        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
-        let data = BarChartData(dataSets: [dataSet])
-        defectCharts.data = data
-        dataSet.colors = ChartColorTemplates.colorful()
-        
-        defectCharts.notifyDataSetChanged()
-    }
-    
-    func displayDefect(viewModel: Charts.DefectData.ViewModel) {
         predictionChart.noDataText = "Loading"
         var entry = [ChartDataEntry]()
         
-        for i in 0..<viewModel.defectQuantity.count{
-            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.defectQuantity[i].numberOfDefects))
+        for i in 0..<viewModel.predition.count{
+            let temp = ChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
             entry.append(temp)
         }
         
-        let set1 = LineChartDataSet(values: entry, label: "Tasks")
+        
+        let set1 = LineChartDataSet(values: entry, label: "Prediction")
         
         set1.axisDependency = .left
         set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-        set1.setCircleColor(.white)
+        set1.setCircleColor(.gray)
         set1.lineWidth = 2
         set1.circleRadius = 3
         set1.fillAlpha = 65/255
         set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
         set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
         set1.drawCircleHoleEnabled = false
+        set1.colors = ChartColorTemplates.colorful()
         
         let data = LineChartData(dataSets: [set1])
-        data.setValueTextColor(.white)
-        data.setValueFont(.systemFont(ofSize: 9))
         
         predictionChart.data = data
         predictionChart.notifyDataSetChanged()
+        //        defectCharts.noDataText = "Loading"
+        //        var entry = [BarChartDataEntry]()
+        //
+        //        for i in 0..<viewModel.predition.count{
+        //            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
+        //            entry.append(temp)
+        //        }
+        //
+        //        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
+        //        let data = BarChartData(dataSets: [dataSet])
+        //        defectCharts.data = data
+        //        dataSet.colors = ChartColorTemplates.colorful()
+        //
+        //        defectCharts.notifyDataSetChanged()
+    }
+    
+    func displayDefect(viewModel: Charts.DefectData.ViewModel) {
+                predictionChart.noDataText = "Loading"
+                var entry = [BarChartDataEntry]()
+        
+                for i in 0..<viewModel.defectQuantity.count{
+                    let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.defectQuantity[i].numberOfDefects))
+                    entry.append(temp)
+                }
+        
+                let dataSet = BarChartDataSet(values: entry, label: "Tasks")
+                let data = BarChartData(dataSets: [dataSet])
+                defectCharts.data = data
+                dataSet.colors = ChartColorTemplates.colorful()
+        
+                defectCharts.notifyDataSetChanged()
+        //        let set1 = LineChartDataSet(values: entry, label: "Prediction")
+        
+        //        set1.axisDependency = .left
+        //        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
+        //        set1.setCircleColor(.gray)
+        //        set1.lineWidth = 2
+        //        set1.circleRadius = 3
+        //        set1.fillAlpha = 65/255
+        //        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+        //        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+        //        set1.drawCircleHoleEnabled = false
+        //        set1.colors = ChartColorTemplates.colorful()
+        //
+        //        let data = LineChartData(dataSets: [set1])
+        //
+        //        predictionChart.data = data
+        //        predictionChart.notifyDataSetChanged()
     }
     
     func setupChart(){
@@ -211,7 +242,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.negativeSuffix = " %"
         leftAxisFormatter.positiveSuffix = " %"
-         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
+        leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
         
         let rightAxis = predictionChart.rightAxis
         rightAxis.labelTextColor = .red
@@ -219,6 +250,10 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         rightAxis.axisMinimum = 0
         rightAxis.granularityEnabled = false
         
+        let rightAxisFormatter = NumberFormatter()
+        rightAxisFormatter.negativeSuffix = " %"
+        rightAxisFormatter.positiveSuffix = " %"
+        rightAxis.valueFormatter = DefaultAxisValueFormatter(formatter: rightAxisFormatter)
     }
     
 }

@@ -32,7 +32,7 @@ class ChartsWorker
                     ref.child("estimate").observeSingleEvent(of: .value, with: { (snapshot) in
                         if let tasksDic = snapshot.value as? [String : AnyObject]{
                             let estimate = (tasksDic["Estimated Time"] as? String!)!
-                            let temp = PredictionChartsData(name: task.name, prediction: (actual! as NSString).floatValue/(estimate! as NSString).floatValue*100.00)
+                            let temp = PredictionChartsData(name: task.name, prediction: Float(abs((actual! as NSString).floatValue - (estimate! as NSString).floatValue))/(estimate! as NSString).floatValue*100.00)
                             escape.append(temp)
                             self.myGroup.leave()
                         }
@@ -50,13 +50,17 @@ class ChartsWorker
     {
         let uid = Auth.auth().currentUser?.uid
         var escape = [DefectChartData]()
+        var numberOfDefect = 0
         
         for task in tasks{
             taskGroup.enter()
             let ref = Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name)
             ref.child("defect").observeSingleEvent(of: .value) { (snapshot) in
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
-                    let numberOfDefect = tasksDic.count
+                    for task in tasksDic{
+                        print(task)
+                        numberOfDefect += 1
+                    }
                     let temp = DefectChartData(name: task.name, numberOfDefects: numberOfDefect)
                     escape.append(temp)
                     self.taskGroup.leave()

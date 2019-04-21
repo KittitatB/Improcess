@@ -69,7 +69,8 @@ class ProjectPageWorker
             for phrase in phraseList{
                 if let dict = phrase.value as? [String : AnyObject]{
                     let name = dict["stepName"] as! String
-                    let newList = PhraseTypeList(name: name)
+                    let detail = dict["stepDesccription"] as! String
+                    let newList = PhraseTypeList(name: name, detail: detail)
                     phrases.append(newList)
                 }
             }
@@ -86,7 +87,8 @@ class ProjectPageWorker
             for defect in defectList{
                 if let dict = defect.value as? [String : AnyObject]{
                     let name = dict["defectName"] as! String
-                    let newList = DefectTypeList(name: name)
+                    let detail = dict["defectDesccription"] as! String
+                    let newList = DefectTypeList(name: name, detail: detail)
                     defects.append(newList)
                 }
                 completionHandler(defects)

@@ -87,9 +87,11 @@ struct ProjectTask {
 
 struct DefectTypeList {
     var name: String?
+    var detail: String?
 }
 
 struct PhraseTypeList {
     var name: String?
+    var detail: String?
 }
 

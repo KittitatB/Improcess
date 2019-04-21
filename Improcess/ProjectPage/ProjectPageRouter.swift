@@ -17,6 +17,7 @@ import UIKit
     func routeToTaskPage(segue: UIStoryboardSegue?)
     func routeToProducivilityPage(segue: UIStoryboardSegue?)
     func routeToChartsPage(segue: UIStoryboardSegue?)
+    func routeToDashboardPage(segue: UIStoryboardSegue?)
 }
 
 protocol ProjectPageDataPassing
@@ -121,5 +122,36 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
     {
         destination.projectDetail = source.project
         destination.tasks = source.tasks
+    }
+    
+    func routeToDashboardPage(segue: UIStoryboardSegue?)
+    {
+        if let segue = segue {
+            let destinationVC = segue.destination as! DashboardViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToDashboardPage(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "DashboardPageController") as! DashboardViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            passDataToDashboardPage(source: dataStore!, destination: &destinationDS)
+            navigateToDashboardPage(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToDashboardPage(source: ProjectPageViewController, destination: DashboardViewController)
+    {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToDashboardPage(source: ProjectPageDataStore, destination: inout DashboardDataStore)
+    {
+        destination.project = source.project
+        destination.phraseList = source.phraseList
+        destination.defectList = source.defectList
     }
 }

@@ -51,6 +51,13 @@
 		4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */; };
 		4E711F7B2192BE3200DD8743 /* TemplatesPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */; };
 		4E711F7D2192BE7700DD8743 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E711F7C2192BE7700DD8743 /* TemplateCell.swift */; };
+		4E97CB47225BD82400FE6E52 /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB41225BD82400FE6E52 /* DashboardPresenter.swift */; };
+		4E97CB48225BD82400FE6E52 /* DashboardWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB42225BD82400FE6E52 /* DashboardWorker.swift */; };
+		4E97CB49225BD82400FE6E52 /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB43225BD82400FE6E52 /* DashboardRouter.swift */; };
+		4E97CB4A225BD82400FE6E52 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB44225BD82400FE6E52 /* DashboardModels.swift */; };
+		4E97CB4B225BD82400FE6E52 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB45225BD82400FE6E52 /* DashboardViewController.swift */; };
+		4E97CB4C225BD82400FE6E52 /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB46225BD82400FE6E52 /* DashboardInteractor.swift */; };
+		4E97CB4E225BDECE00FE6E52 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97CB4D225BDECE00FE6E52 /* DashboardCell.swift */; };
 		4EA68DAC22196B7600D222B1 /* ProducivilityPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA622196B7600D222B1 /* ProducivilityPagePresenter.swift */; };
 		4EA68DAD22196B7600D222B1 /* ProducivilityPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA722196B7600D222B1 /* ProducivilityPageWorker.swift */; };
 		4EA68DAE22196B7600D222B1 /* ProducivilityPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA68DA822196B7600D222B1 /* ProducivilityPageRouter.swift */; };
@@ -142,6 +149,13 @@
 		4E711F742192BE3200DD8743 /* TemplatesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageViewController.swift; sourceTree = "<group>"; };
 		4E711F752192BE3200DD8743 /* TemplatesPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesPageInteractor.swift; sourceTree = "<group>"; };
 		4E711F7C2192BE7700DD8743 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
+		4E97CB41225BD82400FE6E52 /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
+		4E97CB42225BD82400FE6E52 /* DashboardWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWorker.swift; sourceTree = "<group>"; };
+		4E97CB43225BD82400FE6E52 /* DashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRouter.swift; sourceTree = "<group>"; };
+		4E97CB44225BD82400FE6E52 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
+		4E97CB45225BD82400FE6E52 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		4E97CB46225BD82400FE6E52 /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
+		4E97CB4D225BDECE00FE6E52 /* DashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
 		4EA68DA622196B7600D222B1 /* ProducivilityPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPagePresenter.swift; sourceTree = "<group>"; };
 		4EA68DA722196B7600D222B1 /* ProducivilityPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageWorker.swift; sourceTree = "<group>"; };
 		4EA68DA822196B7600D222B1 /* ProducivilityPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProducivilityPageRouter.swift; sourceTree = "<group>"; };
@@ -259,6 +273,7 @@
 				4E2684A421C7FCF100B776D1 /* TaskPage */,
 				4EA68DA522196B4F00D222B1 /* ProducivilityPage */,
 				4EA68DB4223A2ADD00D222B1 /* DefectChartPage */,
+				4E97CB40225BD7E400FE6E52 /* DashboardPage */,
 				4E452D7C216C8C0F00BBCC34 /* AppDelegate.swift */,
 				4E537F51217057B6001F97F1 /* Helper.swift */,
 				4E452D82216C8C0F00BBCC34 /* Main.storyboard */,
@@ -322,6 +337,20 @@
 				4E711F7C2192BE7700DD8743 /* TemplateCell.swift */,
 			);
 			path = TemplatesPage;
+			sourceTree = "<group>";
+		};
+		4E97CB40225BD7E400FE6E52 /* DashboardPage */ = {
+			isa = PBXGroup;
+			children = (
+				4E97CB41225BD82400FE6E52 /* DashboardPresenter.swift */,
+				4E97CB42225BD82400FE6E52 /* DashboardWorker.swift */,
+				4E97CB43225BD82400FE6E52 /* DashboardRouter.swift */,
+				4E97CB44225BD82400FE6E52 /* DashboardModels.swift */,
+				4E97CB45225BD82400FE6E52 /* DashboardViewController.swift */,
+				4E97CB46225BD82400FE6E52 /* DashboardInteractor.swift */,
+				4E97CB4D225BDECE00FE6E52 /* DashboardCell.swift */,
+			);
+			path = DashboardPage;
 			sourceTree = "<group>";
 		};
 		4EA68DA522196B4F00D222B1 /* ProducivilityPage */ = {
@@ -557,6 +586,7 @@
 				4ED34A27217C744300471D20 /* InitProjectRouter.swift in Sources */,
 				4EA68DAC22196B7600D222B1 /* ProducivilityPagePresenter.swift in Sources */,
 				4E537F69217486EC001F97F1 /* SignupPageRouter.swift in Sources */,
+				4E97CB4B225BD82400FE6E52 /* DashboardViewController.swift in Sources */,
 				4E711F792192BE3200DD8743 /* TemplatesPageModels.swift in Sources */,
 				4ED34A702181C0B500471D20 /* AddProjectDefectsInteractor.swift in Sources */,
 				4ED34A35217C77D300471D20 /* InitSummaryWorker.swift in Sources */,
@@ -569,7 +599,9 @@
 				4E3CF27721CA7A1900673C64 /* MetricCell.swift in Sources */,
 				4ED34A34217C77D300471D20 /* InitSummaryPresenter.swift in Sources */,
 				4ED34A722185B82300471D20 /* ProjectCell.swift in Sources */,
+				4E97CB4A225BD82400FE6E52 /* DashboardModels.swift in Sources */,
 				4E537F4A216DC255001F97F1 /* LoginPagePresenter.swift in Sources */,
+				4E97CB48225BD82400FE6E52 /* DashboardWorker.swift in Sources */,
 				4EA68DBE223A2B4800D222B1 /* ChartsModels.swift in Sources */,
 				4E711F7A2192BE3200DD8743 /* TemplatesPageViewController.swift in Sources */,
 				4E537F782175B43C001F97F1 /* LandingPageWorker.swift in Sources */,
@@ -595,6 +627,7 @@
 				4ED34A39217C77D300471D20 /* InitSummaryInteractor.swift in Sources */,
 				4EDC04DC218791B70019DC07 /* TaskCell.swift in Sources */,
 				4E537F792175B43C001F97F1 /* LandingPageRouter.swift in Sources */,
+				4E97CB4C225BD82400FE6E52 /* DashboardInteractor.swift in Sources */,
 				4EDC04D721878F2A0019DC07 /* ProjectPageRouter.swift in Sources */,
 				4E3CF28721CC096C00673C64 /* TaskModalController.swift in Sources */,
 				4E452D7D216C8C0F00BBCC34 /* AppDelegate.swift in Sources */,
@@ -602,6 +635,7 @@
 				4ED34A6F2181C0B500471D20 /* AddProjectDefectsViewController.swift in Sources */,
 				4EDC04D521878F2A0019DC07 /* ProjectPagePresenter.swift in Sources */,
 				4ED34A6321804BB200471D20 /* StepCell.swift in Sources */,
+				4E97CB49225BD82400FE6E52 /* DashboardRouter.swift in Sources */,
 				4EA68DAF22196B7600D222B1 /* ProducivilityPageModels.swift in Sources */,
 				4EA68DBB223A2B4800D222B1 /* ChartsPresenter.swift in Sources */,
 				4EA68DBF223A2B4800D222B1 /* ChartsViewController.swift in Sources */,
@@ -611,6 +645,8 @@
 				4ED34A29217C744300471D20 /* InitProjectViewController.swift in Sources */,
 				4ED34A2A217C744300471D20 /* InitProjectInteractor.swift in Sources */,
 				4EDC04D821878F2A0019DC07 /* ProjectPageModels.swift in Sources */,
+				4E97CB4E225BDECE00FE6E52 /* DashboardCell.swift in Sources */,
+				4E97CB47225BD82400FE6E52 /* DashboardPresenter.swift in Sources */,
 				4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */,
 				4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */,
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,

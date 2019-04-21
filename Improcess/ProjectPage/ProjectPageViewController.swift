@@ -26,6 +26,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     var cellStack: Int?
     var statusColor:[String:UIColor] = ["Open":UIColor.init(red: 76/255, green: 217/255, blue: 100/255, alpha: 1),"WIP":UIColor.init(red: 255/255, green: 204/255, blue: 0/255, alpha: 1),"Close":UIColor.init(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)]
     let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
+    var seeAll: Bool?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
@@ -74,6 +75,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         loadData()
         self.hideKeyboardWhenTappedAround()
         super.viewDidLoad()
+        seeAll = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,13 +84,28 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     override func viewDidLayoutSubviews() {
-        scrollview.layoutIfNeeded()
-        var viewHeight = 603
+        if(seeAll!){
+            seeAllButton.setTitle("Hide tasks", for: .normal)
+        }else{
+            seeAllButton.setTitle("Show all tasks", for: .normal)
+        }
+//        scrollview.layoutIfNeeded()
+        var viewHeight = 623
         updateTableview()
         if (projectTask.count) > 2{
-            viewHeight += (projectTask.count - 2) * 45
+            if(seeAll!){
+                viewHeight += (projectTask.count - 2) * 45
+            }else{
+                viewHeight += 45
+            }
         }
-        scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.layoutIfNeeded()
+            self.scrollview.layoutIfNeeded()
+            self.scrollview.contentSize = CGSize(width: self.view.frame.width, height: CGFloat(viewHeight))
+        })
+        
     }
     
     // MARK: Do something
@@ -98,6 +115,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var seeAllButton: UIButton!
     
     func loadTask(){
         projectTask.removeAll()
@@ -126,17 +144,23 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == projectTask.count {
+        if seeAll! == false && indexPath.row == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
             cell.cellInteractor = self
             return cell
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskCell
-            cell.taskNameLabel.text = projectTask[indexPath.row].name
-            cell.status.text = projectTask[indexPath.row].status
-            cell.status.textColor = statusColor[projectTask[indexPath.row].status]
-            return cell
+        }else{
+            if indexPath.row == projectTask.count {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
+                cell.cellInteractor = self
+                return cell
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TaskCell
+                cell.taskNameLabel.text = projectTask[indexPath.row].name
+                cell.status.text = projectTask[indexPath.row].status
+                cell.status.textColor = statusColor[projectTask[indexPath.row].status]
+                return cell
+            }
         }
     }
     
@@ -163,6 +187,11 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func updateTableview(){
         tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
+        if(projectTask.count > 3){
+            if(seeAll! == false){
+                tableviewHeight.constant = CGFloat((4) * 45)
+            }
+        }
         tableview.reloadData()
     }
     
@@ -211,4 +240,15 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     @IBAction func routeToChartsPage(_ sender: Any) {
         router?.routeToChartsPage(segue: nil)
     }
+    
+    @IBAction func routeToDashboard(_ sender: Any) {
+        router?.routeToDashboardPage(segue: nil)
+    }
+    
+    
+    @IBAction func seeAllDidPressed(_ sender: Any) {
+        seeAll = !seeAll!
+        view.setNeedsLayout()
+    }
+    
 }

@@ -82,87 +82,70 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     
     
     
-    @IBOutlet weak var predictionChart: LineChartView!
-    @IBOutlet weak var defectCharts: BarChartView!
+    @IBOutlet weak var predictionChart: CombinedChartView!
+    @IBOutlet weak var defectCharts: CombinedChartView!
     
     func displayChart(viewModel: Charts.ChartsData.ViewModel) {
         predictionChart.noDataText = "Loading"
-        var entry = [ChartDataEntry]()
+//        var entry = [ChartDataEntry]()
+//
+//        for i in 0..<viewModel.predition.count{
+//            let temp = ChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
+//            entry.append(temp)
+//        }
+//
+//
+//        let set1 = LineChartDataSet(entries: entry, label: "Prediction")
+//
+//        set1.axisDependency = .left
+//        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
+//        set1.setCircleColor(.gray)
+//        set1.lineWidth = 2
+//        set1.circleRadius = 3
+//        set1.fillAlpha = 65/255
+//        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+//        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+//        set1.drawCircleHoleEnabled = false
+//        set1.colors = ChartColorTemplates.colorful()
+//
+//        let data = LineChartData(dataSets: [set1])
+//
+//        predictionChart.data = data
+        let data = CombinedChartData()
+        data.lineData = generateLineData(tasks: viewModel.predition)
+        data.barData = generateBarData(tasks: viewModel.predition)
         
-        for i in 0..<viewModel.predition.count{
-            let temp = ChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
-            entry.append(temp)
-        }
-        
-        
-        let set1 = LineChartDataSet(values: entry, label: "Prediction")
-        
-        set1.axisDependency = .left
-        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-        set1.setCircleColor(.gray)
-        set1.lineWidth = 2
-        set1.circleRadius = 3
-        set1.fillAlpha = 65/255
-        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set1.drawCircleHoleEnabled = false
-        set1.colors = ChartColorTemplates.colorful()
-        
-        let data = LineChartData(dataSets: [set1])
-        
+        predictionChart.xAxis.axisMaximum = data.xMax + 0.5
         predictionChart.data = data
+        
         predictionChart.notifyDataSetChanged()
-        //        defectCharts.noDataText = "Loading"
-        //        var entry = [BarChartDataEntry]()
-        //
-        //        for i in 0..<viewModel.predition.count{
-        //            let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.predition[i].predictionData))
-        //            entry.append(temp)
-        //        }
-        //
-        //        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
-        //        let data = BarChartData(dataSets: [dataSet])
-        //        defectCharts.data = data
-        //        dataSet.colors = ChartColorTemplates.colorful()
-        //
-        //        defectCharts.notifyDataSetChanged()
     }
     
     func displayDefect(viewModel: Charts.DefectData.ViewModel) {
-                predictionChart.noDataText = "Loading"
-                var entry = [BarChartDataEntry]()
+        predictionChart.noDataText = "Loading"
         
-                for i in 0..<viewModel.defectQuantity.count{
-                    let temp = BarChartDataEntry(x: Double(i), y: Double(viewModel.defectQuantity[i].numberOfDefects))
-                    entry.append(temp)
-                }
+        let data = CombinedChartData()
+        data.lineData = generateLineData(tasks: viewModel.defectQuantity)
+        data.barData = generateBarData(tasks: viewModel.defectQuantity)
         
-                let dataSet = BarChartDataSet(values: entry, label: "Tasks")
-                let data = BarChartData(dataSets: [dataSet])
-                defectCharts.data = data
-                dataSet.colors = ChartColorTemplates.colorful()
+        defectCharts.xAxis.axisMaximum = data.xMax + 0.5
+        defectCharts.data = data
         
-                defectCharts.notifyDataSetChanged()
-        //        let set1 = LineChartDataSet(values: entry, label: "Prediction")
+        defectCharts.notifyDataSetChanged()
         
-        //        set1.axisDependency = .left
-        //        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-        //        set1.setCircleColor(.gray)
-        //        set1.lineWidth = 2
-        //        set1.circleRadius = 3
-        //        set1.fillAlpha = 65/255
-        //        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        //        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        //        set1.drawCircleHoleEnabled = false
-        //        set1.colors = ChartColorTemplates.colorful()
-        //
-        //        let data = LineChartData(dataSets: [set1])
-        //
-        //        predictionChart.data = data
-        //        predictionChart.notifyDataSetChanged()
     }
     
     func setupChart(){
+        defectCharts.delegate = self
+        
+        defectCharts.chartDescription?.enabled = false
+        defectCharts.drawBarShadowEnabled = false
+        defectCharts.highlightFullBarEnabled = false
+        
+        
+        defectCharts.drawOrder = [DrawOrder.bar.rawValue,
+                                  DrawOrder.line.rawValue]
+        
         defectCharts.chartDescription?.enabled = false
         
         defectCharts.highlightPerTapEnabled = false
@@ -177,7 +160,13 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         xAxis.labelFont = .systemFont(ofSize: 10)
         xAxis.granularity = 1
         xAxis.labelCount = 7
-        xAxis.valueFormatter = DefaultAxisValueFormatter()
+        //        xAxis.axisMaximum = counter + 0.5
+        xAxis.labelPosition = .bothSided
+        xAxis.axisMinimum = -0.5
+        xAxis.valueFormatter = TaskAxisFormatter()
+        //        defectCharts.pinchZoomEnabled = false
+        
+        // ChartYAxis *leftAxis = chartView.leftAxis;
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
@@ -200,36 +189,40 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         rightAxis.axisMinimum = 0
         
         let l = defectCharts.legend
-        l.horizontalAlignment = .left
-        l.verticalAlignment = .bottom
-        l.orientation = .horizontal
-        l.drawInside = false
-        l.form = .circle
-        l.formSize = 9
-        l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
-        l.xEntrySpace = 4
+        l.enabled = false
     }
     
     func setupChart2(){
+
         predictionChart.delegate = self
         
         predictionChart.chartDescription?.enabled = false
-        predictionChart.dragEnabled = true
+        predictionChart.drawBarShadowEnabled = false
+        predictionChart.highlightFullBarEnabled = false
+        
+        
+        predictionChart.drawOrder = [DrawOrder.bar.rawValue,
+                                  DrawOrder.line.rawValue]
+        
+        predictionChart.chartDescription?.enabled = false
+        
+        predictionChart.highlightPerTapEnabled = false
+        predictionChart.dragEnabled = false
         predictionChart.setScaleEnabled(true)
-        predictionChart.pinchZoomEnabled = true
+        predictionChart.pinchZoomEnabled = false
         
         let l = predictionChart.legend
-        l.font = UIFont(name: "HelveticaNeue-Light", size: 11)!
-        l.textColor = .white
-        l.horizontalAlignment = .left
-        l.verticalAlignment = .bottom
-        l.orientation = .horizontal
-        l.drawInside = false
+        l.enabled = false
         
         let xAxis = predictionChart.xAxis
-        xAxis.labelFont = .systemFont(ofSize: 11)
-        xAxis.labelTextColor = .white
-        xAxis.drawAxisLineEnabled = false
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .systemFont(ofSize: 10)
+        xAxis.granularity = 1
+        xAxis.labelCount = 7
+        //        xAxis.axisMaximum = counter + 0.5
+        xAxis.labelPosition = .bothSided
+        xAxis.axisMinimum = -0.5
+        xAxis.valueFormatter = TaskAxisFormatter()
         
         let leftAxis = predictionChart.leftAxis
         leftAxis.labelTextColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
@@ -253,6 +246,60 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         rightAxisFormatter.negativeSuffix = " %"
         rightAxisFormatter.positiveSuffix = " %"
         rightAxis.valueFormatter = DefaultAxisValueFormatter(formatter: rightAxisFormatter)
+    }
+    
+    func generateLineData(tasks: [DefectChartData]) -> LineChartData {
+        let entry = (0..<tasks.count).map { (i) -> ChartDataEntry in
+            return ChartDataEntry(x: Double(i), y: Double(tasks[i].numberOfDefects))
+        }
+        
+        let set = LineChartDataSet(entries: entry, label: "Tasks")
+        set.colors = ChartColorTemplates.joyful()
+        set.axisDependency = .left
+        
+        return LineChartData(dataSet: set)
+    }
+    
+    func generateBarData(tasks: [DefectChartData]) -> BarChartData {
+        
+        let entry = (0..<tasks.count).map { (i) -> BarChartDataEntry in
+            return BarChartDataEntry(x: Double(i), y: Double(tasks[i].numberOfDefects))
+        }
+        
+        let dataSet = BarChartDataSet(entries: entry, label: "Tasks")
+        let data = BarChartData(dataSets: [dataSet])
+        //        chartView.data = data
+        dataSet.colors = ChartColorTemplates.colorful()
+        dataSet.axisDependency = .left
+        
+        return data
+    }
+    
+    func generateLineData(tasks: [PredictionChartsData]) -> LineChartData {
+        let entry = (0..<tasks.count).map { (i) -> ChartDataEntry in
+            return ChartDataEntry(x: Double(i), y: Double(tasks[i].predictionData))
+        }
+        
+        let set = LineChartDataSet(entries: entry, label: "Tasks")
+        set.colors = ChartColorTemplates.joyful()
+        set.axisDependency = .left
+        
+        return LineChartData(dataSet: set)
+    }
+    
+    func generateBarData(tasks: [PredictionChartsData]) -> BarChartData {
+        
+        let entry = (0..<tasks.count).map { (i) -> BarChartDataEntry in
+            return BarChartDataEntry(x: Double(i), y: Double(tasks[i].predictionData))
+        }
+        
+        let dataSet = BarChartDataSet(entries: entry, label: "Tasks")
+        let data = BarChartData(dataSets: [dataSet])
+        //        chartView.data = data
+        dataSet.colors = ChartColorTemplates.colorful()
+        dataSet.axisDependency = .left
+        
+        return data
     }
     
 }

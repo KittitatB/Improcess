@@ -10,7 +10,7 @@ import UIKit
 import iOSDropDown
 
 class TaskModalController: UIViewController {
-
+    
     var name: String?
     var time = 0
     var commentText: String?
@@ -20,6 +20,7 @@ class TaskModalController: UIViewController {
     @IBOutlet weak var sec: UITextField!
     @IBOutlet weak var min: UITextField!
     @IBOutlet weak var hour: UITextField!
+    @IBOutlet weak var playButton: UIButton!
     
     var minutes = 60
     var hours = 60*60
@@ -35,37 +36,42 @@ class TaskModalController: UIViewController {
         commentTextField.delegate = self
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @objc func endEditing() {
         view.endEditing(true)
         commentText = commentTextField.text ?? ""
     }
     
-    @IBAction func timerStart(_ sender: Any) {
+    
+    @IBAction func PauseTimer(_ sender: Any) {
         if isTimerRunning == false {
             runTimer()
             isTimerRunning = true
-        }
-    }
-    
-    @IBAction func PauseTimer(_ sender: Any) {
-        if self.resumeTapped == false {
-            timer.invalidate()
-            self.resumeTapped = true
-        } else {
-            runTimer()
-            self.resumeTapped = false
+            playButton.setImage(UIImage(named: "pause"), for: .normal)
+        }else{
+            if self.resumeTapped == false {
+                timer.invalidate()
+                self.resumeTapped = true
+                playButton.setImage(UIImage(named: "play-button"), for: .normal)
+            } else {
+                runTimer()
+                self.resumeTapped = false
+                playButton.setImage(UIImage(named: "pause"), for: .normal)
+            }
         }
     }
     
     
     @IBAction func resetTimer(_ sender: Any) {
         time = 0
+        timer.invalidate()
+        self.resumeTapped = true
+        playButton.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
     func runTimer() {
@@ -96,7 +102,7 @@ class TaskModalController: UIViewController {
 }
 
 extension TaskModalController: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing()
         return true

@@ -182,7 +182,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
             return ChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
         }
         
-        let set = LineChartDataSet(values: entry, label: "Tasks")
+        let set = LineChartDataSet(entries: entry, label: "Tasks")
         set.colors = ChartColorTemplates.joyful()
         set.axisDependency = .left
         
@@ -195,7 +195,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
             return BarChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
         }
         
-        let dataSet = BarChartDataSet(values: entry, label: "Tasks")
+        let dataSet = BarChartDataSet(entries: entry, label: "Tasks")
         let data = BarChartData(dataSets: [dataSet])
 //        chartView.data = data
         dataSet.colors = ChartColorTemplates.colorful()

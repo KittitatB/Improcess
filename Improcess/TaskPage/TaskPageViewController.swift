@@ -127,6 +127,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var improvementTextfield: UITextField!
     @IBOutlet weak var mainView: UIView!
     
+    
+    var minutes = 60
+    var hours = 60*60
     //@IBOutlet weak var nameTextField: UITextField!
     
     func displayActual(viewmodel: TaskPage.Actual.ViewModel) {
@@ -187,6 +190,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var timeToSec = 0;
+        var timeToMin = 0;
+        var timeToHour = 0;
         if tableView == self.planningTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
             cell.name.text = planMetrics[indexPath.row].name!
@@ -198,8 +204,23 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         
         if tableView == self.taskTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
+            
+            let time = Int(planMetrics[indexPath.row].value!)
+            var timeString = ""
+            timeToSec = (time! % hours) % minutes
+            timeToMin = (time! % hours)/minutes
+            timeToHour = time! / hours
+            
+            if timeToHour > 0{
+                timeString += "\(timeToHour) hour"
+            }
+            if timeToMin > 0{
+                timeString += " \(timeToMin) minute"
+            }
+            timeString += " \(timeToSec) second"
+            
             cell.name.text = tasks[indexPath.row].name
-            cell.timer.text = String(describing: tasks[indexPath.row].timer!)
+            cell.timer.text = timeString
             cell.detail.text = tasks[indexPath.row].detail
             return cell
         }
@@ -210,7 +231,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             cell.detail.text = defects[indexPath.row].detail
             return cell
         }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
         cell.name.text = actualMetrics[indexPath.row].name!
         cell.field.text = actualMetrics[indexPath.row].value!

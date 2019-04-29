@@ -19,9 +19,11 @@ class ProjectPageWorker
     func updateTaskChild(project: ProjectDetail, task: String, numberOfTask: Int)
     {
         let uid = Auth.auth().currentUser?.uid
+       let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         Database.database().reference().child(uid!).child("projects").child(project.name!).updateChildValues(["taskQuantity": numberOfTask] as [String : Int])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Open"] as [String : String])
         
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["timestamp": timestamp] as [String : Any])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("metric").observeSingleEvent(of: .value) { (snapshot) in
             var metrics = [String]()
             guard let metricsList = snapshot.children.allObjects as? [DataSnapshot] else { return }
@@ -52,7 +54,8 @@ class ProjectPageWorker
                     let dict = task.value as! [String: AnyObject]
                     let taskName = task.key
                     let taskStatus = dict["status"] as! String
-                    let newTask = ProjectTask(myName: taskName, myStatus: taskStatus)
+                    let timeStamp = dict["timestamp"] as! Int
+                    let newTask = ProjectTask(myName: taskName, myStatus: taskStatus, myTimestamp: timeStamp)
                     tasks.append(newTask)
                 }
                 completionHandler(tasks)

@@ -15,6 +15,7 @@
 		4E2684AE21C7FD2300B776D1 /* TaskPageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A821C7FD2300B776D1 /* TaskPageModels.swift */; };
 		4E2684AF21C7FD2300B776D1 /* TaskPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684A921C7FD2300B776D1 /* TaskPageViewController.swift */; };
 		4E2684B021C7FD2300B776D1 /* TaskPageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2684AA21C7FD2300B776D1 /* TaskPageInteractor.swift */; };
+		4E2D8304227451A800CA778A /* CreateTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D8303227451A800CA778A /* CreateTaskCell.swift */; };
 		4E3CF27521CA7A0700673C64 /* PhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CF27421CA7A0700673C64 /* PhraseCell.swift */; };
 		4E3CF27721CA7A1900673C64 /* MetricCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CF27621CA7A1900673C64 /* MetricCell.swift */; };
 		4E3CF27B21CBB55B00673C64 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E3CF27A21CBB55B00673C64 /* iOSDropDown.framework */; };
@@ -111,6 +112,7 @@
 		4E2684A821C7FD2300B776D1 /* TaskPageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageModels.swift; sourceTree = "<group>"; };
 		4E2684A921C7FD2300B776D1 /* TaskPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageViewController.swift; sourceTree = "<group>"; };
 		4E2684AA21C7FD2300B776D1 /* TaskPageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPageInteractor.swift; sourceTree = "<group>"; };
+		4E2D8303227451A800CA778A /* CreateTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskCell.swift; sourceTree = "<group>"; };
 		4E3CF27421CA7A0700673C64 /* PhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCell.swift; sourceTree = "<group>"; };
 		4E3CF27621CA7A1900673C64 /* MetricCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCell.swift; sourceTree = "<group>"; };
 		4E3CF27A21CBB55B00673C64 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -430,6 +432,7 @@
 				4EDC04D321878F2A0019DC07 /* ProjectPageViewController.swift */,
 				4EDC04D421878F2A0019DC07 /* ProjectPageInteractor.swift */,
 				4EDC04DB218791B70019DC07 /* TaskCell.swift */,
+				4E2D8303227451A800CA778A /* CreateTaskCell.swift */,
 			);
 			path = ProjectPage;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				4E97CB4E225BDECE00FE6E52 /* DashboardCell.swift in Sources */,
 				4E97CB47225BD82400FE6E52 /* DashboardPresenter.swift in Sources */,
 				4ED34A6121804B9D00471D20 /* AddingCell.swift in Sources */,
+				4E2D8304227451A800CA778A /* CreateTaskCell.swift in Sources */,
 				4E537F6C217486EC001F97F1 /* SignupPageInteractor.swift in Sources */,
 				4E537F52217057B6001F97F1 /* Helper.swift in Sources */,
 				4EA68DB122196B7600D222B1 /* ProducivilityPageInteractor.swift in Sources */,
@@ -806,7 +810,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -822,7 +829,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9M3M89XSF;
 				INFOPLIST_FILE = Improcess/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = final.Improcess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

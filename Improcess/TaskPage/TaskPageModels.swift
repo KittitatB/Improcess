@@ -96,12 +96,16 @@ struct DefectList{
     var injected: String?
     var removed: String?
     var detail: String?
+    var timestamp: Int?
+    var id: String?
 }
 
 struct PhraseList {
     var name: String?
     var timer: Int?
     var detail: String?
+    var timeStamp: Int?
+    var id: String?
 }
 
 struct PlanMetric{

@@ -12,7 +12,6 @@
 
 import UIKit
 import PopupDialog
-import iOSDropDown
 
 protocol TaskPageDisplayLogic: class
 {
@@ -121,8 +120,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var summaryTableHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var addDefectViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var defectsDropDown: DropDown!
-    @IBOutlet weak var phraseDropDown: DropDown!
     @IBOutlet weak var problemTextfield: UITextField!
     @IBOutlet weak var improvementTextfield: UITextField!
     @IBOutlet weak var mainView: UIView!
@@ -144,6 +141,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     func displayPhrases(viewmodel: TaskPage.Phrase.ViewModel){
         tasks = viewmodel.phrases
+        tasks.sort{$0.timeStamp! < $1.timeStamp!}
         updateTableview()
     }
     
@@ -166,10 +164,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defectsArray.append(defect.name!)
             }
             
-            DispatchQueue.main.async { [weak self] in
-                self?.phraseDropDown.optionArray = (self?.phrasesArray)!
-                self?.defectsDropDown.optionArray = (self?.defectsArray)!
-            }
+//            DispatchQueue.main.async { [weak self] in
+//
+//            }
         }
     }
     
@@ -205,11 +202,11 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         if tableView == self.taskTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! PhraseCell
             
-            let time = Int(planMetrics[indexPath.row].value!)
+            let time = tasks[indexPath.row].timer ?? 0
             var timeString = ""
-            timeToSec = (time! % hours) % minutes
-            timeToMin = (time! % hours)/minutes
-            timeToHour = time! / hours
+            timeToSec = (time % hours) % minutes
+            timeToMin = (time % hours)/minutes
+            timeToHour = time / hours
             
             if timeToHour > 0{
                 timeString += "\(timeToHour) hour"
@@ -272,7 +269,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             let buttonTwo = DefaultButton(title: "DONE", height: 50) {
                 self.tasks[indexPath.row].timer = ratingVC.time
                 self.tasks[indexPath.row].detail = ratingVC.commentTextField.text
-                self.interactor?.addPhrase(phrase: self.tasks[indexPath.row])
+                self.interactor?.updatePhrase(phrase: self.tasks[indexPath.row])
                 self.taskTable.reloadData()
             }
             
@@ -342,22 +339,86 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         return true
     }
     
+    //self?.phrasesArray
     @IBAction func taskAdded(_ sender: Any) {
-        guard phraseDropDown.selectedIndex != nil else {return}
-        let task = PhraseList(name: phraseDropDown.text, timer: 00, detail: "")
-        phraseDropDown.text = ""
-        phraseDropDown.selectedIndex = nil
-        tasks.append(task)
-        updateTableview()
+        let ratingVC = TaskModalController(nibName: "TaskModalController", bundle: nil)
+        ratingVC.name = ""
+        ratingVC.commentText = ""
+        ratingVC.time = 0
+        ratingVC.tasksArray = self.phrasesArray
+        
+        // Create the dialog
+        let popup = PopupDialog(viewController: ratingVC,
+                                buttonAlignment: .horizontal,
+                                transitionStyle: .bounceDown,
+                                tapGestureDismissal: false,
+                                panGestureDismissal: false)
+        
+        // Create first button
+        let buttonOne = CancelButton(title: "CANCEL", height: 50) {
+            
+        }
+        
+        // Create second button
+        let buttonTwo = DefaultButton(title: "DONE", height: 50) {
+            let timer = ratingVC.time
+            let detail = ratingVC.commentTextField.text
+            let name = ratingVC.name
+            let task = PhraseList(name: name, timer: timer, detail: detail, timeStamp: Int(NSDate().timeIntervalSince1970), id: "")
+            self.interactor?.addPhrase(phrase: task)
+            self.tasks.append(task)
+            self.tasks.sort{$0.timeStamp! < $1.timeStamp!}
+            self.updateTableview()
+        }
+        
+        // Add buttons to dialog
+        popup.addButtons([buttonOne, buttonTwo])
+        
+        // Present dialog
+        present(popup, animated: true, completion: nil)
+        ratingVC.taskName.becomeFirstResponder()
     }
     
     @IBAction func defectAdded(_ sender: Any) {
-        guard defectsDropDown.selectedIndex != nil else {return}
-        let defect = DefectList(name: defectsDropDown.text,injected:"",removed:"", detail: "")
-        defectsDropDown.text = ""
-        defectsDropDown.selectedIndex = nil
-        defects.append(defect)
-        updateTableview()
+        let ratingVC = DefectModalController(nibName: "DefectModalController", bundle: nil)
+        ratingVC.defectTypeArray = defectsArray
+        ratingVC.phrasesArray = phrasesArray
+        ratingVC.type = ""
+        ratingVC.commentText = ""
+        ratingVC.injected = ""
+        ratingVC.removed = ""
+        
+        // Create the dialog
+        let popup = PopupDialog(viewController: ratingVC,
+                                buttonAlignment: .horizontal,
+                                transitionStyle: .bounceDown,
+                                tapGestureDismissal: false,
+                                panGestureDismissal: false)
+        
+        // Create first button
+        let buttonOne = CancelButton(title: "CANCEL", height: 50) {
+            
+        }
+        
+        // Create second button
+        let buttonTwo = DefaultButton(title: "DONE", height: 50) {
+            let name = ratingVC.type
+            let detail = ratingVC.comment.text ?? ""
+            let injected = ratingVC.injected
+            let removed = ratingVC.removed
+            let defect = DefectList(name: name, injected: injected, removed: removed, detail: detail, timestamp: Int(NSDate().timeIntervalSince1970), id: "")
+            self.interactor?.addDefect(defect: defect)
+            self.defects.append(defect)
+            self.defects.sort{$0.timestamp! < $1.timestamp!}
+            self.updateTableview()
+        }
+        
+        // Add buttons to dialog
+        popup.addButtons([buttonOne, buttonTwo])
+        
+        // Present dialog
+        present(popup, animated: true, completion: nil)
+        ratingVC.name.becomeFirstResponder()
     }
     
     

@@ -18,14 +18,15 @@ protocol ProjectPageDisplayLogic: class
     func displayTask(viewModel: ProjectPage.Task.ViewModel)
 }
 
-class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CellLogic
+class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CreateTaskLogic
 {
+    
     var interactor: ProjectPageBusinessLogic?
     var router: (NSObjectProtocol & ProjectPageRoutingLogic & ProjectPageDataPassing)?
     var projectTask = [ProjectTask]()
     var cellStack: Int?
     var statusColor:[String:UIColor] = ["Open":UIColor.init(red: 76/255, green: 217/255, blue: 100/255, alpha: 1),"WIP":UIColor.init(red: 255/255, green: 204/255, blue: 0/255, alpha: 1),"Close":UIColor.init(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)]
-    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
+//    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     var seeAll: Bool?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -89,13 +90,14 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         }else{
             seeAllButton.setTitle("Show all tasks", for: .normal)
         }
-        var viewHeight = 623
+        var viewHeight = 625
+        projectTask.sort{$0.timestamp > $1.timestamp}
         updateTableview()
         if (projectTask.count) > 2{
             if(seeAll!){
-                viewHeight += (projectTask.count - 2) * 45
+                viewHeight += (projectTask.count - 2) * 60
             }else{
-                viewHeight += 45
+                viewHeight += 60
             }
         }
         
@@ -125,6 +127,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         for task in viewModel.task{
             projectTask.append(task)
         }
+        projectTask.sort{$0.timestamp > $1.timestamp}
         updateTableview()
     }
     
@@ -135,7 +138,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 60
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,12 +147,12 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if seeAll! == false && indexPath.row == 3{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! CreateTaskCell
             cell.cellInteractor = self
             return cell
         }else{
             if indexPath.row == projectTask.count {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! AddingCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addingCell3", for: indexPath) as! CreateTaskCell
                 cell.cellInteractor = self
                 return cell
             }
@@ -185,10 +188,10 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func updateTableview(){
-        tableviewHeight.constant = CGFloat((projectTask.count + 1) * 45)
+        tableviewHeight.constant = CGFloat((projectTask.count + 1) * 60)
         if(projectTask.count > 3){
             if(seeAll! == false){
-                tableviewHeight.constant = CGFloat((4) * 45)
+                tableviewHeight.constant = CGFloat((4) * 60)
             }
         }
         tableview.reloadData()
@@ -198,39 +201,44 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         textField.resignFirstResponder()
         return true
     }
+//
+//    func showDoneButton() {
+//        self.navigationItem.rightBarButtonItem = addButton
+//    }
+//
+//    @objc func buttonTapped(){
+//        view.endEditing(true)
+//    }
+//
+//    func hideDoneButton(){
+//        self.navigationItem.rightBarButtonItem = nil
+//    }
     
-    func showDoneButton() {
-        self.navigationItem.rightBarButtonItem = addButton
-    }
-    
-    @objc func buttonTapped(){
-        view.endEditing(true)
-    }
-    
-    func hideDoneButton(){
-        self.navigationItem.rightBarButtonItem = nil
-    }
-    
-    func addStep(name: String) {
-        let newTask = ProjectTask(myName: name, myStatus: "Open")
-        projectTask.append(newTask)
-        let work_queue = DispatchQueue(label: "work-queue")
-        work_queue.async {
-            self.interactor?.addTask(task: name, numberOfTask: self.projectTask.count)
+    func createTask() {
+        let alert = UIAlertController(title: "Create Task", message: "Please Input Task Name!", preferredStyle: UIAlertController.Style.alert)
+        let done = UIAlertAction(title: "Done", style: .default) { (alertAction) in
+            let textField = alert.textFields![0] as UITextField
+            if textField.text != "" {
+                let taskName = textField.text!
+                let newTask = ProjectTask(myName: taskName, myStatus: "Open", myTimestamp: Int(NSDate().timeIntervalSince1970))
+                self.projectTask.append(newTask)
+                let work_queue = DispatchQueue(label: "work-queue")
+                work_queue.async {
+                    self.interactor?.addTask(task: taskName, numberOfTask: self.projectTask.count)
+                }
+                DispatchQueue.main.async {
+                    self.view.setNeedsLayout()
+                }
+            }
         }
-        DispatchQueue.main.async {
-            self.view.setNeedsLayout()
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter task name"
         }
+        alert.addAction(done)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alertAction) in }
+        alert.addAction(cancel)
+        self.present(alert, animated:true, completion: nil)
     }
-    
-    
-    func deleteStep(index: Int) {
-        // ยังไม่ใช้ในนี้
-    }
-    
-    func updateStepDetail(index: Int, newDescription: String) {
-        //
-    }    
     
     @IBAction func routeToProducivility(_ sender: Any) {
         router?.routeToProducivilityPage(segue: nil)

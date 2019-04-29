@@ -28,7 +28,9 @@ class TaskPageWorker
                     let name = dict["phrase"] as! String
                     let comment = dict["comment"] as! String
                     let time = dict["time"] as! Int
-                    let tempPhrase = PhraseList(name: name, timer: time, detail: comment)
+                    let timestamp = dict["timestamp"] as! Int
+                    let sid = task.key
+                    let tempPhrase = PhraseList(name: name, timer: time, detail: comment, timeStamp: timestamp, id: sid)
                    phrases.append(tempPhrase)
                 }
                 completionHandler(phrases)
@@ -88,7 +90,9 @@ class TaskPageWorker
                     let comment = dict["comment"] as! String
                     let injected = dict["injected"] as! String
                     let removed = dict["removed"] as! String
-                    let tempDefect = DefectList(name: name, injected: injected, removed: removed, detail: comment)
+                    let timestamp = dict["timestamp"] as! Int
+                    let sid = task.key
+                    let tempDefect = DefectList(name: name, injected: injected, removed: removed, detail: comment, timestamp: timestamp, id: sid)
                     defects.append(tempDefect)
                 }
                 completionHandler(defects)
@@ -102,7 +106,8 @@ class TaskPageWorker
         let phraseDetail = [
             "phrase" : projectPhrase.name!,
             "time" : projectPhrase.timer ?? 0,
-            "comment" : projectPhrase.detail!
+            "comment" : projectPhrase.detail!,
+            "timestamp" : projectPhrase.timeStamp!
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "WIP"] as [String : String])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").childByAutoId().updateChildValues(phraseDetail)
@@ -115,7 +120,8 @@ class TaskPageWorker
             "defect" : projectDefect.name!,
             "injected" : projectDefect.injected!,
             "removed" : projectDefect.removed!,
-            "comment" : projectDefect.detail!
+            "comment" : projectDefect.detail!,
+            "timestamp" : projectDefect.timestamp!
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").childByAutoId().updateChildValues(phraseDetail)
     }
@@ -128,5 +134,18 @@ class TaskPageWorker
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(pip)
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "Close"] as [String : String])
+    }
+    
+    func setUpdateTaskPhrase(project: ProjectDetail, task: String, projectPhrase: PhraseList)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        let phraseDetail = [
+            "phrase" : projectPhrase.name!,
+            "time" : projectPhrase.timer ?? 0,
+            "comment" : projectPhrase.detail!,
+            "timestamp" : projectPhrase.timeStamp!
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "WIP"] as [String : String])
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").child(projectPhrase.id!).updateChildValues(phraseDetail)
     }
 }

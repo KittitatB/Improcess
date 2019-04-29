@@ -10,32 +10,38 @@ import UIKit
 
 class DefectModalController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var phrasesArray: [String] = []
+    var defectTypeArray: [String] = []
     var type: String?
     var commentText: String?
     var injected: String?
     var removed: String?
     
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var name: UITextField!
     @IBOutlet weak var comment: UITextField!
     @IBOutlet weak var injectedPhrase: UITextField!
     @IBOutlet weak var removedPhrase: UITextField!
     
+    let namePicker = UIPickerView()
     let phrasePicker = UIPickerView()
-    let defectPicker = UIPickerView()
     
     override func viewDidLoad() {
         self.hideKeyboardWhenTappedAround()
         comment.delegate = self
         phrasePicker.delegate = self
         phrasePicker.dataSource = self
+        namePicker.delegate = self
+        namePicker.dataSource = self
         injectedPhrase.inputView = phrasePicker
         removedPhrase.inputView = phrasePicker
+        name.inputView = namePicker
         injectedPhrase.allowTouchesOfViewsOutsideBounds = true
         removedPhrase.allowTouchesOfViewsOutsideBounds = true
         name.text = type
         injectedPhrase.text = injected
         removedPhrase.text = removed
         comment.text = commentText
+        print(defectTypeArray)
+        
     }
     
     @objc func endEditing() {
@@ -48,22 +54,40 @@ class DefectModalController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return phrasesArray.count
+        if(pickerView == namePicker){
+            return defectTypeArray.count
+        }else{
+            return phrasesArray.count
+        }
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return phrasesArray[row]
+        if(pickerView == namePicker){
+            return defectTypeArray[row]
+        }else{
+            return phrasesArray[row]
+        }
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(injectedPhrase.isEditing){
-            injectedPhrase.text = phrasesArray[row]
+        if(pickerView == namePicker){
+            self.type = defectTypeArray[row]
+            self.name.text = type
+            self.name.endEditing(true)
+            self.name.resignFirstResponder()
+            self.view.endEditing(true)
         }else{
-            removedPhrase.text = phrasesArray[row]
+            if(injectedPhrase.isEditing){
+                injected = phrasesArray[row]
+                injectedPhrase.text = injected
+            }else{
+                removed = phrasesArray[row]
+                removedPhrase.text = removed
+            }
+            self.injectedPhrase.endEditing(true)
+            self.injectedPhrase.resignFirstResponder()
+            self.view.endEditing(true)
         }
-        self.injectedPhrase.endEditing(true)
-        self.injectedPhrase.resignFirstResponder()
-        self.view.endEditing(true)
     }
     
 }

@@ -145,7 +145,19 @@ class TaskPageWorker
             "comment" : projectPhrase.detail!,
             "timestamp" : projectPhrase.timeStamp!
             ] as [String : Any]
-        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).updateChildValues(["status": "WIP"] as [String : String])
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").child(projectPhrase.id!).updateChildValues(phraseDetail)
+    }
+    
+    func setUpdateTaskDefect(project: ProjectDetail, task: String, projectDefect: DefectList)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        let phraseDetail = [
+            "defect" : projectDefect.name!,
+            "injected" : projectDefect.injected!,
+            "removed" : projectDefect.removed!,
+            "comment" : projectDefect.detail!,
+            "timestamp" : projectDefect.timestamp!
+            ] as [String : Any]
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").child(projectDefect.id!).updateChildValues(phraseDetail)
     }
 }

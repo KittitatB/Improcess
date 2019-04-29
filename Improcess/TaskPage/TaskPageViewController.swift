@@ -305,7 +305,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defects[indexPath.row].detail = ratingVC.comment.text
                 self.defects[indexPath.row].injected = ratingVC.injectedPhrase.text
                 self.defects[indexPath.row].removed = ratingVC.removedPhrase.text
-                self.interactor?.addDefect(defect: self.defects[indexPath.row])
+                self.interactor?.updateDefect(defect: self.defects[indexPath.row])
                 self.defectTable.reloadData()
             }
             

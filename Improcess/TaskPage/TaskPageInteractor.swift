@@ -25,6 +25,7 @@ protocol TaskPageBusinessLogic
     func addPhrase(phrase: PhraseList)
     func addDefect(defect: DefectList)
     func updatePhrase(phrase: PhraseList)
+    func updateDefect(defect: DefectList)
 }
 
 protocol TaskPageDataStore
@@ -78,6 +79,11 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
         worker?.setUpdateTaskPhrase(project: projectDetail!, task: (selectedTask?.name)!, projectPhrase: phrase)
     }
     
+    func updateDefect(defect: DefectList) {
+        worker = TaskPageWorker()
+        worker?.setUpdateTaskDefect(project: projectDetail!, task: (selectedTask?.name)!, projectDefect: defect)
+    }
+    
     func addDefect(defect: DefectList) {
         worker = TaskPageWorker()
         worker?.updateTaskDefect(project: projectDetail!, task: (selectedTask?.name)!, projectDefect: defect)
@@ -102,7 +108,7 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     }
     
     func finishingUp(problem: String, improvement: String) {
-         worker = TaskPageWorker()
+        worker = TaskPageWorker()
         worker?.finishUpTask(project: projectDetail!, task: (selectedTask?.name)!, problem: problem, improvement: improvement)
     }
 }

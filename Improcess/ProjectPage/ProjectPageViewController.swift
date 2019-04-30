@@ -26,7 +26,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     var projectTask = [ProjectTask]()
     var cellStack: Int?
     var statusColor:[String:UIColor] = ["Open":UIColor.init(red: 76/255, green: 217/255, blue: 100/255, alpha: 1),"WIP":UIColor.init(red: 255/255, green: 204/255, blue: 0/255, alpha: 1),"Close":UIColor.init(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)]
-//    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
+    //    let addButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(buttonTapped))
     var seeAll: Bool?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -90,14 +90,14 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         }else{
             seeAllButton.setTitle("Show all tasks", for: .normal)
         }
-        var viewHeight = 625
+        var viewHeight = 640
         projectTask.sort{$0.timestamp > $1.timestamp}
         updateTableview()
         if (projectTask.count) > 2{
             if(seeAll!){
-                viewHeight += (projectTask.count - 2) * 60
+                viewHeight += (projectTask.count - 2) * 75
             }else{
-                viewHeight += 60
+                viewHeight += 75
             }
         }
         
@@ -111,7 +111,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     // MARK: Do something
     
-    @IBOutlet weak var projectName: UILabel!
     @IBOutlet weak var projectDescription: UITextView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
@@ -133,12 +132,12 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
     {
-        projectName.text = viewModel.project.name
+        self.navigationItem.title = viewModel.project.name
         projectDescription.text = viewModel.project.detail
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 75
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -167,8 +166,10 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        interactor?.selectedTask = projectTask[indexPath.row]
-        router?.routeToTaskPage(segue: nil)
+        if(indexPath.row < projectTask.count){
+            interactor?.selectedTask = projectTask[indexPath.row]
+            router?.routeToTaskPage(segue: nil)
+        }
     }
     
     func loadData(){
@@ -188,10 +189,10 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func updateTableview(){
-        tableviewHeight.constant = CGFloat((projectTask.count + 1) * 60)
+        tableviewHeight.constant = CGFloat((projectTask.count + 1) * 75)
         if(projectTask.count > 3){
             if(seeAll! == false){
-                tableviewHeight.constant = CGFloat((4) * 60)
+                tableviewHeight.constant = CGFloat((4) * 75)
             }
         }
         tableview.reloadData()
@@ -201,18 +202,6 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         textField.resignFirstResponder()
         return true
     }
-//
-//    func showDoneButton() {
-//        self.navigationItem.rightBarButtonItem = addButton
-//    }
-//
-//    @objc func buttonTapped(){
-//        view.endEditing(true)
-//    }
-//
-//    func hideDoneButton(){
-//        self.navigationItem.rightBarButtonItem = nil
-//    }
     
     func createTask() {
         let alert = UIAlertController(title: "Create Task", message: "Please Input Task Name!", preferredStyle: UIAlertController.Style.alert)

@@ -72,8 +72,8 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     {
         super.viewDidLoad()
         doSomething()
-        defectList = (interactor?.defectList)!
-        phraseList = (interactor?.phraseList)!
+//        defectList = (interactor?.defectList)!
+//        phraseList = (interactor?.phraseList)!
         adjustTableviewHeight()
     }
     

@@ -24,7 +24,7 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
 {
     var interactor: LandingPageBusinessLogic?
     var router: (NSObjectProtocol & LandingPageRoutingLogic & LandingPageDataPassing)?
-    
+    var selected = 0
     var projects = [ProjectDetail]()
     // MARK: Object lifecycle
     
@@ -60,10 +60,18 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
+//        if let scene = segue.identifier {
+//            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+//            if let router = router, router.responds(to: selector) {
+//                router.perform(selector, with: segue)
+//            }
+//        }
+        if let barVC = segue.destination as? UITabBarController {
+            barVC.viewControllers?.forEach {
+                if let vc = $0 as? ProjectPageViewController {
+                    var destination = vc.router!.dataStore!
+                    destination.project = projects[selected]
+                }
             }
         }
     }
@@ -135,6 +143,9 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         interactor?.project = projects[indexPath.row]
-        router?.routeToProjectPage(segue: nil)
+//        router?.routeToProjectPage(segue: nil)
+        selected = indexPath.row
+        self.performSegue(withIdentifier: "toTabbar", sender: self)
     }
+    
 }

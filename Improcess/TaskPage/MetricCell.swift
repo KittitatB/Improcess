@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import iOSDropDown
 import Firebase
 
 class MetricCell: UITableViewCell {

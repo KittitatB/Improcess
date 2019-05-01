@@ -16,6 +16,8 @@ protocol ProjectPageDisplayLogic: class
 {
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
     func displayTask(viewModel: ProjectPage.Task.ViewModel)
+    func passingPhraseList(list: [PhraseTypeList])
+    func passingDefectList(list: [DefectTypeList])
 }
 
 class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CreateTaskLogic
@@ -173,9 +175,8 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func loadData(){
-        
         let queue = DispatchQueue(label: "worker-queue")
-        
+    
         queue.async {
             self.interactor?.requestPhraseList()
             self.interactor?.requestDefectList()
@@ -227,6 +228,16 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alertAction) in }
         alert.addAction(cancel)
         self.present(alert, animated:true, completion: nil)
+    }
+    
+    func passingPhraseList(list: [PhraseTypeList]) {
+        let thridTab = self.tabBarController?.viewControllers![2] as! DashboardViewController
+        thridTab.phraseList = list
+    }
+    
+    func passingDefectList(list: [DefectTypeList]){
+        let thridTab = self.tabBarController?.viewControllers![2] as! DashboardViewController
+        thridTab.defectList = list
     }
     
     @IBAction func routeToProducivility(_ sender: Any) {

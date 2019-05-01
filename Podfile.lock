@@ -65,7 +65,6 @@ PODS:
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
-  - iOSDropDown (0.2.7)
   - Kingfisher (4.10.1)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
@@ -81,7 +80,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
-  - iOSDropDown (~> 0.2.7)
   - Kingfisher (~> 4.0)
   - PopupDialog (~> 0.9)
 
@@ -99,7 +97,6 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
-    - iOSDropDown
     - Kingfisher
     - leveldb-library
     - nanopb
@@ -118,12 +115,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  iOSDropDown: 7a4cfc67d5166f319858747b63cd2f7760c4fb4b
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
 
-PODFILE CHECKSUM: afb24e632a570f7466fd2e27d37252c7ee50c0c4
+PODFILE CHECKSUM: e3a7bc4f46f12c87ddad12503e950c59ebd3f197
 
 COCOAPODS: 1.5.0

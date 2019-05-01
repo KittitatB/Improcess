@@ -16,6 +16,8 @@ protocol ProjectPagePresentationLogic
 {
     func presentProject(response: ProjectPage.Project.Response)
     func presentTask(response: ProjectPage.Task.Response)
+    func presentPhraseList(list: [PhraseTypeList])
+    func presentDefectList(list: [DefectTypeList])
 }
 
 class ProjectPagePresenter: ProjectPagePresentationLogic
@@ -35,4 +37,13 @@ class ProjectPagePresenter: ProjectPagePresentationLogic
         let viewModel = ProjectPage.Task.ViewModel(task: response.task)
         viewController?.displayTask(viewModel: viewModel)
     }
+    
+    func presentPhraseList(list: [PhraseTypeList]){
+        viewController?.passingPhraseList(list: list)
+    }
+    
+    func presentDefectList(list: [DefectTypeList]){
+        viewController?.passingDefectList(list: list)
+    }
+    
 }

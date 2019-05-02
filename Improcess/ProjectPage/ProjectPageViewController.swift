@@ -18,6 +18,7 @@ protocol ProjectPageDisplayLogic: class
     func displayTask(viewModel: ProjectPage.Task.ViewModel)
     func passingPhraseList(list: [PhraseTypeList])
     func passingDefectList(list: [DefectTypeList])
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
 }
 
 class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITableViewDataSource, UITableViewDelegate, CreateTaskLogic
@@ -113,11 +114,14 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     // MARK: Do something
     
-    @IBOutlet weak var projectDescription: UITextView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var seeAllButton: UIButton!
+    
+    var totalTime: Float = 0.0
+    var totalLine: Float = 0.0
+    var product: Float = 0.0
     
     func loadTask(){
         projectTask.removeAll()
@@ -125,17 +129,20 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     }
     
     func displayTask(viewModel: ProjectPage.Task.ViewModel) {
+        
         for task in viewModel.task{
             projectTask.append(task)
         }
         projectTask.sort{$0.timestamp > $1.timestamp}
         updateTableview()
+        let secondTab = self.tabBarController?.viewControllers![1] as! ChartsViewController
+        secondTab.interactor?.projectDetail = self.interactor?.project
+        secondTab.interactor?.tasks = self.projectTask
     }
     
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
     {
         self.navigationItem.title = viewModel.project.name
-        projectDescription.text = viewModel.project.detail
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -240,18 +247,20 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         thridTab.defectList = list
     }
     
-    @IBAction func routeToProducivility(_ sender: Any) {
-        router?.routeToProducivilityPage(segue: nil)
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
+    {
+        updateDetail(tasks: viewModel.tasksProducivility)
     }
     
-    @IBAction func routeToChartsPage(_ sender: Any) {
-        router?.routeToChartsPage(segue: nil)
+    func updateDetail(tasks: [TaskProducivility]){
+        
+        for task in tasks{
+            totalTime += task.time!
+            totalLine += task.line!
+        }
+        product = totalLine/totalTime
+        interactor?.product = self.product
     }
-    
-    @IBAction func routeToDashboard(_ sender: Any) {
-        router?.routeToDashboardPage(segue: nil)
-    }
-    
     
     @IBAction func seeAllDidPressed(_ sender: Any) {
         seeAll = !seeAll!

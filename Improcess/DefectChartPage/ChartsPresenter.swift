@@ -16,6 +16,7 @@ protocol ChartsPresentationLogic
 {
     func presentChart(response: Charts.ChartsData.Response)
     func presentDefect(response: Charts.DefectData.Response)
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
 }
 
 class ChartsPresenter: ChartsPresentationLogic
@@ -34,5 +35,12 @@ class ChartsPresenter: ChartsPresentationLogic
     func presentDefect(response: Charts.DefectData.Response){
         let viewmodel = Charts.DefectData.ViewModel(defectQuantity: response.defectQuantity)
         viewController?.displayDefect(viewModel: viewmodel)
+    }
+    
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
+    {
+        let viewModel = ProducivilityPage.Producivility.ViewModel(tasksProducivility: response.tasksProducivility)
+        viewController?.displayProducivility(viewModel: viewModel)
+        
     }
 }

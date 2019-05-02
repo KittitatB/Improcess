@@ -18,7 +18,7 @@ protocol ProjectPageBusinessLogic
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
     var selectedTask: ProjectTask? {get set}
-    
+    var product: Float? {get set}
     
     func addTask(task: String, numberOfTask: Int)
     func receiveProject()
@@ -34,6 +34,7 @@ protocol ProjectPageDataStore
     var defectList: [DefectTypeList] {get set}
     var selectedTask: ProjectTask? {get set}
     var tasks: [ProjectTask]? {get set}
+    var product: Float? {get set}
 }
 
 class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
@@ -46,6 +47,7 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
     var presenter: ProjectPagePresentationLogic?
     var worker: ProjectPageWorker?
     var project: ProjectDetail?
+    var product: Float?
     // MARK: Do something
     
     func receiveProject() {
@@ -67,6 +69,7 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
             let response = ProjectPage.Task.Response(task: tasks)
             self.tasks = tasks
             self.presenter?.presentTask(response: response)
+            self.getAllTaskProducivility()
         })
     }
     
@@ -85,6 +88,21 @@ class ProjectPageInteractor: ProjectPageBusinessLogic, ProjectPageDataStore
         worker?.requestDefectListFormFirebase(project: project!, completionHandler: { (lists) in
             self.defectList = lists
             self.presenter?.presentDefectList(list: lists)
+        })
+    }
+    
+    func getAllTaskProducivility(){
+        worker = ProjectPageWorker()
+        let filtedList = self.tasks?.filter{ $0.status == "Close"}
+        
+        if(filtedList!.count <= 0){
+            product = 0
+            return
+        }
+        
+        worker?.getAllTasksProducivility(project: project!, tasks: filtedList!, completionHandler:  { (lists) in
+            let response = ProducivilityPage.Producivility.Response(tasksProducivility: lists)
+            self.presenter?.presentProducivility(response: response)
         })
     }
 }

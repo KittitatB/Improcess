@@ -62,6 +62,7 @@ class ProjectPageRouter: NSObject, ProjectPageRoutingLogic, ProjectPageDataPassi
         destination.phraseList = source.phraseList
         destination.selectedTask = source.selectedTask
         destination.projectDetail = source.project
+        destination.product = source.product
     }
     
     func routeToProducivilityPage(segue: UIStoryboardSegue?)

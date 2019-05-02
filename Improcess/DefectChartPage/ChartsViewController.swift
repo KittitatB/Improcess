@@ -18,13 +18,14 @@ protocol ChartsDisplayLogic: class
 {
     func displayChart(viewModel: Charts.ChartsData.ViewModel)
     func displayDefect(viewModel: Charts.DefectData.ViewModel)
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
 }
 
 class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDelegate
 {
     var interactor: ChartsBusinessLogic?
     var router: (NSObjectProtocol & ChartsRoutingLogic & ChartsDataPassing)?
-    
+    var counter = 0.0
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -76,6 +77,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         setupChart2()
         interactor?.getDefectData()
         interactor?.getChartData()
+        interactor?.getAllTaskProducivility()
     }
     
     // MARK: Do something
@@ -84,12 +86,120 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     
     @IBOutlet weak var predictionChart: CombinedChartView!
     @IBOutlet weak var defectCharts: CombinedChartView!
+    @IBOutlet weak var predictLabel: UILabel!
+    @IBOutlet weak var totalDefectLabel: UILabel!
+    @IBOutlet weak var averageDefectLabel: UILabel!
+    @IBOutlet weak var chartView: CombinedChartView!
+    @IBOutlet weak var totalLineLabel: UILabel!
+    @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var averageLabel: UILabel!
+    
+    func setupChart(){
+        
+        self.title = "Producivility Chart"
+        
+        chartView.delegate = self
+        
+        chartView.chartDescription?.enabled = false
+        chartView.drawBarShadowEnabled = false
+        chartView.highlightFullBarEnabled = false
+        
+        
+        chartView.drawOrder = [DrawOrder.bar.rawValue,
+                               DrawOrder.line.rawValue]
+        
+        chartView.chartDescription?.enabled = false
+        
+        chartView.highlightPerTapEnabled = false
+        chartView.dragEnabled = false
+        chartView.setScaleEnabled(true)
+        chartView.pinchZoomEnabled = false
+        
+        // ChartYAxis *leftAxis = chartView.leftAxis;
+        
+        let xAxis = chartView.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .systemFont(ofSize: 10)
+        xAxis.granularity = 1
+        xAxis.labelCount = 7
+        xAxis.axisMaximum = counter + 0.5
+        xAxis.labelPosition = .bothSided
+        xAxis.axisMinimum = -0.5
+        xAxis.valueFormatter = TaskAxisFormatter()
+        
+        let leftAxisFormatter = NumberFormatter()
+        leftAxisFormatter.minimumFractionDigits = 0
+        leftAxisFormatter.maximumFractionDigits = 1
+        leftAxisFormatter.negativeSuffix = " Line/Hour"
+        leftAxisFormatter.positiveSuffix = " Line/Hour"
+        
+        let leftAxis = chartView.leftAxis
+        leftAxis.labelFont = .systemFont(ofSize: 10)
+        leftAxis.labelCount = 8
+        leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
+        leftAxis.labelPosition = .outsideChart
+        leftAxis.spaceTop = 0.15
+        leftAxis.axisMinimum = 0
+        
+        let rightAxis = chartView.rightAxis
+        rightAxis.enabled = true
+        rightAxis.labelFont = .systemFont(ofSize: 10)
+        rightAxis.labelCount = 8
+        rightAxis.valueFormatter = leftAxis.valueFormatter
+        rightAxis.spaceTop = 0.15
+        rightAxis.axisMinimum = 0
+        
+        let l = chartView.legend
+        l.enabled = false
+    }
+    
+    func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
+    {
+        counter = Double(viewModel.tasksProducivility.count)
+        let data = CombinedChartData()
+        data.lineData = generateLineData(tasks: viewModel.tasksProducivility)
+        data.barData = generateBarData(tasks: viewModel.tasksProducivility)
+        
+        chartView.xAxis.axisMaximum = data.xMax + 0.5
+        chartView.data = data
+        
+        chartView.notifyDataSetChanged()
+        
+        updateDetail(tasks: viewModel.tasksProducivility)
+    }
+    
+    func updateDetail(tasks: [TaskProducivility]){
+        var totalTime: Float = 0.0
+        var totalLine: Float = 0.0
+        var product: Float = 0.0
+        
+        for task in tasks{
+            totalTime += task.time!
+            totalLine += task.line!
+            product += task.taskProducivility!
+        }
+        
+        totalLineLabel.text = "\(Int(totalLine)) Line"
+        totalTimeLabel.text = "\(String(format: "%.01f",product/Float(tasks.count))) Line/Hours"
+        averageLabel.text = "\(Int(totalTime)) Minutes"
+        
+    }
     
     func displayChart(viewModel: Charts.ChartsData.ViewModel) {
         predictionChart.noDataText = "Loading"
         let data = CombinedChartData()
         data.lineData = generateLineData(tasks: viewModel.predition)
         data.barData = generateBarData(tasks: viewModel.predition)
+        
+        var totalPredict = 0.0
+        
+        for predict in viewModel.predition{
+            totalPredict += Double(predict.predictionData)
+        }
+        
+        let predictText = String(format: "%.01f", totalPredict/Double(viewModel.predition.count)) + " %"
+        
+        predictLabel.text = predictText
         
         predictionChart.xAxis.axisMaximum = data.xMax + 0.5
         predictionChart.data = data
@@ -99,6 +209,14 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     
     func displayDefect(viewModel: Charts.DefectData.ViewModel) {
         predictionChart.noDataText = "Loading"
+        
+        var totalDefect = 0
+        for defect in viewModel.defectQuantity{
+            totalDefect += defect.numberOfDefects
+        }
+        
+        totalDefectLabel.text = "\(totalDefect)"
+        averageDefectLabel.text = "\(String(format: "%.01f", Float(totalDefect)/Float(viewModel.defectQuantity.count)))"
         
         let data = CombinedChartData()
         data.lineData = generateLineData(tasks: viewModel.defectQuantity)
@@ -111,7 +229,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         
     }
     
-    func setupChart(){
+    func setupChart3(){
         defectCharts.delegate = self
         
         defectCharts.chartDescription?.enabled = false
@@ -266,6 +384,33 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         
         let entry = (0..<tasks.count).map { (i) -> BarChartDataEntry in
             return BarChartDataEntry(x: Double(i), y: Double(tasks[i].predictionData))
+        }
+        
+        let dataSet = BarChartDataSet(entries: entry, label: "Tasks")
+        let data = BarChartData(dataSets: [dataSet])
+        //        chartView.data = data
+        dataSet.colors = ChartColorTemplates.colorful()
+        dataSet.axisDependency = .left
+        
+        return data
+    }
+    
+    func generateLineData(tasks: [TaskProducivility]) -> LineChartData {
+        let entry = (0..<tasks.count).map { (i) -> ChartDataEntry in
+            return ChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
+        }
+        
+        let set = LineChartDataSet(entries: entry, label: "Tasks")
+        set.colors = ChartColorTemplates.joyful()
+        set.axisDependency = .left
+        
+        return LineChartData(dataSet: set)
+    }
+    
+    func generateBarData(tasks: [TaskProducivility]) -> BarChartData {
+        
+        let entry = (0..<tasks.count).map { (i) -> BarChartDataEntry in
+            return BarChartDataEntry(x: Double(i), y: Double(tasks[i].taskProducivility!))
         }
         
         let dataSet = BarChartDataSet(entries: entry, label: "Tasks")

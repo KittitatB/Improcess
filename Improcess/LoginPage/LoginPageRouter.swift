@@ -32,8 +32,7 @@ class LoginPageRouter: NSObject, LoginPageRoutingLogic, LoginPageDataPassing
     func routeToLandingPage(segue: UIStoryboardSegue?)
     {
       if let segue = segue {
-        let destinationVC = segue.destination as! LandingPageViewController
-        _ = destinationVC.router!.dataStore!
+        let destinationVC = segue.destination as! LoginPageViewController
       } else {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "LandingPageViewController") as! LandingPageViewController
@@ -48,10 +47,4 @@ class LoginPageRouter: NSObject, LoginPageRoutingLogic, LoginPageDataPassing
     //  source.show(destination, sender: nil)
     //}
     
-    // MARK: Passing data
-    
-    //func passDataToSomewhere(source: LoginPageDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
 }

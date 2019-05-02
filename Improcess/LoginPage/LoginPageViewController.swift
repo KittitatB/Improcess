@@ -99,6 +99,9 @@ class LoginPageViewController: UIViewController, LoginPageDisplayLogic, UITextFi
     func displayAuth(viewModel: LoginPage.Auth.ViewModel)
     {
         if viewModel.isError != true {
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            UserDefaults.standard.synchronize()
+            Switcher.updateRootVC()
             performSegue(withIdentifier: "Login", sender: nil)
         }
         else {

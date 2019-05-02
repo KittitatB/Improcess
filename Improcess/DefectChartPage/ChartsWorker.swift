@@ -18,6 +18,30 @@ class ChartsWorker
     let myGroup = DispatchGroup()
     let taskGroup = DispatchGroup()
     
+    func getAllTasksProducivility(project: ProjectDetail, tasks: [ProjectTask],completionHandler: @escaping([TaskProducivility]) -> Void)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        var escape = [TaskProducivility]()
+        
+        
+        for task in tasks{
+            myGroup.enter()
+            Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name).child("actual").observeSingleEvent(of: .value) { (snapshot) in
+                if let tasksDic = snapshot.value as? [String : AnyObject]{
+                    let loc = (tasksDic["Actual Line Of Code"] as? String!)!
+                    let time = (tasksDic["Actual Time"] as? String!)!
+                    let producivility =  TaskProducivility(name: task.name,time: Float(time ?? "1")!,line: Float(loc ?? "1")!, producivility: Float(loc ?? "1")! / (Float(time ?? "1")! / Float(60.0)))
+                    escape.append(producivility)
+                    self.myGroup.leave()
+                }
+            }
+        }
+        myGroup.notify(queue: DispatchQueue.main, execute: {
+            completionHandler(escape)
+        })
+        
+    }
+    
     func getChartData(project: ProjectDetail, tasks: [ProjectTask],completionHandler: @escaping([PredictionChartsData]) -> Void)
     {
         let uid = Auth.auth().currentUser?.uid

@@ -79,7 +79,7 @@ struct ProjectTask {
     var name: String
     var status: String
     var timestamp: Int
-    
+
     init(myName: String, myStatus: String, myTimestamp: Int) {
         name = myName
         status = myStatus

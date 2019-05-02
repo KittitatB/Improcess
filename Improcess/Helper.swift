@@ -50,3 +50,30 @@ extension UITableView {
     }
 }
 
+class Switcher {
+    
+    static func updateRootVC(){
+        
+        let status = UserDefaults.standard.bool(forKey: "isLoggedIn")
+        var rootVC : UIViewController?
+        
+        print(status)
+        
+        
+        if(status == true){
+            rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandingPage") as! LandingPageViewController
+            let nav = UINavigationController(rootViewController: rootVC!)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = nav
+        }else{
+            rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginPage") as! LoginPageViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = rootVC
+        }
+        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.window?.rootViewController = rootVC
+        
+    }
+    
+}

@@ -148,4 +148,12 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
         self.performSegue(withIdentifier: "toTabbar", sender: self)
     }
     
+    @IBAction func signOut(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        UserDefaults.standard.synchronize()
+        Switcher.updateRootVC()
+        performSegue(withIdentifier: "toLogin", sender: self)
+    }
+    
+    
 }

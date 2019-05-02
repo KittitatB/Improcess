@@ -16,6 +16,8 @@ protocol TaskPageBusinessLogic
 {
     var selectedTask: ProjectTask? {get}
     var projectDetail: ProjectDetail? {get}
+    var product: Float? {get set}
+    
     func loadDropDown()
     func loadPhrase()
     func loadDefect()
@@ -34,6 +36,7 @@ protocol TaskPageDataStore
     var defectList: [DefectTypeList] {get set}
     var selectedTask: ProjectTask? {get set}
     var projectDetail: ProjectDetail? {get set}
+    var product: Float? {get set}
 }
 
 class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
@@ -44,6 +47,8 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     var defectList: [DefectTypeList] = []
     var selectedTask: ProjectTask?
     var projectDetail: ProjectDetail?
+    var product: Float? 
+    
     
     // MARK: Do something
     

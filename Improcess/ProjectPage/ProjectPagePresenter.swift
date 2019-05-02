@@ -18,6 +18,7 @@ protocol ProjectPagePresentationLogic
     func presentTask(response: ProjectPage.Task.Response)
     func presentPhraseList(list: [PhraseTypeList])
     func presentDefectList(list: [DefectTypeList])
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
 }
 
 class ProjectPagePresenter: ProjectPagePresentationLogic
@@ -44,6 +45,13 @@ class ProjectPagePresenter: ProjectPagePresentationLogic
     
     func presentDefectList(list: [DefectTypeList]){
         viewController?.passingDefectList(list: list)
+    }
+    
+    func presentProducivility(response: ProducivilityPage.Producivility.Response)
+    {
+        let viewModel = ProducivilityPage.Producivility.ViewModel(tasksProducivility: response.tasksProducivility)
+        viewController?.displayProducivility(viewModel: viewModel)
+        
     }
     
 }

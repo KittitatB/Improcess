@@ -16,6 +16,9 @@ protocol ChartsBusinessLogic
 {
     func getChartData()
     func getDefectData()
+    func getAllTaskProducivility()
+    var projectDetail: ProjectDetail? {get set}
+    var tasks: [ProjectTask]? {get set}
 }
 
 protocol ChartsDataStore
@@ -37,8 +40,9 @@ class ChartsInteractor: ChartsBusinessLogic, ChartsDataStore
     
     func getChartData(){
         worker = ChartsWorker()
+        let filtedList = tasks?.filter{ $0.status == "Close"}
         
-        worker?.getChartData(project: projectDetail!, tasks: tasks!, completionHandler: { (list) in
+        worker?.getChartData(project: projectDetail!, tasks: filtedList!, completionHandler: { (list) in
             let response = Charts.ChartsData.Response(predition: list)
             self.presenter?.presentChart(response: response)
         })
@@ -48,9 +52,21 @@ class ChartsInteractor: ChartsBusinessLogic, ChartsDataStore
     func getDefectData(){
         worker = ChartsWorker()
         
-        worker?.getDefectData(project: projectDetail!, tasks: tasks!, completionHandler: { (list) in
+        let filtedList = tasks?.filter{ $0.status == "Close"}
+        worker?.getDefectData(project: projectDetail!, tasks: filtedList!, completionHandler: { (list) in
             let response = Charts.DefectData.Response(defectQuantity: list)
             self.presenter?.presentDefect(response: response)
+        })
+    }
+    
+    func getAllTaskProducivility(){
+        worker = ChartsWorker()
+        
+        let filtedList = tasks?.filter{ $0.status == "Close"}
+        
+        worker?.getAllTasksProducivility(project: projectDetail!, tasks: filtedList!, completionHandler:  { (lists) in
+            let response = ProducivilityPage.Producivility.Response(tasksProducivility: lists)
+            self.presenter?.presentProducivility(response: response)
         })
     }
     

@@ -12,7 +12,6 @@ import Firebase
 class MetricCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var field: UITextField!
-    
     var project: ProjectDetail?
     var task: String?
     

@@ -72,16 +72,19 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     
     override func viewDidLoad()
     {
+        navigationItem.title = "Project Analisys"
         super.viewDidLoad()
         setupChart()
+        setupChart3()
         setupChart2()
+    }
+    
+    // MARK: Do something
+    override func viewDidAppear(_ animated: Bool) {
         interactor?.getDefectData()
         interactor?.getChartData()
         interactor?.getAllTaskProducivility()
     }
-    
-    // MARK: Do something
-    
     
     
     @IBOutlet weak var predictionChart: CombinedChartView!
@@ -93,10 +96,9 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     @IBOutlet weak var totalLineLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var averageLabel: UILabel!
+    @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
     func setupChart(){
-        
-        self.title = "Producivility Chart"
         
         chartView.delegate = self
         
@@ -125,7 +127,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         xAxis.axisMaximum = counter + 0.5
         xAxis.labelPosition = .bothSided
         xAxis.axisMinimum = -0.5
-        xAxis.valueFormatter = TaskAxisFormatter()
+        xAxis.valueFormatter = TaskAxisFormatter(tasks: self.interactor!.tasks!)
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
@@ -156,9 +158,11 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)
     {
         counter = Double(viewModel.tasksProducivility.count)
+        let sortedTask = viewModel.tasksProducivility.sorted {$0.timestamp! < $1.timestamp!}
+        
         let data = CombinedChartData()
-        data.lineData = generateLineData(tasks: viewModel.tasksProducivility)
-        data.barData = generateBarData(tasks: viewModel.tasksProducivility)
+        data.lineData = generateLineData(tasks: sortedTask)
+        data.barData = generateBarData(tasks: sortedTask)
         
         chartView.xAxis.axisMaximum = data.xMax + 0.5
         chartView.data = data
@@ -179,6 +183,11 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
             product += task.taskProducivility!
         }
         
+        if(Int(totalLine) == tasks.count){
+            viewHeight.constant = 1220
+            chartView.isHidden = true
+        }
+        
         totalLineLabel.text = "\(Int(totalLine)) Line"
         totalTimeLabel.text = "\(String(format: "%.01f",product/Float(tasks.count))) Line/Hours"
         averageLabel.text = "\(Int(totalTime)) Minutes"
@@ -188,8 +197,10 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     func displayChart(viewModel: Charts.ChartsData.ViewModel) {
         predictionChart.noDataText = "Loading"
         let data = CombinedChartData()
-        data.lineData = generateLineData(tasks: viewModel.predition)
-        data.barData = generateBarData(tasks: viewModel.predition)
+        let sortedTask = viewModel.predition.sorted {$0.timestamp < $1.timestamp}
+        
+        data.lineData = generateLineData(tasks: sortedTask)
+        data.barData = generateBarData(tasks: sortedTask)
         
         var totalPredict = 0.0
         
@@ -219,8 +230,10 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         averageDefectLabel.text = "\(String(format: "%.01f", Float(totalDefect)/Float(viewModel.defectQuantity.count)))"
         
         let data = CombinedChartData()
-        data.lineData = generateLineData(tasks: viewModel.defectQuantity)
-        data.barData = generateBarData(tasks: viewModel.defectQuantity)
+        let sortedTask = viewModel.defectQuantity.sorted {$0.timestamp < $1.timestamp}
+        
+        data.lineData = generateLineData(tasks: sortedTask)
+        data.barData = generateBarData(tasks: sortedTask)
         
         defectCharts.xAxis.axisMaximum = data.xMax + 0.5
         defectCharts.data = data
@@ -257,7 +270,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         //        xAxis.axisMaximum = counter + 0.5
         xAxis.labelPosition = .bothSided
         xAxis.axisMinimum = -0.5
-        xAxis.valueFormatter = TaskAxisFormatter()
+        xAxis.valueFormatter = TaskAxisFormatter(tasks: self.interactor!.tasks!)
         //        defectCharts.pinchZoomEnabled = false
         
         // ChartYAxis *leftAxis = chartView.leftAxis;
@@ -272,7 +285,6 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
         leftAxis.labelPosition = .outsideChart
         leftAxis.spaceTop = 0.15
-        leftAxis.axisMinimum = 0
         
         let rightAxis = defectCharts.rightAxis
         rightAxis.enabled = true
@@ -305,9 +317,6 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         predictionChart.setScaleEnabled(true)
         predictionChart.pinchZoomEnabled = false
         
-        let l = predictionChart.legend
-        l.enabled = false
-        
         let xAxis = predictionChart.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .systemFont(ofSize: 10)
@@ -316,7 +325,8 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         //        xAxis.axisMaximum = counter + 0.5
         xAxis.labelPosition = .bothSided
         xAxis.axisMinimum = -0.5
-        xAxis.valueFormatter = TaskAxisFormatter()
+        xAxis.valueFormatter = TaskAxisFormatter(tasks: self.interactor!.tasks!)
+        
         
         let leftAxis = predictionChart.leftAxis
         leftAxis.labelTextColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
@@ -339,6 +349,10 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         rightAxisFormatter.negativeSuffix = " %"
         rightAxisFormatter.positiveSuffix = " %"
         rightAxis.valueFormatter = DefaultAxisValueFormatter(formatter: rightAxisFormatter)
+        
+        let l = predictionChart.legend
+        l.enabled = false
+        
     }
     
     func generateLineData(tasks: [DefectChartData]) -> LineChartData {

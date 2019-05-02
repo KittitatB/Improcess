@@ -14,6 +14,7 @@ import UIKit
 
 protocol DashboardBusinessLogic
 {
+    var project: ProjectDetail? {get}
     var phraseList: [PhraseTypeList] {get set}
     var defectList: [DefectTypeList] {get set}
     

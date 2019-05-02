@@ -245,6 +245,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     func passingDefectList(list: [DefectTypeList]){
         let thridTab = self.tabBarController?.viewControllers![2] as! DashboardViewController
         thridTab.defectList = list
+        thridTab.textDescrip = (interactor?.project!.detail!)!
     }
     
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)

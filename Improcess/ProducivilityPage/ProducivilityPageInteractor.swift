@@ -14,6 +14,7 @@ import UIKit
 
 protocol ProducivilityPageBusinessLogic
 {
+    var tasks: [ProjectTask]? {get}
      func getAllTaskProducivility()
 }
 

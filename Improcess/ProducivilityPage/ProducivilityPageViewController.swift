@@ -113,7 +113,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         xAxis.axisMaximum = counter + 0.5
         xAxis.labelPosition = .bothSided
         xAxis.axisMinimum = -0.5
-        xAxis.valueFormatter = TaskAxisFormatter()
+        xAxis.valueFormatter = TaskAxisFormatter(tasks: (self.interactor?.tasks)!)
 
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
@@ -207,9 +207,14 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
 
 
 public class TaskAxisFormatter: IAxisValueFormatter{
+    var tasks: [ProjectTask]?
+    
+    init(tasks: [ProjectTask]) {
+        self.tasks = tasks.filter{ $0.status == "Close"}.sorted {$0.timestamp < $1.timestamp}
+    }
     
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        let taskID = "Task #" + "\(Int(value))"
+        let taskID = tasks![Int(value)].name
         return taskID
     }
     

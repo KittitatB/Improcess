@@ -72,20 +72,20 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     {
         super.viewDidLoad()
         doSomething()
-//        defectList = (interactor?.defectList)!
-//        phraseList = (interactor?.phraseList)!
         adjustTableviewHeight()
+        descriptionTextView.text = textDescrip
     }
     
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
-    
+    var textDescrip = ""
     @IBOutlet weak var phraseTable: UITableView!
     @IBOutlet weak var defectTable: UITableView!
     @IBOutlet weak var phraseTableHeight: NSLayoutConstraint!
     @IBOutlet weak var defectTableHeight: NSLayoutConstraint!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     func doSomething()
     {

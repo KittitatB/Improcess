@@ -37,11 +37,13 @@ struct TaskProducivility{
     var taskProducivility: Float?
     var time: Float?
     var line: Float?
+    var timestamp: Int?
     
-    init(name: String,time: Float, line: Float, producivility: Float) {
+    init(name: String,time: Float, line: Float, producivility: Float, timestamp: Int) {
         self.taskName = name
         self.time = time
         self.line = line
         self.taskProducivility = producivility
+        self.timestamp = timestamp
     }
 }

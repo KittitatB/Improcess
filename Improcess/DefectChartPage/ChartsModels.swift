@@ -52,19 +52,23 @@ enum Charts
 struct PredictionChartsData{
     var taskName: String
     var predictionData: Float
+    var timestamp: Int
     
-    init(name: String, prediction: Float) {
+    init(name: String, prediction: Float, timestamp: Int) {
         self.taskName = name
         self.predictionData = prediction
+        self.timestamp = timestamp
     }
 }
 
 struct DefectChartData{
     var taskName: String
     var numberOfDefects: Int
+    var timestamp: Int
     
-    init(name: String,numberOfDefects: Int) {
+    init(name: String,numberOfDefects: Int, timestamp: Int) {
         self.taskName = name
         self.numberOfDefects = numberOfDefects
+        self.timestamp = timestamp
     }
 }

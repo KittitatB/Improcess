@@ -31,7 +31,7 @@ class ProjectPageWorker
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
                     let loc = (tasksDic["Actual Line Of Code"] as? String!)!
                     let time = (tasksDic["Actual Time"] as? String!)!
-                    let producivility =  TaskProducivility(name: task.name,time: Float(time ?? "1")!,line: Float(loc ?? "1")!, producivility: Float(loc ?? "1")! / (Float(time ?? "1")! / Float(60.0)))
+                    let producivility =  TaskProducivility(name: task.name,time: Float(time ?? "1")!,line: Float(loc ?? "1")!, producivility: Float(loc ?? "1")! / (Float(time ?? "1")! / Float(60.0)), timestamp: task.timestamp)
                     escape.append(producivility)
                     self.myGroup.leave()
                 }

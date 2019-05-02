@@ -43,5 +43,7 @@ class AddProjectDefectsWorker
                 ] as [String : Any]
             firebasePath.child("defect").child(String(defect.index)).setValue(defectDetail)
         }
+        
+        firebasePath.child("metric").child("0").setValue("Time")
     }
 }

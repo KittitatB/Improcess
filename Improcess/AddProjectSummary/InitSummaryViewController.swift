@@ -151,7 +151,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
+        interactor?.steps.removeAll()
         for i in 0..<data.count{
             let add = AddSteps(name: data[i].name, description: data[i].description, index: i)
             interactor?.steps.append(add)

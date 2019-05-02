@@ -80,6 +80,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         self.hideKeyboardWhenTappedAround()
         super.viewDidLoad()
         seeAll = false
+        self.title = interactor?.project?.name
     }
     
     override func viewWillAppear(_ animated: Bool) {

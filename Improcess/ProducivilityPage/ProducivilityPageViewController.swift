@@ -73,6 +73,7 @@ class ProducivilityPageViewController: UIViewController, ProducivilityPageDispla
         super.viewDidLoad()
         setupChart()
         loadData()
+         self.title = "Project Infomation"
     }
     
     // MARK: Do something

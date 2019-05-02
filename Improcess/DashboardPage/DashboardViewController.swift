@@ -127,5 +127,6 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     func adjustTableviewHeight(){
         phraseTableHeight.constant = CGFloat(phraseList.count * 75)
         defectTableHeight.constant = CGFloat(defectList.count * 75)
+        viewHeight.constant = CGFloat((phraseList.count * 75) + (defectList.count * 75) + 350)
     }
 }

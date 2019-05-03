@@ -74,6 +74,7 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
         doSomething()
         adjustTableviewHeight()
         descriptionTextView.text = textDescrip
+        self.tabBarController?.title = "Project Information"
     }
     
     // MARK: Do something

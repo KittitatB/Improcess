@@ -87,6 +87,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         tasks.removeAll()
+        self.navigationItem.title = interactor?.selectedTask?.name
         interactor?.loadPlanMetrics()
         interactor?.loadPhrase()
         interactor?.loadDefect()

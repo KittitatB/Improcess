@@ -143,7 +143,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
     
     func displayProject(viewModel: ProjectPage.Project.ViewModel)
     {
-        self.navigationItem.title = viewModel.project.name
+        self.tabBarController?.title = viewModel.project.name
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

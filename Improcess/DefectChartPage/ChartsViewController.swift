@@ -72,7 +72,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
     
     override func viewDidLoad()
     {
-        navigationItem.title = "Project Analisys"
+        self.tabBarController?.title = "Project Analysis"
         super.viewDidLoad()
         setupChart()
         setupChart3()

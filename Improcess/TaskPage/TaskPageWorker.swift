@@ -160,4 +160,16 @@ class TaskPageWorker
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").child(projectDefect.id!).updateChildValues(phraseDetail)
     }
+    
+    func removeTaskDefect(project: ProjectDetail, task: String, projectDefect: DefectList)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("defect").child(projectDefect.id!).removeValue()
+    }
+    
+    func removeTaskPhrase(project: ProjectDetail, task: String, projectPhrase: PhraseList)
+    {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("phrase").child(projectPhrase.id!).removeValue()
+    }
 }

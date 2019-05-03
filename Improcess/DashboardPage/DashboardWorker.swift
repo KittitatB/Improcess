@@ -11,10 +11,14 @@
 //
 
 import UIKit
+import Firebase
 
 class DashboardWorker
 {
-    func doSomeWork()
+    func deleteProject(name: String)
     {
+        let uid = Auth.auth().currentUser?.uid
+        Database.database().reference().child(uid!).child("projects").child(name).removeValue()
     }
+    
 }

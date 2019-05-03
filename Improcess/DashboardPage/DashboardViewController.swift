@@ -23,7 +23,7 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     var router: (NSObjectProtocol & DashboardRoutingLogic & DashboardDataPassing)?
     var phraseList =  [PhraseTypeList]()
     var defectList = [DefectTypeList]()
-    
+    var projectname: String?
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -88,6 +88,8 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     @IBOutlet weak var descriptionTextView: UITextView!
     
+    
+    
     func doSomething()
     {
         let request = Dashboard.Something.Request()
@@ -128,6 +130,21 @@ class DashboardViewController: UIViewController, DashboardDisplayLogic, UITableV
     func adjustTableviewHeight(){
         phraseTableHeight.constant = CGFloat(phraseList.count * 75)
         defectTableHeight.constant = CGFloat(defectList.count * 75)
-        viewHeight.constant = CGFloat((phraseList.count * 75) + (defectList.count * 75) + 350)
+        viewHeight.constant = CGFloat((phraseList.count * 75) + (defectList.count * 75) + 430)
     }
+    
+    @IBAction func deleteProject(_ sender: Any) {
+        let alert = UIAlertController(title: "Delete Project!", message: "Do you want to delete this project?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (UIAlertAction) in
+            self.interactor?.deleteProject(name: self.projectname!)
+//            self.navigationController!.popViewController(animated: true)
+            let rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LandingPage") as! LandingPageViewController
+            let nav = UINavigationController(rootViewController: rootVC)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = nav
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

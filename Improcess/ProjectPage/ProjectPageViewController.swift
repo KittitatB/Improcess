@@ -97,9 +97,9 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         var viewHeight = 640
         projectTask.sort{$0.timestamp > $1.timestamp}
         updateTableview()
-        if (projectTask.count) > 2{
+        if (projectTask.count) > 6{
             if(seeAll!){
-                viewHeight += (projectTask.count - 2) * 75
+                viewHeight += (projectTask.count - 6) * 75
             }else{
                 viewHeight += 75
             }
@@ -247,6 +247,7 @@ class ProjectPageViewController: UIViewController, ProjectPageDisplayLogic, UITa
         let thridTab = self.tabBarController?.viewControllers![2] as! DashboardViewController
         thridTab.defectList = list
         thridTab.textDescrip = (interactor?.project!.detail!)!
+        thridTab.projectname = (interactor?.project!.name!)!
     }
     
     func displayProducivility(viewModel: ProducivilityPage.Producivility.ViewModel)

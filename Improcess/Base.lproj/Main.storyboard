@@ -644,10 +644,12 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="734"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vJv-2n-DSy">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vJv-2n-DSy">
                                 <rect key="frame" x="0.0" y="88" width="414" height="175"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="175" id="oun-dl-Rhf"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="templatesCell" rowHeight="176" id="Xn6-vT-yhy" customClass="TemplateCell" customModule="Improcess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="176"/>
@@ -656,26 +658,37 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="175.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bulb" translatesAutoresizingMaskIntoConstraints="NO" id="gzk-5g-ePj">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bulb" translatesAutoresizingMaskIntoConstraints="NO" id="gzk-5g-ePj">
                                                     <rect key="frame" x="30" y="21" width="40" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="adf-BE-G45"/>
+                                                        <constraint firstAttribute="height" constant="40" id="cLm-u5-Pd7"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfh-3X-GLT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfh-3X-GLT">
                                                     <rect key="frame" x="80" y="30.5" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMn-1v-dAw">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMn-1v-dAw">
                                                     <rect key="frame" x="30" y="69" width="354" height="86"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">The Personal Software Process (PSP) is a structured software development process that is intended (planned) to help software engineers better understand and improve their performance by tracking their predicted and actual development of code.</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CMn-1v-dAw" firstAttribute="top" secondItem="gzk-5g-ePj" secondAttribute="bottom" constant="8" id="0pR-h5-evi"/>
+                                                <constraint firstItem="CMn-1v-dAw" firstAttribute="leading" secondItem="jFf-Bb-u1J" secondAttribute="leadingMargin" constant="10" id="5kH-m6-Di7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="CMn-1v-dAw" secondAttribute="trailing" constant="10" id="7Je-JC-MNz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="CMn-1v-dAw" secondAttribute="bottom" constant="10" id="HfL-ye-yVb"/>
+                                                <constraint firstItem="Xfh-3X-GLT" firstAttribute="leading" secondItem="gzk-5g-ePj" secondAttribute="trailing" constant="10" id="KXs-7J-lZo"/>
+                                                <constraint firstItem="gzk-5g-ePj" firstAttribute="top" secondItem="jFf-Bb-u1J" secondAttribute="topMargin" constant="10" id="U1g-8I-sOZ"/>
+                                                <constraint firstItem="Xfh-3X-GLT" firstAttribute="centerY" secondItem="gzk-5g-ePj" secondAttribute="centerY" id="hVH-Nj-opf"/>
+                                                <constraint firstItem="gzk-5g-ePj" firstAttribute="leading" secondItem="jFf-Bb-u1J" secondAttribute="leadingMargin" constant="10" id="vZC-Jx-9me"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="templateDetail" destination="CMn-1v-dAw" id="pz7-kz-kMf"/>
@@ -720,12 +733,16 @@
                         <constraints>
                             <constraint firstItem="gVf-K2-Vqy" firstAttribute="trailing" secondItem="Wfe-WE-obh" secondAttribute="trailing" id="1PZ-PL-jn1"/>
                             <constraint firstItem="gVf-K2-Vqy" firstAttribute="bottom" secondItem="Wfe-WE-obh" secondAttribute="bottom" id="834-gk-r67"/>
+                            <constraint firstItem="vJv-2n-DSy" firstAttribute="leading" secondItem="gVf-K2-Vqy" secondAttribute="leading" id="ABz-pj-Oae"/>
+                            <constraint firstItem="vJv-2n-DSy" firstAttribute="top" secondItem="gVf-K2-Vqy" secondAttribute="top" id="bMd-fz-SZh"/>
                             <constraint firstItem="Wfe-WE-obh" firstAttribute="leading" secondItem="gVf-K2-Vqy" secondAttribute="leading" id="m0m-Zs-Nrw"/>
+                            <constraint firstItem="vJv-2n-DSy" firstAttribute="trailing" secondItem="gVf-K2-Vqy" secondAttribute="trailing" id="yAa-r8-Jdt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gVf-K2-Vqy"/>
                     </view>
                     <connections>
                         <outlet property="tableview" destination="vJv-2n-DSy" id="eJh-T7-vO4"/>
+                        <outlet property="tableviewHeight" destination="oun-dl-Rhf" id="aCF-bq-Ook"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uD3-6B-SQy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1522,7 +1539,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pl4-pR-Uq3">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OtD-jt-W9w">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OtD-jt-W9w">
                                                 <rect key="frame" x="5" y="37.5" width="404" height="200"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1587,7 +1604,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lJo-qR-L80">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lJo-qR-L80">
                                                 <rect key="frame" x="5" y="290.5" width="404" height="200"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1643,17 +1660,34 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhN-BH-f2D" customClass="RoundedButton" customModule="Improcess" customModuleProvider="target">
+                                                <rect key="frame" x="5" y="733.5" width="404" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="aYw-vR-NI9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                                <state key="normal" title="Delete This Project">
+                                                    <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="deleteProject:" destination="PJh-NX-jGb" eventType="touchUpInside" id="MOs-lk-XWd"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="jfv-rz-EmX" firstAttribute="leading" secondItem="Pl4-pR-Uq3" secondAttribute="leading" constant="5" id="1G3-U8-fir"/>
                                             <constraint firstItem="cbi-TD-yBl" firstAttribute="top" secondItem="jfv-rz-EmX" secondAttribute="bottom" constant="5" id="3M4-Yx-FvB"/>
                                             <constraint firstItem="OtD-jt-W9w" firstAttribute="top" secondItem="910-le-mA0" secondAttribute="bottom" constant="5" id="4Ix-x6-3t3"/>
+                                            <constraint firstItem="MhN-BH-f2D" firstAttribute="top" secondItem="cbi-TD-yBl" secondAttribute="bottom" constant="40" id="6BD-dm-qQr"/>
+                                            <constraint firstAttribute="trailing" secondItem="MhN-BH-f2D" secondAttribute="trailing" constant="5" id="6eh-h2-t82"/>
                                             <constraint firstItem="lJo-qR-L80" firstAttribute="top" secondItem="yN5-ug-Kcz" secondAttribute="bottom" constant="5" id="B3g-OU-pfE"/>
                                             <constraint firstItem="yN5-ug-Kcz" firstAttribute="top" secondItem="OtD-jt-W9w" secondAttribute="bottom" constant="20" id="BmU-mv-bxK"/>
                                             <constraint firstAttribute="height" priority="250" constant="800" id="JcC-sX-hte"/>
                                             <constraint firstAttribute="trailing" secondItem="OtD-jt-W9w" secondAttribute="trailing" constant="5" id="SOi-OQ-lW1"/>
                                             <constraint firstAttribute="trailing" secondItem="lJo-qR-L80" secondAttribute="trailing" constant="5" id="Tg8-dt-LfM"/>
+                                            <constraint firstItem="MhN-BH-f2D" firstAttribute="leading" secondItem="Pl4-pR-Uq3" secondAttribute="leading" constant="5" id="W1W-Ge-UEf"/>
                                             <constraint firstItem="910-le-mA0" firstAttribute="leading" secondItem="Pl4-pR-Uq3" secondAttribute="leading" constant="5" id="bua-qJ-bL8"/>
                                             <constraint firstItem="910-le-mA0" firstAttribute="top" secondItem="Pl4-pR-Uq3" secondAttribute="top" constant="5" id="cf7-sA-iRI"/>
                                             <constraint firstAttribute="trailing" secondItem="cbi-TD-yBl" secondAttribute="trailing" constant="5" id="ghM-cm-nin"/>
@@ -2003,10 +2037,10 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="EQE-l7-bqa">
-                                                                    <rect key="frame" x="349" y="5" width="50" height="50"/>
+                                                                    <rect key="frame" x="359" y="10" width="40" height="40"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="50" id="NrG-fG-zrz"/>
-                                                                        <constraint firstAttribute="height" constant="50" id="py0-ce-Qt8"/>
+                                                                        <constraint firstAttribute="width" constant="40" id="NrG-fG-zrz"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="py0-ce-Qt8"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpH-yV-O1v">
@@ -2019,14 +2053,14 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPu-XX-zH4">
-                                                                    <rect key="frame" x="10" y="36" width="334" height="21.5"/>
+                                                                    <rect key="frame" x="10" y="36" width="344" height="21.5"/>
                                                                     <string key="text">Lorem Ipsum คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่ 16 เมื่อเครื่องพิมพ์โนเนมเครื่องหนึ่งนำรางตัวพิมพ์มาสลับสับตำแหน่งตัวอักษรเพื่อทำหนังสือตัวอย่าง Lorem Ipsum อยู่ยงคงกระพันมาไม่ใช่แค่เพียงห้าศตวรรษ แต่อยู่มาจนถึงยุคที่พลิกโฉมเข้าสู่งานเรียงพิมพ์ด้วยวิธีทางอิเล็กทรอนิกส์ และยังคงสภาพเดิมไว้อย่างไม่มีการเปลี่ยนแปลง มันได้รับความนิยมมากขึ้นในยุค ค.ศ. 1960 เมื่อแผ่น Letraset วางจำหน่ายโดยมีข้อความบนนั้นเป็น Lorem Ipsum และล่าสุดกว่านั้น คือเมื่อซอฟท์แวร์การทำสื่อสิ่งพิมพ์ (Desktop Publishing) อย่าง Aldus PageMaker ได้รวมเอา Lorem Ipsum เวอร์ชั่นต่างๆ เข้าไว้ในซอฟท์แวร์ด้วย</string>
                                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14k-ak-2Nd">
-                                                                    <rect key="frame" x="299" y="10" width="45" height="21"/>
+                                                                    <rect key="frame" x="309" y="10" width="45" height="21"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -2072,10 +2106,10 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="PxE-7G-jBE">
-                                                                    <rect key="frame" x="349" y="5" width="50" height="50"/>
+                                                                    <rect key="frame" x="359" y="10" width="40" height="40"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="50" id="xhw-Ng-LB9"/>
-                                                                        <constraint firstAttribute="width" constant="50" id="yeA-gA-3NH"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="xhw-Ng-LB9"/>
+                                                                        <constraint firstAttribute="width" constant="40" id="yeA-gA-3NH"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUH-rZ-FWS">
@@ -2088,7 +2122,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzJ-Lx-n0e">
-                                                                    <rect key="frame" x="10" y="36" width="334" height="21.5"/>
+                                                                    <rect key="frame" x="10" y="36" width="344" height="21.5"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" priority="250" constant="20" id="98s-ul-cOB"/>
                                                                     </constraints>

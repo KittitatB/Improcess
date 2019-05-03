@@ -22,7 +22,7 @@ protocol TaskPageDisplayLogic: class
     func displayActual(viewmodel: TaskPage.Actual.ViewModel)
 }
 
-class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource
+class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableViewDelegate, UITableViewDataSource, UpdateMetric
 {
     var interactor: TaskPageBusinessLogic?
     var router: (NSObjectProtocol & TaskPageRoutingLogic & TaskPageDataPassing)?
@@ -125,7 +125,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     @IBOutlet weak var improvementTextfield: UITextField!
     @IBOutlet weak var mainView: UIView!
     
-    
     var minutes = 60
     var hours = 60*60
     //@IBOutlet weak var nameTextField: UITextField!
@@ -193,10 +192,12 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         var timeToHour = 0;
         if tableView == self.planningTable{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlanCell", for: indexPath) as! MetricCell
+            cell.reloader = self
             cell.name.text = planMetrics[indexPath.row].name!
             cell.field.text = planMetrics[indexPath.row].value!
             cell.project = interactor!.projectDetail
             cell.task = interactor?.selectedTask?.name
+            cell.product = self.interactor?.product
             return cell
         }
         
@@ -262,9 +263,17 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                                     panGestureDismissal: false)
             
             // Create first button
-            let buttonOne = CancelButton(title: "CANCEL", height: 50) {
-                tableView.deselectRow(at: indexPath, animated: true)
+            let buttonOne = DefaultButton(title: "DELETE", height: 50) {
+                let alert = UIAlertController(title: "DELETE", message: "Do you want to delete this phrase?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (UIAlertAction) in
+                    self.interactor?.removePhrase(phrase: self.tasks[indexPath.row])
+                    self.tasks.remove(at: indexPath.row)
+                    self.updateTableview()
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
+            buttonOne.tintColor = .red
             
             // Create second button
             let buttonTwo = DefaultButton(title: "DONE", height: 50) {
@@ -297,9 +306,17 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                                     panGestureDismissal: false)
             
             // Create first button
-            let buttonOne = CancelButton(title: "CANCEL", height: 50) {
-                tableView.deselectRow(at: indexPath, animated: true)
+            let buttonOne = DefaultButton(title: "DELETE", height: 50) {
+                let alert = UIAlertController(title: "DELETE", message: "Do you want to delete this defect?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (UIAlertAction) in
+                    self.interactor?.removeDefect(defect: self.defects[indexPath.row])
+                    self.defects.remove(at: indexPath.row)
+                    self.updateTableview()
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
+            buttonOne.tintColor = .red
             
             // Create second button
             let buttonTwo = DefaultButton(title: "DONE", height: 50) {
@@ -307,7 +324,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defects[indexPath.row].injected = ratingVC.injectedPhrase.text
                 self.defects[indexPath.row].removed = ratingVC.removedPhrase.text
                 self.interactor?.updateDefect(defect: self.defects[indexPath.row])
-                self.defectTable.reloadData()
             }
             
             // Add buttons to dialog
@@ -422,8 +438,20 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
         ratingVC.name.becomeFirstResponder()
     }
     
+    func reloadMetric(){
+        interactor?.loadPlanMetrics()
+    }
+    
     
     @IBAction func finishUpTask(_ sender: Any) {
+        for element in actualMetrics{
+            if element.value == "" {
+                let alert = UIAlertController(title: "Error", message: "Please fill up all planing and summary index", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        }
         interactor?.finishingUp(problem: problemTextfield.text ?? "" , improvement: improvementTextfield.text ?? "")
         var viewControllers = self.navigationController?.viewControllers
         viewControllers?.removeLast(1) // views to pop

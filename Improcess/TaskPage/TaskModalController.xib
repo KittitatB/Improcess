@@ -60,7 +60,11 @@
                                     </constraints>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <connections>
+                                        <action selector="beginEditTimer:" destination="-1" eventType="editingDidEnd" id="Wx1-Py-GHO"/>
+                                        <action selector="editTime:" destination="-1" eventType="editingDidEnd" id="USC-63-5Zj"/>
+                                    </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zzq-Rs-Twa">
                                     <rect key="frame" x="38" y="0.0" width="6.5" height="35"/>
@@ -72,7 +76,11 @@
                                     <rect key="frame" x="47.5" y="0.0" width="35" height="35"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <connections>
+                                        <action selector="beginEditTimer:" destination="-1" eventType="editingDidEnd" id="Ndy-8m-saj"/>
+                                        <action selector="editTime:" destination="-1" eventType="editingDidEnd" id="5D8-Vv-09Q"/>
+                                    </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-29-s9R">
                                     <rect key="frame" x="85.5" y="0.0" width="6.5" height="35"/>
@@ -84,7 +92,11 @@
                                     <rect key="frame" x="95" y="0.0" width="35" height="35"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <connections>
+                                        <action selector="beginEditTimer:" destination="-1" eventType="editingDidBegin" id="jeo-oa-DWh"/>
+                                        <action selector="editTime:" destination="-1" eventType="editingDidEnd" id="2d1-wn-yaz"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                             <constraints>

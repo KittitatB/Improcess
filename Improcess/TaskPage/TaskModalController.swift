@@ -106,6 +106,23 @@ class TaskModalController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         return String(time)
     }
     
+    @IBAction func editTime(_ sender: Any)
+    {
+        let newHour = Int(hour.text!)! * hours
+        let newMinute = Int(min.text!)! * minutes
+        let newSec = Int(sec.text!)!
+        time = newHour + newMinute + newSec
+        updateClock()
+    }
+    
+    @IBAction func beginEditTimer(_ sender: Any) {
+        if isTimerRunning == true {
+            timer.invalidate()
+            self.resumeTapped = true
+            playButton.setImage(UIImage(named: "play-button"), for: .normal)
+        }
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

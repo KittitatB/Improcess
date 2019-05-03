@@ -102,7 +102,6 @@ class LoginPageViewController: UIViewController, LoginPageDisplayLogic, UITextFi
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.synchronize()
             Switcher.updateRootVC()
-            performSegue(withIdentifier: "Login", sender: nil)
         }
         else {
             displayErrorMessage(message: viewModel.errorMessage ?? "Somethings went wrong!")

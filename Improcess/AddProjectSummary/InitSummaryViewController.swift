@@ -72,13 +72,14 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
         super.viewDidLoad()
         tableviewHeight.constant = CGFloat((data.count + 1) * 45)
         self.hideKeyboardWhenTappedAround()
+        self.navigationItem.title = "Add Phrase"
     }
     
     // MARK: Do something
     
     @IBOutlet weak var tableviewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableview: UITableView!
-
+    
     
     func displayNewStep()
     {
@@ -118,6 +119,14 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     }
     
     func addStep(name: String) {
+        for element in data{
+            if element.name == name{
+                let alert = UIAlertController(title: "Error", message: "Phrase name can't be duplicated.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        }
         let newStep = InitSummary.Step.ViewModel(myName: name, myIndex: data.count)
         data.append(newStep)
         displayNewStep()
@@ -128,7 +137,7 @@ class InitSummaryViewController: UIViewController, InitSummaryDisplayLogic, UITa
     }
     
     @objc func buttonTapped(){
-       view.endEditing(true)
+        view.endEditing(true)
     }
     
     func hideDoneButton(){

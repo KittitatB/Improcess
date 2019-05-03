@@ -9,11 +9,18 @@
 import UIKit
 import Firebase
 
+protocol UpdateMetric: class {
+    func reloadMetric()
+}
+
+
 class MetricCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var field: UITextField!
+    weak var reloader: UpdateMetric?
     var project: ProjectDetail?
     var task: String?
+    var product: Float?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,11 +32,22 @@ class MetricCell: UITableViewCell {
     }
     
     @IBAction func setMetric(_ sender: Any) {
+        guard let field = field.text else {
+            return
+        }
         let uid = Auth.auth().currentUser?.uid
         let update = [
-            name.text! : field.text!
+            name.text! : field
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("estimate").updateChildValues(update)
+        
+        if name.text! == "Estimated Line Of Code"{
+            let update2 = [
+                "Estimated Time" : String(Int(Float(field)! * product!))
+                ] as [String : Any]
+            Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("estimate").updateChildValues(update2)
+            reloader?.reloadMetric()
+        }
     }
     
 

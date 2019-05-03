@@ -28,6 +28,8 @@ protocol TaskPageBusinessLogic
     func addDefect(defect: DefectList)
     func updatePhrase(phrase: PhraseList)
     func updateDefect(defect: DefectList)
+    func removeDefect(defect: DefectList)
+    func removePhrase(phrase: PhraseList)
 }
 
 protocol TaskPageDataStore
@@ -77,6 +79,7 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     func addPhrase(phrase: PhraseList) {
         worker = TaskPageWorker()
         worker?.updateTaskPhrase(project: projectDetail!, task: (selectedTask?.name)!, projectPhrase: phrase)
+        loadPhrase()
     }
     
     func updatePhrase(phrase: PhraseList) {
@@ -92,6 +95,7 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
     func addDefect(defect: DefectList) {
         worker = TaskPageWorker()
         worker?.updateTaskDefect(project: projectDetail!, task: (selectedTask?.name)!, projectDefect: defect)
+        loadDefect()
     }
     
     func loadPhrase(){
@@ -110,10 +114,22 @@ class TaskPageInteractor: TaskPageBusinessLogic, TaskPageDataStore
             let response = TaskPage.Defect.Response(defects: defects)
             self.presenter?.presentDefects(response: response)
         })
+
     }
     
     func finishingUp(problem: String, improvement: String) {
         worker = TaskPageWorker()
         worker?.finishUpTask(project: projectDetail!, task: (selectedTask?.name)!, problem: problem, improvement: improvement)
     }
+    
+    func removeDefect(defect: DefectList) {
+        worker = TaskPageWorker()
+        worker?.removeTaskDefect(project: projectDetail!, task: (selectedTask?.name)!, projectDefect: defect)
+    }
+    
+    func removePhrase(phrase: PhraseList) {
+        worker = TaskPageWorker()
+        worker?.removeTaskPhrase(project: projectDetail!, task: (selectedTask?.name)!, projectPhrase: phrase)
+    }
+    
 }

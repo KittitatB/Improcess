@@ -149,10 +149,14 @@ class LandingPageViewController: UIViewController, LandingPageDisplayLogic, UITa
     }
     
     @IBAction func signOut(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-        UserDefaults.standard.synchronize()
-        Switcher.updateRootVC()
-        performSegue(withIdentifier: "toLogin", sender: self)
+        let alert = UIAlertController(title: "Sign Out!", message: "Do you want to sign out?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (UIAlertAction) in
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
+            UserDefaults.standard.synchronize()
+            Switcher.updateRootVC()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     

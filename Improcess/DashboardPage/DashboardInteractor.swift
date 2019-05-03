@@ -19,6 +19,7 @@ protocol DashboardBusinessLogic
     var defectList: [DefectTypeList] {get set}
     
     func doSomething(request: Dashboard.Something.Request)
+    func deleteProject(name: String)
 }
 
 protocol DashboardDataStore
@@ -43,9 +44,14 @@ class DashboardInteractor: DashboardBusinessLogic, DashboardDataStore
     func doSomething(request: Dashboard.Something.Request)
     {
         worker = DashboardWorker()
-        worker?.doSomeWork()
         
         let response = Dashboard.Something.Response()
         presenter?.presentSomething(response: response)
+    }
+    
+    func deleteProject(name: String){
+        worker = DashboardWorker()
+        worker?.deleteProject(name: name)
+       
     }
 }

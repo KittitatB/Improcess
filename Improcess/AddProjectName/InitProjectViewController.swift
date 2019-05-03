@@ -72,6 +72,7 @@ class InitProjectViewController: UIViewController, InitProjectDisplayLogic, UITe
         self.projectNameTextField.delegate = self
         self.projectDetailsTextField.delegate = self
         self.hideKeyboardWhenTappedAround()
+        self.navigationItem.title = "New Project"
     }
     
     // MARK: Do something

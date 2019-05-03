@@ -75,6 +75,7 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
         super.viewDidLoad()
         tableviewHeight.constant = CGFloat((data.count + 1) * 45)
         self.hideKeyboardWhenTappedAround()
+        self.navigationItem.title = "Add Defect"
     }
     
     // MARK: Do something
@@ -114,6 +115,14 @@ class AddProjectDefectsViewController: UIViewController, AddProjectDefectsDispla
     }
     
     func addStep(name: String) {
+        for element in data{
+            if element.name == name{
+                let alert = UIAlertController(title: "Error", message: "Phrase name can't be duplicated.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        }
         let newDefect = AddProjectDefects.Defects.ViewModel(myName: name, myIndex: data.count)
         data.append(newDefect)
         displayNewDefectsList()

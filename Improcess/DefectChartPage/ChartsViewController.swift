@@ -108,7 +108,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         
         
         chartView.drawOrder = [DrawOrder.bar.rawValue,
-                               DrawOrder.line.rawValue]
+                                     DrawOrder.line.rawValue]
         
         chartView.chartDescription?.enabled = false
         
@@ -132,8 +132,8 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
         leftAxisFormatter.maximumFractionDigits = 1
-        leftAxisFormatter.negativeSuffix = " Line/Hour"
-        leftAxisFormatter.positiveSuffix = " Line/Hour"
+        leftAxisFormatter.negativeSuffix = " L/H"
+        leftAxisFormatter.positiveSuffix = " L/H"
         
         let leftAxis = chartView.leftAxis
         leftAxis.labelFont = .systemFont(ofSize: 10)
@@ -330,8 +330,6 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         
         let leftAxis = predictionChart.leftAxis
         leftAxis.labelTextColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        leftAxis.axisMaximum = 100
-        leftAxis.axisMinimum = 0
         leftAxis.drawGridLinesEnabled = true
         leftAxis.granularityEnabled = true
         

@@ -29,8 +29,8 @@ class ProjectPageWorker
             myGroup.enter()
             Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name).child("actual").observeSingleEvent(of: .value) { (snapshot) in
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
-                    let loc = (tasksDic["Actual Line Of Code"] as? String!)!
-                    let time = (tasksDic["Actual Time"] as? String!)!
+                    let loc = (tasksDic["Actual Line Of Code(Line)"] as? String!)!
+                    let time = (tasksDic["Actual Time(Minutes)"] as? String!)!
                     let producivility =  TaskProducivility(name: task.name,time: Float(time ?? "1")!,line: Float(loc ?? "1")!, producivility: Float(loc ?? "1")! / (Float(time ?? "1")! / Float(60.0)), timestamp: task.timestamp)
                     escape.append(producivility)
                     self.myGroup.leave()
@@ -59,11 +59,18 @@ class ProjectPageWorker
             }
         
             for metric in metrics{
+                var text = ""
+                if metric == "Line Of Code"{
+                    text = metric + "(Line)"
+                }
+                else{
+                    text = metric + "(Minutes)"
+                }
                 let estimateMetric = [
-                    "Estimated \(metric)" : "",
+                    "Estimated \(text)" : "",
                     ] as [String : Any]
                 let actualMetric = [
-                    "Actual \(metric)" : "",
+                    "Actual \(text)" : "",
                     ] as [String : Any]
                 Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("estimate").updateChildValues(estimateMetric)
                 Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task).child("actual").updateChildValues(actualMetric)

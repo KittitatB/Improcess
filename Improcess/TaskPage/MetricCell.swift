@@ -41,13 +41,13 @@ class MetricCell: UITableViewCell {
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("estimate").updateChildValues(update)
         
-        if name.text! == "Estimated Line Of Code"{
+        if field != "" && name.text! == "Estimated Line Of Code(Line)" && product != 1{
             let update2 = [
-                "Estimated Time" : String(Int(Float(field)! * product!))
+                "Estimated Time(Minutes)" : String(Int(Float(field)! / product!))
                 ] as [String : Any]
             Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("estimate").updateChildValues(update2)
-            reloader?.reloadMetric()
         }
+        reloader?.reloadMetric()
     }
     
 
@@ -56,6 +56,7 @@ class MetricCell: UITableViewCell {
 class SummaryCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var field: UITextField!
+    weak var reloader: UpdateMetric?
     
     var project: ProjectDetail?
     var task: String?
@@ -77,6 +78,7 @@ class SummaryCell: UITableViewCell {
             name.text! : field.text!
             ] as [String : Any]
         Database.database().reference().child(uid!).child("projects").child(project!.name!).child("tasks").child(task!).child("actual").updateChildValues(update)
+        reloader?.reloadMetric()
     }
     
 }

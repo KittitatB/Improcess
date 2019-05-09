@@ -164,9 +164,6 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defectsArray.append(defect.name!)
             }
             
-//            DispatchQueue.main.async { [weak self] in
-//
-//            }
         }
     }
     
@@ -265,7 +262,9 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
             // Create first button
             let buttonOne = DefaultButton(title: "DELETE", height: 50) {
                 let alert = UIAlertController(title: "DELETE", message: "Do you want to delete this phrase?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { (UIAlertAction) in
+                     self.updateTableview()
+                }))
                 alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (UIAlertAction) in
                     self.interactor?.removePhrase(phrase: self.tasks[indexPath.row])
                     self.tasks.remove(at: indexPath.row)
@@ -324,6 +323,7 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
                 self.defects[indexPath.row].injected = ratingVC.injectedPhrase.text
                 self.defects[indexPath.row].removed = ratingVC.removedPhrase.text
                 self.interactor?.updateDefect(defect: self.defects[indexPath.row])
+                self.updateTableview()
             }
             
             // Add buttons to dialog
@@ -440,10 +440,12 @@ class TaskPageViewController: UIViewController, TaskPageDisplayLogic, UITableVie
     
     func reloadMetric(){
         interactor?.loadPlanMetrics()
+        interactor?.loadActualMetrics()
     }
     
     
     @IBAction func finishUpTask(_ sender: Any) {
+        reloadMetric()
         for element in actualMetrics{
             if element.value == "" {
                 let alert = UIAlertController(title: "Error", message: "Please fill up all planing and summary index", preferredStyle: .alert)

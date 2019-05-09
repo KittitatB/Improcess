@@ -28,8 +28,8 @@ class ChartsWorker
             myGroup.enter()
             Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name).child("actual").observeSingleEvent(of: .value) { (snapshot) in
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
-                    let loc = (tasksDic["Actual Line Of Code"] as? String!)!
-                    let time = (tasksDic["Actual Time"] as? String!)!
+                    let loc = (tasksDic["Actual Line Of Code(Line)"] as? String!)!
+                    let time = (tasksDic["Actual Time(Minutes)"] as? String!)!
                     let producivility =  TaskProducivility(name: task.name,time: Float(time ?? "1")!,line: Float(loc ?? "1")!, producivility: Float(loc ?? "1")! / (Float(time ?? "1")! / Float(60.0)), timestamp: task.timestamp)
                     escape.append(producivility)
                     self.myGroup.leave()
@@ -52,10 +52,10 @@ class ChartsWorker
             let ref = Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name)
             ref.child("actual").observeSingleEvent(of: .value) { (snapshot) in
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
-                    let actual = (tasksDic["Actual Time"] as? String!)!
+                    let actual = (tasksDic["Actual Time(Minutes)"] as? String!)!
                     ref.child("estimate").observeSingleEvent(of: .value, with: { (snapshot) in
                         if let tasksDic = snapshot.value as? [String : AnyObject]{
-                            let estimate = (tasksDic["Estimated Time"] as? String!)!
+                            let estimate = (tasksDic["Estimated Time(Minutes)"] as? String!)!
                             let temp = PredictionChartsData(name: task.name, prediction: Float(abs((actual! as NSString).floatValue - (estimate! as NSString).floatValue))/(estimate! as NSString).floatValue*100.00, timestamp: task.timestamp)
                             escape.append(temp)
                             self.myGroup.leave()
@@ -74,18 +74,20 @@ class ChartsWorker
     {
         let uid = Auth.auth().currentUser?.uid
         var escape = [DefectChartData]()
-        var numberOfDefect = 0
         
         for task in tasks{
             taskGroup.enter()
+            var numberOfDefect = 0
             let ref = Database.database().reference().child(uid!).child("projects").child(project.name!).child("tasks").child(task.name)
             ref.child("defect").observeSingleEvent(of: .value) { (snapshot) in
                 if let tasksDic = snapshot.value as? [String : AnyObject]{
-                    for task in tasksDic{
-                        print(task)
-                        numberOfDefect += 1
-                    }
+                    numberOfDefect = tasksDic.count
                     let temp = DefectChartData(name: task.name, numberOfDefects: numberOfDefect, timestamp: task.timestamp)
+                    escape.append(temp)
+                    self.taskGroup.leave()
+                }
+                else{
+                    let temp = DefectChartData(name: task.name, numberOfDefects: 0, timestamp: task.timestamp)
                     escape.append(temp)
                     self.taskGroup.leave()
                 }

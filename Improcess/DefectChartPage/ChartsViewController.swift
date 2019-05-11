@@ -142,6 +142,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         leftAxis.labelPosition = .outsideChart
         leftAxis.spaceTop = 0.15
         leftAxis.axisMinimum = 0
+        leftAxis.spaceBottom = 0.0
         
         let rightAxis = chartView.rightAxis
         rightAxis.enabled = true
@@ -271,25 +272,24 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         xAxis.labelPosition = .bothSided
         xAxis.axisMinimum = -0.5
         xAxis.valueFormatter = TaskAxisFormatter(tasks: self.interactor!.tasks!)
-        //        defectCharts.pinchZoomEnabled = false
-        
-        // ChartYAxis *leftAxis = chartView.leftAxis;
+        xAxis.labelPosition = .bothSided
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
-        leftAxisFormatter.maximumFractionDigits = 1
+        leftAxisFormatter.maximumFractionDigits = 0
         
         let leftAxis = defectCharts.leftAxis
         leftAxis.labelFont = .systemFont(ofSize: 10)
-        leftAxis.labelCount = 8
+        leftAxis.granularity = 1
         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
         leftAxis.labelPosition = .outsideChart
         leftAxis.spaceTop = 0.15
+        leftAxis.spaceBottom = 0.0
         
         let rightAxis = defectCharts.rightAxis
         rightAxis.enabled = true
         rightAxis.labelFont = .systemFont(ofSize: 10)
-        rightAxis.labelCount = 8
+        rightAxis.granularity = 1
         rightAxis.valueFormatter = leftAxis.valueFormatter
         rightAxis.spaceTop = 0.15
         rightAxis.axisMinimum = 0
@@ -329,19 +329,22 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         
         
         let leftAxis = predictionChart.leftAxis
-        leftAxis.labelTextColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+        leftAxis.labelTextColor = UIColor.black
         leftAxis.drawGridLinesEnabled = true
         leftAxis.granularityEnabled = true
+        leftAxis.axisMinimum = 0
         
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.negativeSuffix = " %"
         leftAxisFormatter.positiveSuffix = " %"
         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: leftAxisFormatter)
+        leftAxis.spaceBottom = 0.0
         
         let rightAxis = predictionChart.rightAxis
-        rightAxis.labelTextColor = .red
+        rightAxis.enabled = true
+        rightAxis.labelTextColor = UIColor.black
         rightAxis.axisMinimum = 0
-        rightAxis.granularityEnabled = false
+        rightAxis.granularityEnabled = true
         
         let rightAxisFormatter = NumberFormatter()
         rightAxisFormatter.negativeSuffix = " %"
@@ -359,7 +362,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         }
         
         let set = LineChartDataSet(entries: entry, label: "Tasks")
-        set.colors = ChartColorTemplates.joyful()
+        set.colors = ChartColorTemplates.material()
         set.axisDependency = .left
         
         return LineChartData(dataSet: set)
@@ -386,7 +389,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         }
         
         let set = LineChartDataSet(entries: entry, label: "Tasks")
-        set.colors = ChartColorTemplates.joyful()
+        set.colors = ChartColorTemplates.material()
         set.axisDependency = .left
         
         return LineChartData(dataSet: set)
@@ -413,7 +416,7 @@ class ChartsViewController: UIViewController, ChartsDisplayLogic, ChartViewDeleg
         }
         
         let set = LineChartDataSet(entries: entry, label: "Tasks")
-        set.colors = ChartColorTemplates.joyful()
+        set.colors = ChartColorTemplates.material()
         set.axisDependency = .left
         
         return LineChartData(dataSet: set)

@@ -609,7 +609,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Sqr-Xl-3Ll" firstAttribute="trailing" secondItem="W4D-MX-awK" secondAttribute="trailing" id="IYo-Ip-Mev"/>
                             <constraint firstItem="Noz-dV-7uF" firstAttribute="trailing" secondItem="W4D-MX-awK" secondAttribute="trailing" id="Pe0-3r-shQ"/>
@@ -835,7 +835,7 @@
                                                         <action selector="handlePlus:" destination="ded-eD-PL2" eventType="touchUpInside" id="LJs-ws-QAw"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Phase" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-NJ-XuU">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Phase" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-NJ-XuU">
                                                     <rect key="frame" x="53" y="10.5" width="102" height="24"/>
                                                     <color key="textColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
@@ -1052,7 +1052,7 @@
                                                         <action selector="handlePlus:" destination="Spb-KD-TJS" eventType="touchUpInside" id="qli-ll-6SV"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Defect" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-Gu-w4m">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Add Defect" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-Gu-w4m">
                                                     <rect key="frame" x="53" y="10.5" width="105" height="24"/>
                                                     <color key="textColor" red="0.20784313730000001" green="0.57254901960000004" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
